@@ -1,0 +1,33 @@
+form.deleteLog{
+    float:left;
+}
+input.deleteLog{
+    color:red;
+}
+
+div.newLog{
+    width:600px;
+}
+input.newLog{
+    float:right;
+}
+textarea.newLog{
+    width:600px;
+    height:200px;
+}
+.logDate{
+    color:grey;
+    margin-top:8px;
+}
+.logEntry{
+    padding-top:16px;
+    padding-left:24px;
+}
+.textButton { 
+     background:none!important;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     cursor: pointer;
+}   
