@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Log;
-class LogController extends Controller
+use App\TaskType;
+
+class TaskTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,11 +37,12 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        $log = new Log;
-        $log->entry = $request->newEntry; 
-        $log->save();
-        return redirect("/log");
+        $task_type = new TaskType;
+        $task_type->name = $request->newTaskName;
+        $task_type->save();
+        return redirect("/time");
     }
+
 
     /**
      * Display the specified resource.
@@ -84,7 +86,7 @@ class LogController extends Controller
      */
     public function destroy($id)
     {
-        Log::where("id", $id)->delete();
-        return redirect("/log");
+        TaskType::where("id", $id)->delete();
+        return redirect("/time");
     }
 }

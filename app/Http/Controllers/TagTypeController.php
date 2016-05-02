@@ -5,8 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Log;
-class LogController extends Controller
+use App\TagType;
+
+class TagTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -36,11 +37,12 @@ class LogController extends Controller
      */
     public function store(Request $request)
     {
-        $log = new Log;
-        $log->entry = $request->newEntry; 
-        $log->save();
+        $tag_type = new TagType;
+        $tag_type->name = $request->newTagName;
+        $tag_type->save();
         return redirect("/log");
     }
+
 
     /**
      * Display the specified resource.
@@ -84,7 +86,8 @@ class LogController extends Controller
      */
     public function destroy($id)
     {
-        Log::where("id", $id)->delete();
+        TagType::where("id", $id)->delete();
         return redirect("/log");
+        //
     }
 }

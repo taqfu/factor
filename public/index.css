@@ -1,11 +1,30 @@
+h1, h2{
+    text-align:center;
+    clear:both;
+}
+h3{
+    margin-bottom:8px;
+    clear:both;
+}
+form{
+    margin:0px;
+}
 form.deleteLog{
     float:left;
+}
+form.delete{
+    float:left;
+    margin-right:8px;
 }
 input.deleteLog{
     color:red;
 }
+input.delete{
+    color:red;
+}
 
 div.newLog{
+    text-align:center;
     width:600px;
 }
 input.newLog{
@@ -15,6 +34,31 @@ textarea.newLog{
     width:600px;
     height:200px;
 }
+#createNewTimePeriod{
+    width:200px;
+    height:100px;
+    margin-left:32px;
+}
+#endTimestamp{
+    float:left;
+}
+#startTimestamp{
+    float:left;
+    margin-right:32px;
+}
+.clear{
+    clear:both;
+}
+.inactiveTimePeriod{
+    clear:both;
+    display:none;
+}
+.insideLog{
+    margin-left:24px;
+}
+.listOfActiveTasks{
+    background-color:lightgrey;
+}
 .logDate{
     color:grey;
     margin-top:8px;
@@ -22,6 +66,31 @@ textarea.newLog{
 .logEntry{
     padding-top:16px;
     padding-left:24px;
+}
+.textWidth{
+    width:400px;
+}
+.textHeight{
+    height:100px;
+}
+.question{
+    color:grey;
+    cursor:pointer;
+}
+.task{
+    margin-bottom:4px;
+    font-weight:bold;
+}
+.taskNote{
+    margin-left:32px;
+    clear:both;
+}
+.taskNoteInfo{
+font-style:italic;
+    color:grey;
+}
+.timePeriod{
+    margin-bottom:16px;
 }
 .textButton { 
      background:none!important;
@@ -31,3 +100,6 @@ textarea.newLog{
      /*border is optional*/
      cursor: pointer;
 }   
+#listOfNewTagTypes, #listOfNewTaskTypes,  #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTaskNotes{
+    display:none;
+}
