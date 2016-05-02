@@ -1,13 +1,13 @@
 @extends ('master')
 
 @section ('content')
-<a href="{{ route('time') }} ">Time Log </a>
 <div>
 <a href="{{ route('log') }}">[ Today ]</a>
 <a href="{{ route('log', ['period'=>'yesterday']) }}">[ Yesterday ]</a>
 <a href="{{ route('log', ['period'=>'week']) }}">[ Week ]</a>
 <a href="{{ route('log.all') }}">[ All ]</a>
 </div>
+<a href="{{ route('time') }} ">Time Log </a>
 <div class='newLog'>
 <form method="POST" action="{{ route('log.store') }}" class='newLog'>
     {{ csrf_field () }}

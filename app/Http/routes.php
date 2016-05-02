@@ -41,9 +41,42 @@ Route::get('/log/{period?}', ["as"=>"log", function ($period=null) {
         "tag_types" => TagType::orderBy("name", "asc")->get(),
     ]);
 }]);
-Route::get('time/', ["as"=>"time", function () {
+Route::get('/time/all', ["as"=>"time.all", function ($period=null) {
     return view('time', [
         "time_periods" => TimePeriod::orderBy("start", "desc")->get(),
+        "task_types" => TaskType::orderBy("name", "asc")->get(),
+    ]);
+}]);
+Route::get('time/today', ["as"=>"time.today", function () {
+
+        $today = date("Y-m-d");
+        $begin = $today . " 00:00:00";
+        $end = $today . " 23:59:59";
+    return view('time', [
+        "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
+          orderBy("start", "desc")->get(),
+        "task_types" => TaskType::orderBy("name", "asc")->get(),
+    ]);
+
+}]);
+Route::get('time/period', ["as"=>"time", function ($period=null) {
+    if ($period=="yesterday"){
+        $yesterday = date("Y-m-d", strtotime("-1 days"));
+        $begin = $yesterday . " 00:00:00";
+        $end = $yesterday . " 23:59:59";
+    } else if ($period=="week"){
+        $week = date("Y-m-d", strtotime("-1 weeks"));
+        $today = date("Y-m-d");
+        $begin = $week . " 00:00:00";
+        $end = $today . " 23:59:59";
+    } else {
+        $today = date("Y-m-d");
+        $begin = $today . " 00:00:00";
+        $end = $today . " 23:59:59";
+     }    
+    return view('time', [
+        "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
+          orderBy("start", "desc")->get(),
         "task_types" => TaskType::orderBy("name", "asc")->get(),
     ]);
 }]);
