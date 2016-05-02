@@ -41,7 +41,7 @@ class TaskNoteController extends Controller
         $task_note->report = $request->newTaskNote;
         $task_note->task_id = $request->taskID;
         $task_note->save();
-        return redirect("/time");
+        return back();
     }
 
     /**
@@ -87,6 +87,6 @@ class TaskNoteController extends Controller
     public function destroy($id)
     {
         TaskNote::where("id", $id)->delete();
-        return redirect("/time");
+        return back();
     }
 }

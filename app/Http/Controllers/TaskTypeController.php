@@ -40,7 +40,7 @@ class TaskTypeController extends Controller
         $task_type = new TaskType;
         $task_type->name = $request->newTaskName;
         $task_type->save();
-        return redirect("/time");
+        return back();
     }
 
 
@@ -87,6 +87,6 @@ class TaskTypeController extends Controller
     public function destroy($id)
     {
         TaskType::where("id", $id)->delete();
-        return redirect("/time");
+        return back();
     }
 }

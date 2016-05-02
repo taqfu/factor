@@ -63,7 +63,7 @@ class TimePeriodController extends Controller
         $time_period->endGuess = $endGuess; 
         $time_period->save();
        
-        return redirect("/time");
+        return back();
         
 
     }
@@ -108,7 +108,7 @@ class TimePeriodController extends Controller
               . " " . $request->newEndHour . ":" . $request->newEndMinute . ":00";
             $time_period->save();
         }
-        return redirect("/time");
+        return back();
     }
     
 
@@ -122,7 +122,7 @@ class TimePeriodController extends Controller
     public function destroy($id)
     {
         TimePeriod::where("id", $id)->delete();
-        return redirect("/time");
+        return back();
         //
     }
 }

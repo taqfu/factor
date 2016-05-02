@@ -40,7 +40,7 @@ class TaskController extends Controller
         $task->time_period_id = $request->timePeriodID;
         $task->type_id = $request->typeID;
         $task->save();
-        return redirect("/time");
+        return back();
     }
 
     /**
@@ -86,7 +86,6 @@ class TaskController extends Controller
     public function destroy($id)
     {
         Task::where("id", $id)->delete();
-        return redirect("/time");
-        //
+        return back();
     }
 }

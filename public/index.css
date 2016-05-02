@@ -109,6 +109,6 @@ font-style:italic;
      /*border is optional*/
      cursor: pointer;
 }   
-#listOfNewTagTypes, #listOfNewTaskTypes,  #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTaskNotes{
+#listOfNewTagTypes, #listOfNewTaskTypes,  #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTaskNotes, #hideNewTaskTypes{
     display:none;
 }

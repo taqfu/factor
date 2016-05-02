@@ -45,10 +45,10 @@
 </form>
 
 <input type='button' id='showNewTaskTypes' class='textButton' value='[ Show Task Types ]' />
+<input type='button' id='hideNewTaskTypes' class='textButton' value='[ Hide Task Types ]' />
 <input type='button' id='showInactiveTimePeriods' class='textButton' value='[ Show Inactive Time Periods ]' />
 <input type='button' id='hideInactiveTimePeriods' class='textButton' value='[ Hide Inactive Time Periods ]' />
 <div id='listOfNewTaskTypes'>
-<input type='button' id='hideNewTaskTypes' class='textButton' value='[ Hide Task Types ]' />
 <form method="POST" action="{{ route('TaskType.store') }}" >
 {{ csrf_field () }}
 <input type='text' name='newTaskName' />

@@ -29,11 +29,13 @@ $(document.body).ready(function () {
     });
     $("#showNewTaskTypes").click(function(event){
         $("#showNewTaskTypes").hide();       
+        $("#hideNewTaskTypes").show();       
         $("#listOfNewTaskTypes").show();       
     });
     $("#hideNewTaskTypes").click(function(event){
         var logID = event.target.id.substr(11,event.target.id.length-11);
         $("#showNewTaskTypes").show();       
+        $("#hideNewTaskTypes").hide();       
         $("#listOfNewTaskTypes").hide();       
     });
     $(".showNewTasks").click(function(event){
@@ -92,4 +94,5 @@ $(document.body).ready(function () {
         $("#showNewTimePeriodNote"+timePeriodID).hide();       
         $("#newTimePeriodNote"+timePeriodID).show();       
     });
+    
 });

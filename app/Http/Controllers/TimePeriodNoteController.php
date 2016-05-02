@@ -41,7 +41,7 @@ class TimePeriodNoteController extends Controller
         $time_period_note->report = $request->newTimePeriodNote; 
         $time_period_note->time_period_id = $request->timePeriodID; 
         $time_period_note->save();
-        return redirect ("/time");
+        return back();
     }
     
 
@@ -88,6 +88,6 @@ class TimePeriodNoteController extends Controller
     public function destroy($id)
     {
         TimePeriodNote::where("id", $id)->delete();
-        return redirect("/time");
+        return back();
     }
 }
