@@ -69,17 +69,35 @@
     </form>
 @endforeach
 </div>
-<?php $old_date = 0; ?>
+<?php 
+    $old_date = 0; 
+    $last_visible = null;
+?>
+
 @foreach ($time_periods as $time_period)
     <?php $date = date("m/d/y", strtotime($time_period->start)) ?>
     @if ($date!= $old_date)
-        <h1> {{ $date }} </h1>
+        @if ($last_visible==null)
+            @if ($time_period->end==0)
+                <h1> 
+            @elseif ($time_period->end!=0)
+                <h1 class='inactive' />
+            @endif
+        @elseif ($last_visible===true)
+            <h1> 
+        @elseif (!$last_visible===false)
+            <h1 class='inactive' />
+        @endif
+
+        {{ $date }} </h1>
         <?php $old_date = $date ?>
     @endif
     @if ($time_period->end==0)
-    <div class='clear timePeriod'>
+    <div class=' timePeriod'>
+        <?php $last_visible=true; ?>
     @elseif ($time_period->end!=0)
-    <div class='inactiveTimePeriod timePeriod'>
+    <div class='inactive timePeriod'>
+        <?php $last_visible=false; ?>
     @endif
     <form method="POST" action="{{ route('TimePeriod.destroy', ['id'=>$time_period->id]) }}" class='delete' >
         {{ csrf_field() }}

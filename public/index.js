@@ -59,12 +59,12 @@ $(document.body).ready(function () {
     $("#showInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").hide();
         $("#hideInactiveTimePeriods").show();
-        $(".inactiveTimePeriod").show();
+        $(".inactive").show();
     });
     $("#hideInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").show();
         $("#hideInactiveTimePeriods").hide();
-        $(".inactiveTimePeriod").hide();
+        $(".inactive").hide();
     });
     $(".hideNewTaskNotes").click(function(event){
         var taskID = event.target.id.substr(16,event.target.id.length-16);

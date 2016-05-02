@@ -49,8 +49,7 @@ textarea.newLog{
 .clear{
     clear:both;
 }
-.inactiveTimePeriod{
-    clear:both;
+.inactive{
     display:none;
 }
 .insideLog{
@@ -66,6 +65,10 @@ textarea.newLog{
 .logEntry{
     padding-top:16px;
     padding-left:24px;
+}
+.timePeriod{
+    clear:both;
+    margin-bottom:16px;
 }
 .textWidth{
     width:400px;
@@ -88,9 +91,6 @@ textarea.newLog{
 .taskNoteInfo{
 font-style:italic;
     color:grey;
-}
-.timePeriod{
-    margin-bottom:16px;
 }
 .textButton { 
      background:none!important;
