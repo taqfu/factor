@@ -52,6 +52,7 @@ Route::resource("log", "LogController");
 Route::resource("TagType", "TagTypeController");
 Route::resource("tag", "TagController");
 Route::resource("TimePeriod", "TimePeriodController");
+Route::resource("TimePeriodNote", "TimePeriodNoteController");
 Route::resource("task", "TaskController");
 Route::resource("TaskNote", "TaskNoteController");
 Route::resource("TaskType", "TaskTypeController");

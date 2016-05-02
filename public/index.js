@@ -79,4 +79,17 @@ $(document.body).ready(function () {
         $("#hideNewTaskNotes"+taskID).show();       
         $("#newTaskNote"+taskID).show();       
     });
+    $(".hideNewTimePeriodNote").click(function(event){
+        var classLength = "hideNewTimePeriodNote".length;
+        var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
+        $("#showNewTimePeriodNote"+timePeriodID).show();       
+        $("#newTimePeriodNote"+timePeriodID).hide();       
+    });
+    $(".showNewTimePeriodNote").click(function(event){
+        var classLength = "showNewTimePeriodNote".length;
+        var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
+        console.log(timePeriodID);
+        $("#showNewTimePeriodNote"+timePeriodID).hide();       
+        $("#newTimePeriodNote"+timePeriodID).show();       
+    });
 });

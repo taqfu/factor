@@ -149,7 +149,8 @@
         </div>
     <input type='button' id='showNewTasks{{$time_period->id}}' value='[ Add Task ] ' 
       class='showNewTasks textButton' style='margin-left:16px;'/>
-
+    <input type='button' id='showNewTimePeriodNote{{$time_period->id}}' value='[ Add Note ] ' 
+      class='showNewTimePeriodNote textButton' />
     @if ($time_period->end==0)
         <form id='selectEndTimestamp{{ $time_period->id }}' class='selectEndTimestamp clear' 
           method="POST" action="{{ route('TimePeriod.update', ['id'=>$time_period->id]) }}">
@@ -162,8 +163,30 @@
             <input type='submit' value='Submit' />
         </form>
     @endif
-    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clear'></div>
-    <div class='listOfActiveTasks'>
+    <div id='newTimePeriodNote{{ $time_period->id }}' class='newTimePeriodNote clear'>
+        <form method="POST" action="{{ route('TimePeriodNote.store') }}" class='textWidth'/>
+            {{ csrf_field() }}
+            <input type='hidden' name='timePeriodID' value='{{ $time_period->id }}' />
+            <textarea name='newTimePeriodNote' class='textWidth textHeight'></textarea>
+            <input type='submit' value='Create Note' style='float:right;'/>
+            <input type='button' id='hideNewTimePeriodNote{{$time_period->id}}' 
+              class='hideNewTimePeriodNote' value='Cancel' style='float:right;'/>
+        </form>
+    </div>
+    <div class='listOfActiveTasks clear'>
+    @foreach ($time_period->notes as $time_period_note)
+        <form method="POST" action="{{ route('TimePeriodNote.destroy', ['id'=>$time_period_note->id]) }}">
+            {{ csrf_field () }}
+            {{ method_field('DELETE') }}
+            <input type='submit' value='x' class='textButton delete' />
+            <span class='timePeriodNote'>
+                {{ $time_period_note->report }} 
+                <span class='timePeriodNoteInfo'>
+                    (Created: {{ date("m/d/y g:i", strtotime($time_period_note->created_at)) }})
+                </span>
+            </span>
+        </form>
+    @endforeach
     @foreach ($time_period->tasks as $task)
         <div class='task clear'>
             <form method="POST" action="{{ route('task.destroy', ['id'=>$task->id]) }}">
@@ -192,6 +215,7 @@
         @endforeach
     @endforeach
     </div>
+    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clear'></div>
     </div>
 @endforeach
 @endsection
