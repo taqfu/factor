@@ -1,13 +1,11 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\TaskType;
 use App\TaskCategory;
-class TaskTypeController extends Controller
+class TaskCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,12 +35,9 @@ class TaskTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $task_type = new TaskType;
-        $task_type->name = $request->newTaskName;
-        $task_type->save();
         $task_category = new TaskCategory;
-        $task_category->task_category_type_id = 1;
-        $task_category->task_type_id =  $task_type->id;
+        $task_category->task_type_id  =  $request->newTaskTypeID;
+        $task_category->task_category_type_id = $request->newTaskCategoryTypeID;
         $task_category->save();
         return back();
     }
@@ -90,8 +85,7 @@ class TaskTypeController extends Controller
      */
     public function destroy($id)
     {
-        TaskType::where("id", $id)->delete();
-        TaskCategory::where("task_type_id", $id)->delete();
+        TaskCategory::where("id", $id)->delete();
         return back();
     }
 }

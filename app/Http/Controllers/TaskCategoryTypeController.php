@@ -5,9 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\TaskType;
+use App\TaskCategoryType;
 use App\TaskCategory;
-class TaskTypeController extends Controller
+use View;
+class TaskCategoryTypeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,7 +17,6 @@ class TaskTypeController extends Controller
      */
     public function index()
     {
-        //
     }
 
     /**
@@ -37,16 +37,12 @@ class TaskTypeController extends Controller
      */
     public function store(Request $request)
     {
-        $task_type = new TaskType;
-        $task_type->name = $request->newTaskName;
-        $task_type->save();
-        $task_category = new TaskCategory;
-        $task_category->task_category_type_id = 1;
-        $task_category->task_type_id =  $task_type->id;
-        $task_category->save();
+        $task_category_type = new TaskCategoryType;
+        $task_category_type->name = $request->newTaskCategoryTypeName;
+        $task_category_type->save();
         return back();
+        
     }
-
 
     /**
      * Display the specified resource.
@@ -56,7 +52,10 @@ class TaskTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        return View::make('TaskCategory.show', [
+        "task_categories"=>TaskCategory::where('task_category_type_id', $id)->get(),
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
+        ]);
     }
 
     /**
@@ -90,8 +89,8 @@ class TaskTypeController extends Controller
      */
     public function destroy($id)
     {
-        TaskType::where("id", $id)->delete();
-        TaskCategory::where("task_type_id", $id)->delete();
+        TaskCategoryType:: where ("id", $id)->delete();
         return back();
+        //
     }
 }

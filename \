@@ -30,13 +30,13 @@ $(document.body).ready(function () {
     $("#showNewTaskTypes").click(function(event){
         $("#showNewTaskTypes").hide();       
         $("#hideNewTaskTypes").show();       
-        $("#taskTypeSection").show();       
+        $("#listOfNewTaskTypes").show();       
     });
     $("#hideNewTaskTypes").click(function(event){
         var logID = event.target.id.substr(11,event.target.id.length-11);
         $("#showNewTaskTypes").show();       
         $("#hideNewTaskTypes").hide();       
-        $("#taskTypeSection").hide();       
+        $("#listOfNewTaskTypes").hide();       
     });
     $(".showNewTasks").click(function(event){
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
@@ -128,10 +128,18 @@ $(document.body).ready(function () {
     
 });
 function displayTasksFromCategoryType(id){
-    $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
-    $("#taskCategoryType"+id).addClass('activeTaskCategoryType');
-    $.get("/factor/public/TaskCategoryType/"+id, 
-        function( data ) {
-            $('#listOfNewTaskTypes').html( data );
-        });
+        console.log(id);
+        $.ajax({
+            headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            method:"GET",
+            url:"/peeps/public/TaskCategoryType",
+            data: {person_id : personID, value_type : valueType, 
+              simple_id : typeID, date_value : dateValue}
+        })
+            .done(function(result){
+                console.log(result);
+                window.location.reload();
+            });
 }

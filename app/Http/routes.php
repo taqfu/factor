@@ -3,6 +3,7 @@ use \App\Log;
 use \App\TagType;
 use \App\TaskType;
 use \App\TimePeriod;
+use \App\TaskCategoryType;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::get('/log/{period?}', ["as"=>"log", function ($period=null) {
     ]);
 }]);
 Route::get('/time/all', ["as"=>"time.all", function ($period=null) {
-    return view('time', [
+    return view('time.index', [
         "time_periods" => TimePeriod::orderBy("start", "desc")->get(),
         "task_types" => TaskType::orderBy("name", "asc")->get(),
     ]);
@@ -52,10 +53,11 @@ Route::get('time/today', ["as"=>"time.today", function () {
         $today = date("Y-m-d");
         $begin = $today . " 00:00:00";
         $end = $today . " 23:59:59";
-    return view('time', [
+    return view('time.index', [
         "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
           orderBy("start", "desc")->get(),
         "task_types" => TaskType::orderBy("name", "asc")->get(),
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
     ]);
 
 }]);
@@ -74,7 +76,7 @@ Route::get('time/period', ["as"=>"time", function ($period=null) {
         $begin = $today . " 00:00:00";
         $end = $today . " 23:59:59";
      }    
-    return view('time', [
+    return view('time.index', [
         "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
           orderBy("start", "desc")->get(),
         "task_types" => TaskType::orderBy("name", "asc")->get(),
@@ -89,3 +91,5 @@ Route::resource("TimePeriodNote", "TimePeriodNoteController");
 Route::resource("task", "TaskController");
 Route::resource("TaskNote", "TaskNoteController");
 Route::resource("TaskType", "TaskTypeController");
+Route::resource('TaskCategory', 'TaskCategoryController');
+Route::resource('TaskCategoryType', 'TaskCategoryTypeController');

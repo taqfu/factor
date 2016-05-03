@@ -46,6 +46,12 @@ textarea.newLog{
     float:left;
     margin-right:32px;
 }
+.activeTaskCategoryType{
+    color:black;
+}
+.taskCategoryType{
+
+}
 .clear{
     clear:both;
 }
@@ -109,6 +115,6 @@ font-style:italic;
      /*border is optional*/
      cursor: pointer;
 }   
-#listOfNewTagTypes, #listOfNewTaskTypes,  #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTaskNotes, #hideNewTaskTypes{
+#listOfNewTagTypes, /* #taskTypeSection , */  #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTaskNotes, #hideNewTaskTypes, #hideNewTaskCategoryType, #newTaskCategoryType, .newTaskCategory{
     display:none;
 }
