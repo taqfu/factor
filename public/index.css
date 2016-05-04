@@ -46,7 +46,7 @@ textarea.newLog{
     float:left;
     margin-right:32px;
 }
-.activeTaskCategoryType{
+.activeTaskCategoryType, .activeTaskCategoryTypeForTimePeriod{
     color:black;
 }
 .taskCategoryType{
@@ -115,6 +115,6 @@ font-style:italic;
      /*border is optional*/
      cursor: pointer;
 }   
-#listOfNewTagTypes, /* #taskTypeSection , */  #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTaskNotes, #hideNewTaskTypes, #hideNewTaskCategoryType, #newTaskCategoryType, .newTaskCategory{
+#listOfNewTagTypes,  #taskTypeSection ,   #newTaskForm, .selectEndTimestamp, #hideInactiveTimePeriods, .newTaskNote, .hideNewTasks, .hideNewTaskNotes, #hideNewTaskTypes, #hideNewTaskCategoryType, #newTaskCategoryType, .newTaskCategory{
     display:none;
 }

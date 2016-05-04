@@ -79,6 +79,8 @@
         </div>
     <input type='button' id='showNewTasks{{$time_period->id}}' value='[ Add Task ] ' 
       class='showNewTasks textButton' style='margin-left:16px;'/>
+    <input type='button' id='hideNewTasks{{$time_period->id}}' value='[ Hide Tasks ] ' 
+      class='hideNewTasks textButton' style='margin-left:16px;'/>
     <input type='button' id='showNewTimePeriodNote{{$time_period->id}}' value='[ Add Note ] ' 
       class='showNewTimePeriodNote textButton' />
     @if ($time_period->end==0)
@@ -103,6 +105,7 @@
               class='hideNewTimePeriodNote' value='Cancel' style='float:right;'/>
         </form>
     </div>
+    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clear'></div>
     <div class='listOfActiveTasks clear'>
     @foreach ($time_period->notes as $time_period_note)
         <form method="POST" action="{{ route('TimePeriodNote.destroy', ['id'=>$time_period_note->id]) }}">
@@ -145,6 +148,5 @@
         @endforeach
     @endforeach
     </div>
-    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clear'></div>
     </div>
 @endforeach

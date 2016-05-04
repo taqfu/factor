@@ -3,6 +3,7 @@ use \App\Log;
 use \App\TagType;
 use \App\TaskType;
 use \App\TimePeriod;
+use \App\TaskCategory;
 use \App\TaskCategoryType;
 
 /*
@@ -83,6 +84,16 @@ Route::get('time/period', ["as"=>"time", function ($period=null) {
     ]);
 }]);
 
+Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', function ($id, $time_period_id ) {
+    
+    return view('TasksByCategoryTypeForTimePeriod', [
+        "active_task_category_type_id"=>$id,
+        "time_period_id"=>$time_period_id,
+        "task_categories"=>TaskCategory::where('task_category_type_id', $id)->get(),
+        "task_category_types" => TaskCategoryType::orderBy("name", "asc")->get(),
+
+    ]);
+});
 Route::resource("log", "LogController");
 Route::resource("TagType", "TagTypeController");
 Route::resource("tag", "TagController");

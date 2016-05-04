@@ -40,9 +40,18 @@ $(document.body).ready(function () {
     });
     $(".showNewTasks").click(function(event){
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
-        $('.listOfNewTasks').html("");
-        $('#listOfNewTasks' + timePeriodID).html($("#newTaskForm").html());
+        $("#showNewTasks" + timePeriodID).hide();
+        $("#hideNewTasks" + timePeriodID).show();
+//        $('.listOfNewTasks').html("");
+        displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);           
         $("input[name='timePeriodID']").val(timePeriodID);
+    
+    });
+    $(".hideNewTasks").click(function(event){
+        var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
+        $('.listOfNewTasks').html("");
+        $("#showNewTasks" + timePeriodID).show();
+        $("#hideNewTasks" + timePeriodID).hide();
     
     });
     $(document).on("click", ".hideNewTasks", function (event) {
@@ -126,10 +135,26 @@ $(document.body).ready(function () {
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
     
+    $(document).on("click", ".taskCategoryTypeForTimePeriod", function (event) {
+        var classLength =  "taskCategoryTypeForTimePeriod".length; 
+        var taskCategoryTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
+        var timePeriodID = $("#timePeriodIDForListOfNewTasks").val();
+//        $('.listOfNewTasks').html("");
+        displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID);
+    });
 });
+
+function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){
+    console.log("STARTING", timePeriodID, id);
+    $.get("/factor/public/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID, 
+        function( data ) {
+            $('#listOfNewTasks' + timePeriodID).html(data);
+           //console.log(data);
+        });
+}
 function displayTasksFromCategoryType(id){
     $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
-    $("#taskCategoryType"+id).addClass('activeTaskCategoryType');
+    $("#taskCategoryType" + id).addClass('activeTaskCategoryType');
     $.get("/factor/public/TaskCategoryType/"+id, 
         function( data ) {
             $('#listOfNewTaskTypes').html( data );

@@ -1,9 +1,9 @@
 
 <div>
-    <form method="POST" action=" {{ route('TaskType.destroy', ['id'=>$task_type->id]) }}" style='float:left;'>
+    <form method="POST" action=" {{ route('TaskType.destroy', ['id'=>$task_type->id]) }}" style='float:left;'
+        onsubmit="return confirm('Are you sure you want to delete \'{{ $task_type->name }}\'');">
     {{ csrf_field() }}
     {{ method_field('delete') }}
-
     <input type='submit' value='x' class='textButton delete' />
     {{ $task_type->name }}
     </form>

@@ -22,15 +22,6 @@
 @include ('TaskType.index')
 
 <div id='newTaskForm'>
-<input type='button' class='hideNewTasks textButton' value='[ - ]' />
-@foreach ($task_types as $task_type)
-    <form method='POST' action="{{ route('task.store') }}" >   
-    {{ csrf_field () }}
-    <input type='hidden' name='timePeriodID' />
-    <input type='hidden' name='typeID' value='{{ $task_type->id }}' />
-    <input type='submit' value='{{ $task_type->name }}' class='textButton' />
-    </form>
-@endforeach
 </div>
 
 @include ("TimePeriod.index")
