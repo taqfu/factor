@@ -7,7 +7,7 @@
 <a href="{{ route('log', ['period'=>'week']) }}">[ Week ]</a>
 <a href="{{ route('log.all') }}">[ All ]</a>
 </div>
-<a href="{{ route('time') }} ">Time Log </a>
+<a href="{{ route('time.today') }} ">Time Log </a>
 <div class='newLog'>
 <form method="POST" action="{{ route('log.store') }}" class='newLog'>
     {{ csrf_field () }}
