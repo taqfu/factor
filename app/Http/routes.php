@@ -47,6 +47,7 @@ Route::get('/time/all', ["as"=>"time.all", function ($period=null) {
     return view('time.index', [
         "time_periods" => TimePeriod::orderBy("start", "desc")->get(),
         "task_types" => TaskType::orderBy("name", "asc")->get(),
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
     ]);
 }]);
 Route::get('time/today', ["as"=>"time.today", function () {
@@ -62,7 +63,7 @@ Route::get('time/today', ["as"=>"time.today", function () {
     ]);
 
 }]);
-Route::get('time/period', ["as"=>"time", function ($period=null) {
+Route::get('time/period/{period}', ["as"=>"time", function ($period=null) {
     if ($period=="yesterday"){
         $yesterday = date("Y-m-d", strtotime("-1 days"));
         $begin = $yesterday . " 00:00:00";
@@ -81,11 +82,11 @@ Route::get('time/period', ["as"=>"time", function ($period=null) {
         "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
           orderBy("start", "desc")->get(),
         "task_types" => TaskType::orderBy("name", "asc")->get(),
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
     ]);
 }]);
 
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', function ($id, $time_period_id ) {
-    
     return view('TasksByCategoryTypeForTimePeriod', [
         "active_task_category_type_id"=>$id,
         "time_period_id"=>$time_period_id,
