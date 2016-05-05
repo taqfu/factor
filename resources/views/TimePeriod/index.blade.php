@@ -143,7 +143,7 @@
             {{ method_field('DELETE') }}
             <input type='submit' value='x' class='textButton delete' />
             {{ $note->report }}
-            <span class='taskNoteInfo'>( Created - {{ date("m/d/y g:i", strtotime($note->created_at)) }} }</span>
+            <span class='taskNoteInfo'>( Created - {{ date("m/d/y g:i", strtotime($note->created_at)) }} )</span>
             </form>
         @endforeach
     @endforeach
