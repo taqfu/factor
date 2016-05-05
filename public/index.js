@@ -31,6 +31,7 @@ $(document.body).ready(function () {
         $("#showNewTaskTypes").hide();       
         $("#hideNewTaskTypes").show();       
         $("#taskTypeSection").show();       
+        displayTasksFromCategoryType(1);
     });
     $("#hideNewTaskTypes").click(function(event){
         var logID = event.target.id.substr(11,event.target.id.length-11);

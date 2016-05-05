@@ -50,7 +50,20 @@ Route::get('/time/all', ["as"=>"time.all", function ($period=null) {
         "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
     ]);
 }]);
-Route::get('time/today', ["as"=>"time.today", function () {
+Route::get('time/today/active', ["as"=>"time.today", function () {
+
+        $today = date("Y-m-d");
+        $begin = $today . " 00:00:00";
+        $end = $today . " 23:59:59";
+    return view('time.index', [
+        "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)
+          ->where("end", 0)->orderBy("start", "desc")->get(),
+        "task_types" => TaskType::orderBy("name", "asc")->get(),
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
+    ]);
+
+}]);
+Route::get('time/today/all', ["as"=>"time.today.all", function () {
 
         $today = date("Y-m-d");
         $begin = $today . " 00:00:00";

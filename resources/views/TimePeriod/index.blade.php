@@ -7,28 +7,12 @@
 @foreach ($time_periods as $time_period)
     <?php $date = date("m/d/y", strtotime($time_period->start)) ?>
     @if ($date!= $old_date)
-        @if ($route_name=='time.today' && $last_visible==null)
-            @if ($time_period->end==0)
-                <h1> 
-            @elseif ($time_period->end!=0)
-                <h1 class='inactive' />
-            @endif
-        @elseif ($route_name!='time.today' || $last_visible===true)
-            <h1> 
-        @elseif (!$last_visible===false)
-            <h1 class='inactive' />
-        @endif
-
-        {{ $date }} </h1>
+        <h1>
+            {{ $date }} 
+        </h1>
         <?php $old_date = $date ?>
     @endif
-    @if ($route_name!='time.today' || $time_period->end==0)
     <div class=' timePeriod'>
-        <?php $last_visible=true; ?>
-    @elseif ($time_period->end!=0)
-    <div class='inactive timePeriod'>
-        <?php $last_visible=false; ?>
-    @endif
     <form method="POST" action="{{ route('TimePeriod.destroy', ['id'=>$time_period->id]) }}" class='delete' >
         {{ csrf_field() }}
         {{ method_field('DELETE') }}

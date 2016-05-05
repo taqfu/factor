@@ -17,8 +17,5 @@
         <input type='submit' value='Create Task Category' />
     </form>
 <div id='listOfNewTaskTypes'>
-@foreach ($task_types as $task_type)
-@include ('taskCategoryTemplate')
-@endforeach
 </div>
 </div>
