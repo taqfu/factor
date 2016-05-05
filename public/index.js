@@ -113,7 +113,7 @@ $(document.body).ready(function () {
         $("#hideNewTaskCategoryType").hide();
         $("#newTaskCategoryType").hide();
     });
-    $(".showNewTaskCategory").click(function(event){
+    $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
         console.log(classLength);
@@ -121,7 +121,7 @@ $(document.body).ready(function () {
         $("#hideNewTaskCategory" + taskTypeID).show();
         $("#newTaskCategory" + taskTypeID).show();
     });
-    $(".hideNewTaskCategory").click(function(event){
+    $(document).on("click", ".hideNewTaskCategory", function (event) {
         var classLength = "hideNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
         console.log(taskTypeID);
