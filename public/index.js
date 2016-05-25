@@ -31,7 +31,6 @@ $(document.body).ready(function () {
         $("#showNewTaskTypes").hide();       
         $("#hideNewTaskTypes").show();       
         $("#taskTypeSection").show();       
-        displayTasksFromCategoryType(1);
     });
     $("#hideNewTaskTypes").click(function(event){
         var logID = event.target.id.substr(11,event.target.id.length-11);
@@ -145,19 +144,17 @@ $(document.body).ready(function () {
     });
 });
 
-function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){
-    console.log("STARTING", timePeriodID, id);
+function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){ //This comes up when you click Add Tasks
     $.get("/factor/public/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID, 
         function( data ) {
             $('#listOfNewTasks' + timePeriodID).html(data);
-           //console.log(data);
         });
 }
-function displayTasksFromCategoryType(id){
+function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
     $("#taskCategoryType" + id).addClass('activeTaskCategoryType');
     $.get("/factor/public/TaskCategoryType/"+id, 
         function( data ) {
             $('#listOfNewTaskTypes').html( data );
         });
-}
+} 

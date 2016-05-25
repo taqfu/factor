@@ -39,7 +39,7 @@ class LogController extends Controller
         $log = new Log;
         $log->entry = $request->newEntry; 
         $log->save();
-        return redirect("/log");
+        return back();
     }
 
     /**
@@ -85,6 +85,6 @@ class LogController extends Controller
     public function destroy($id)
     {
         Log::where("id", $id)->delete();
-        return redirect("/log");
+        return back();
     }
 }

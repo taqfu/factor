@@ -1,3 +1,4 @@
+<!-- This is the [ Add Task ] menu. -->
 <input type='hidden' id='timePeriodIDForListOfNewTasks' value='{{ $time_period_id }}' />
 <div style='text-align:center;margin-top:16px;margin-bottom:8px;'>
     @foreach ($task_category_types as $task_category_type)

@@ -98,7 +98,6 @@ Route::get('time/period/{period}', ["as"=>"time", function ($period=null) {
         "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
     ]);
 }]);
-
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', function ($id, $time_period_id ) {
     return view('TasksByCategoryTypeForTimePeriod', [
         "active_task_category_type_id"=>$id,
@@ -108,6 +107,7 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', fu
 
     ]);
 });
+
 Route::resource("log", "LogController");
 Route::resource("TagType", "TagTypeController");
 Route::resource("tag", "TagController");

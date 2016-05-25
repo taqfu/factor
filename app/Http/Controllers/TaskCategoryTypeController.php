@@ -91,6 +91,5 @@ class TaskCategoryTypeController extends Controller
     {
         TaskCategoryType:: where ("id", $id)->delete();
         return back();
-        //
     }
 }

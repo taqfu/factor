@@ -40,7 +40,7 @@ class TagController extends Controller
         $tag->log_id = $request->logID;
         $tag->type_id = $request->typeID;
         $tag->save();
-        return redirect("/log#log$request->logID");
+        return back();
     }
 
     /**
@@ -86,6 +86,6 @@ class TagController extends Controller
     public function destroy(Request $request, $id)
     {
         Tag::where("id", $id)->delete();
-        return redirect("/log#log$request->id");
+        return back();
     }
 }

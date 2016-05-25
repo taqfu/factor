@@ -9,7 +9,7 @@ class TaskCategory extends Model
 {
     use SoftDeletes;
     protected $dates =["deleted_at"];
-    //
+
     public function type(){
         return $this->belongsTo("App\TaskCategoryType", "task_category_type_id");
     }   

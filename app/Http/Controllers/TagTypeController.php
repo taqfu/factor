@@ -40,7 +40,7 @@ class TagTypeController extends Controller
         $tag_type = new TagType;
         $tag_type->name = $request->newTagName;
         $tag_type->save();
-        return redirect("/log");
+        return back();
     }
 
 
@@ -87,7 +87,6 @@ class TagTypeController extends Controller
     public function destroy($id)
     {
         TagType::where("id", $id)->delete();
-        return redirect("/log");
-        //
+        return back();
     }
 }

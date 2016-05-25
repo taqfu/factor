@@ -9,6 +9,7 @@ class TimePeriod extends Model
 {
     use SoftDeletes;
     protected $dates =["deleted_at"];
+
     public function tasks(){
         return $this->hasMany("App\Task");
     }

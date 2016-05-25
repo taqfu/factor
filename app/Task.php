@@ -9,6 +9,7 @@ class Task extends Model
 {
     use SoftDeletes;
     protected $dates =["deleted_at"];
+
     public function type(){
         return $this->belongsTo("App\TaskType");
     }
