@@ -104,6 +104,7 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', fu
         "time_period_id"=>$time_period_id,
         "task_categories"=>TaskCategory::where('task_category_type_id', $id)->get(),
         "task_category_types" => TaskCategoryType::orderBy("name", "asc")->get(),
+        "selected_task_category_type"=>TaskCategoryType::where('id', $id)->first(),
 
     ]);
 });
