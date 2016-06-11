@@ -1,11 +1,16 @@
-
+<?php
+    use App\TaskType;
+?>
 <div>
     <form method="POST" action=" {{ route('TaskType.destroy', ['id'=>$task_type->id]) }}" style='float:left;'
         onsubmit="return confirm('Are you sure you want to delete \'{{ $task_type->name }}\'');">
     {{ csrf_field() }}
     {{ method_field('delete') }}
     <input type='submit' value='x' class='textButton delete' />
-    {{ $task_type->name }}
+    {{ $task_type->name }} ({{round(TaskType::total_time($task_type->id)/60/60, 1)}})
+    <?php
+
+    ?>
     </form>
     @foreach ($task_type->categories as $task_type_category)
     <div style='float:left;margin-left:16px;margin-right:8px;font-style:italic;color:grey;'>
@@ -14,7 +19,7 @@
                 {{csrf_field() }}
                 {{ method_field('DELETE') }}
                 <input type='submit' value='x' class='textButton delete' />
-                {{ $task_type_category->type->name }} 
+                {{ $task_type_category->type->name }}  
             </form>
             @endif
     </div>
