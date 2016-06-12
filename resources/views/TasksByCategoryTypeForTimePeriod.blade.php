@@ -1,3 +1,4 @@
+<?php use App\TaskType; ?>
 <!-- This is the [ Add Task ] menu. -->
 <input type='hidden' id='timePeriodIDForListOfNewTasks' value='{{ $time_period_id }}' />
 <div style='text-align:center;margin-top:16px;margin-bottom:8px;'>
@@ -17,7 +18,8 @@
     {{ csrf_field () }}
     <input type='hidden' name='timePeriodID' value='{{ $time_period_id }}'/>
     <input type='hidden' name='typeID' value='{{ $task_category->task_type->id }}' />
-    <input type='submit' value='{{ $task_category->task_type->name }}' class='textButton' />
+    <input type='submit' value='{{ $task_category->task_type->name }}' class='textButton' /> - 
+    {{round((TaskType::total_time($task_category->task_type->id)/60/60),1)}}
     </form>
 @endforeach
 </div>

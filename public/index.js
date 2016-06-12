@@ -141,7 +141,6 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){ //This com
     $.get("/factor/public/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID, 
         function( data ) {
             $('#listOfNewTasks' + timePeriodID).html(data);
-            console.log(data);
         });
 }
 
