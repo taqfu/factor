@@ -63,7 +63,8 @@ Route::get('time/today/active', ["as"=>"time.today", function () {
     ]);
 
 }]);
-Route::get('time/today/all', ["as"=>"time.today.all", function () {
+
+Route::get('/', ["as"=>"time.today.all", function () {
 
         $today = date("Y-m-d");
         $begin = $today . " 00:00:00";

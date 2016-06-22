@@ -31,7 +31,7 @@ class TaskType extends Model
                 and tasks.deleted_at is null";
 
 //        }
-        $dbh = new PDO ('mysql:host=localhost;dbname=factor', 'root', '');
+        $dbh = new PDO ('mysql:host=localhost;dbname=factor', 'root',  env('DB_PASSWORD') );
         $statement = $dbh->query($query);
         return $statement->fetchColumn();
     }

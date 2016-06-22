@@ -1,3 +1,5 @@
+var taqfuHost=true;
+var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "/factor/public";
 $(document.body).ready(function () {
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
@@ -138,7 +140,8 @@ $(document.body).ready(function () {
 });
 
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){ //This comes up when you click Add Tasks
-    $.get("/factor/public/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID, 
+    console.log(siteRoot + "/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID);
+    $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID, 
         function( data ) {
             $('#listOfNewTasks' + timePeriodID).html(data);
         });
@@ -147,7 +150,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){ //This com
 function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
     $("#taskCategoryType" + id).addClass('activeTaskCategoryType');
-    $.get("/factor/public/TaskCategoryType/"+id, 
+    $.get(siteRoot + "/TaskCategoryType/"+id, 
         function( data ) {
             $('#listOfNewTaskTypes').html( data );
         });

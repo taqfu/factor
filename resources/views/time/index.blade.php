@@ -11,7 +11,6 @@
     <a href="{{ route('time.all') }}">[ All ]</a>
     </div>
     <a href="{{ route('log') }}">Log</a>
-{{(substr(Route::getCurrentRoute()->getPath(), 0, 10) =="time/today")}}
 </div>
 
 @include ('TimePeriod.create') 
