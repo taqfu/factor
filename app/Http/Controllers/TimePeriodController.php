@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\TaskCategoryType;
+use App\TaskType;
 use App\TimePeriod;
-
+use View;
 class TimePeriodController extends Controller
 {
     /**
@@ -16,7 +18,15 @@ class TimePeriodController extends Controller
      */
     public function index()
     {
-        //
+        $today = date("Y-m-d");
+        $begin = $today . " 00:00:00";
+        $end = $today . " 23:59:59";
+        return View::make('time.index', [
+            "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
+              orderBy("start", "desc")->get(),
+            "task_types" => TaskType::orderBy("name", "asc")->get(),
+            "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
+        ]);
     }
 
     /**

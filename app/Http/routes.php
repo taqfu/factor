@@ -64,19 +64,8 @@ Route::get('time/today/active', ["as"=>"time.today", function () {
 
 }]);
 
-Route::get('/', ["as"=>"time.today.all", function () {
+Route::get('/', ["as"=>"time.today.all", 'uses'=>'TimePeriodController@index']);
 
-        $today = date("Y-m-d");
-        $begin = $today . " 00:00:00";
-        $end = $today . " 23:59:59";
-    return view('time.index', [
-        "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
-          orderBy("start", "desc")->get(),
-        "task_types" => TaskType::orderBy("name", "asc")->get(),
-        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
-    ]);
-
-}]);
 Route::get('time/period/{period}', ["as"=>"time", function ($period=null) {
     if ($period=="yesterday"){
         $yesterday = date("Y-m-d", strtotime("-1 days"));
