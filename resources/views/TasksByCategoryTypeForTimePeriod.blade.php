@@ -13,13 +13,14 @@
     @endforeach
 </div>
 <div style='margin-bottom:16px;'>
-@foreach ($task_categories as $task_category)
+@foreach($task_types as $task_type)
     <form method='POST' action="{{ route('task.store') }}" >   
     {{ csrf_field () }}
     <input type='hidden' name='timePeriodID' value='{{ $time_period_id }}'/>
-    <input type='hidden' name='typeID' value='{{ $task_category->task_type->id }}' />
-    <input type='submit' value='{{ $task_category->task_type->name }}' class='textButton' /> - 
-    {{round((TaskType::total_time($task_category->task_type->id)/60/60),1)}}
+    <input type='hidden' name='typeID' value='{{ $task_type->task_type_id }}' />
+    
+    <input type='submit' value='{{ $task_type->name }}' class='textButton' /> - 
+    {{round((TaskType::total_time($task_type->id)/60/60),1)}}
     </form>
 @endforeach
 </div>
