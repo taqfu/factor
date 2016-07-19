@@ -13,14 +13,14 @@
         <?php $old_date = $date ?>
     @endif
     <div class=' timePeriod'>
-    <form method="POST" action="{{ route('TimePeriod.destroy', ['id'=>$time_period->id]) }}" class='delete' >
+    <form method="POST" action="{{ route('time.destroy', ['id'=>$time_period->id]) }}" class='delete' >
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
         <input type='submit' value='x' class='textButton delete' />
         {{ date("H:i", strtotime($time_period->start)) }} - 
     </form>
     @if ($time_period->end==0)
-        <form method="POST" action="{{ route('TimePeriod.update', ['id'=>$time_period->id]) }}" style='float:left;'> 
+        <form method="POST" action="{{ route('time.update', ['id'=>$time_period->id]) }}" style='float:left;'> 
             {{ csrf_field() }}
             {{ method_field('PUT') }}
             <input type='hidden' name='when' value='now' />
@@ -69,7 +69,7 @@
       class='showNewTimePeriodNote textButton' />
     @if ($time_period->end==0)
         <form id='selectEndTimestamp{{ $time_period->id }}' class='selectEndTimestamp clear' 
-          method="POST" action="{{ route('TimePeriod.update', ['id'=>$time_period->id]) }}">
+          method="POST" action="{{ route('time.update', ['id'=>$time_period->id]) }}">
             <input type='button' id='hideSelectEndTimestamp{{ $time_period->id }}' 
               class='hideSelectEndTimestamp textButton clear' value='[ - ]' />
             {{ csrf_field() }}

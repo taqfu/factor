@@ -16,16 +16,34 @@ class TimePeriodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $today = date("Y-m-d");
-        $begin = $today . " 00:00:00";
-        $end = $today . " 23:59:59";
+        switch($request->period){
+            case "all":
+                $begin = TimePeriod::orderBy('created_at', 'asc')
+                  ->first()->created_at;
+                var_dump($begin);
+                $end = date("Y-m-d") . " 23:59:59";
+                break;
+            case "yesterday":
+                $begin = date("Y-m-d", strtotime("-1 days")) . " 00:00:00";
+                $end = date("Y-m-d", strtotime("-1 days")) . " 23:59:59";
+                break;
+            case "week":
+                $begin = date("Y-m-d", strtotime("-1 weeks")) . " 00:00:00";
+                $end = date("Y-m-d") . " 23:59:59";
+                break;
+            default:
+                $begin = date("Y-m-d") . " 00:00:00";
+                $end = date("Y-m-d") . " 23:59:59";
+                break;
+        }
         return View::make('time.index', [
-            "time_periods" => TimePeriod::where("created_at", ">", $begin)->where("created_at", "<", $end)->
-              orderBy("start", "desc")->get(),
+            "time_periods" => TimePeriod::where("created_at", ">", $begin)
+              ->where("created_at", "<", $end)->orderBy("start", "desc")->get(),
             "task_types" => TaskType::orderBy("name", "asc")->get(),
-            "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
+            "task_category_types" => TaskCategoryType::where("id", ">", 1)
+              ->orderBy("name", "asc")->get(),
         ]);
     }
 

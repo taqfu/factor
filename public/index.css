@@ -37,7 +37,7 @@ textarea.newLog{
 #createNewTimePeriod{
     width:200px;
     height:100px;
-    margin-left:32px;
+    margin:25px;
 }
 #endTimestamp{
     float:left;
@@ -57,6 +57,9 @@ textarea.newLog{
 }
 .inactive{
     display:none;
+}
+.inline{
+    display:inline;
 }
 .insideLog{
     margin-left:24px;
