@@ -16,7 +16,6 @@ use \App\TaskCategoryType;
 | and give it the controller to call when that URI is requested.
 |
 */
-
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', function ($id, $time_period_id ) {
     return view('TasksByCategoryTypeForTimePeriod', [
         "active_task_category_type_id"=>$id,
