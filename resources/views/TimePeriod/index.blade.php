@@ -1,19 +1,18 @@
-
 <?php 
     $old_date = 0; 
-    $last_visible = null;
 ?>
 
 @foreach ($time_periods as $time_period)
     <?php $date = date("m/d/y", strtotime($time_period->start)) ?>
     @if ($date!= $old_date)
-        <h1>
+        <h1 class='text-center'>
             {{ $date }} 
         </h1>
         <?php $old_date = $date ?>
     @endif
     <div class=' timePeriod'>
-    <form method="POST" action="{{ route('time.destroy', ['id'=>$time_period->id]) }}" class='delete' >
+    <form method="POST" 
+      action="{{ route('time.destroy', ['id'=>$time_period->id]) }}" class='delete' >
         {{ csrf_field() }}
         {{ method_field('DELETE') }}
         <input type='submit' value='x' class='textButton delete' />

@@ -23,13 +23,13 @@ $(document.body).ready(function () {
     $(document).on("click", ".hideNewTaskCategory", function (event) {
         var classLength = "hideNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
-        console.log(taskTypeID);
         $("#showNewTaskCategory" + taskTypeID).show();
         $("#hideNewTaskCategory" + taskTypeID).hide();
         $("#newTaskCategory" + taskTypeID).hide();
     });
     $("#hideNewTaskCategoryType").click(function(event){
         $("#showNewTaskCategoryType").show();
+        $("#showNewTaskCategoryType").removeClass('hidden');
         $("#hideNewTaskCategoryType").hide();
         $("#newTaskCategoryType").hide();
     });
@@ -49,6 +49,7 @@ $(document.body).ready(function () {
     $("#hideNewTaskTypes").click(function(event){
         var logID = event.target.id.substr(11,event.target.id.length-11);
         $("#showNewTaskTypes").show();       
+        $("#showNewTaskTypes").removeClass('hidden');
         $("#hideNewTaskTypes").hide();       
         $("#taskTypeSection").hide();       
     });
@@ -88,8 +89,10 @@ $(document.body).ready(function () {
     });
     $("#showNewTaskCategoryType").click(function(event){
         $("#showNewTaskCategoryType").hide();
-        $("#hideNewTaskCategoryType").show();
         $("#newTaskCategoryType").show();
+        $("#newTaskCategoryType").removeClass('hidden');
+        $("#hideNewTaskCategoryType").show();
+        $("#hideNewTaskCategoryType").removeClass('hidden');
     });
     $(".showNewTaskNotes").click(function(event){
         var taskID = event.target.id.substr(16,event.target.id.length-16);
@@ -109,7 +112,9 @@ $(document.body).ready(function () {
     $("#showNewTaskTypes").click(function(event){
         $("#showNewTaskTypes").hide();       
         $("#hideNewTaskTypes").show();       
+        $("#hideNewTaskTypes").removeClass('hidden');
         $("#taskTypeSection").show();       
+        $("#taskTypeSection").removeClass('hidden');
     });
     $(".showNewTimePeriodNote").click(function(event){
         var classLength = "showNewTimePeriodNote".length;
