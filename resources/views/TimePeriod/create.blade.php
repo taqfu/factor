@@ -10,7 +10,7 @@
                 Now
             </div>
             <div>
-                @include ('timeSelect', ["timestamp_type"=>"start"])
+                @include ('timeSelect', ["timestamp_type"=>"start", 'radio'=>true])
             </div>
         </div>
         <div id='endTimestamp' class='container col-lg-3 col-xs-12'>
@@ -24,7 +24,7 @@
                 Specify Later
             </div>
             <div>
-                @include ('timeSelect', ["timestamp_type"=>"end"])
+                @include ('timeSelect', ["timestamp_type"=>"end", 'radio'=>true])
             </div>
         </div>
         <div class='col-lg-5 text-center col-xs-12'>

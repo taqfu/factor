@@ -1,5 +1,8 @@
 <div>
-    <input id='{{ $timestamp_type }}TimestampSelect' type='radio' name='{{ $timestamp_type }}When' value='timestamp' />
+    @if($radio)
+    <input id='{{ $timestamp_type }}TimestampSelect' type='radio' 
+      name='{{ $timestamp_type }}When' value='timestamp' />
+    @endif
     <select id='{{ $timestamp_type }}Month' class='{{ $timestamp_type }}Timestamp' 
       name="{{ $timestamp_type }}Month" >
         @for($month=1 ; $month<13 ; $month++)

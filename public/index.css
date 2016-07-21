@@ -4,6 +4,23 @@
     margin:25px;
 }
 
-.inline{
-    display:inline;
+.margin-left{
+    margin-left:14px;
 }
+.margin-left-2{
+    margin-left:28px;
+}
+.margin-left-3{
+    margin-left:42px;
+}
+.margin-left-4{
+    margin-left:56px;
+}
+.textButton { 
+     background:none!important;
+     border:none; 
+     padding:0!important;
+     font: inherit;
+     /*border is optional*/
+     cursor: pointer;
+}   

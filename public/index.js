@@ -36,6 +36,7 @@ $(document.body).ready(function () {
     $(".hideNewTaskNotes").click(function(event){
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         $("#showNewTaskNotes"+taskID).show();       
+        $("#showNewTaskNotes"+taskID).removeClass('hidden');
         $("#hideNewTaskNotes"+taskID).hide();       
         $("#newTaskNote"+taskID).hide();       
     });
@@ -99,7 +100,10 @@ $(document.body).ready(function () {
         console.log(taskID);
         $("#showNewTaskNotes"+taskID).hide();       
         $("#hideNewTaskNotes"+taskID).show();       
+        $("#hideNewTaskNotes"+taskID).removeClass('hidden');       
         $("#newTaskNote"+taskID).show();       
+        $("#newTaskNote"+taskID).removeClass('hidden');       
+
     });
     $(".showNewTasks").click(function(event){
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
@@ -127,6 +131,7 @@ $(document.body).ready(function () {
         var idTagLength = "specifyEndTime".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
         $('#selectEndTimestamp'+timePeriodID).show();
+        $('#selectEndTimestamp'+timePeriodID).removeClass('hidden');
     });
     $(".startTimestamp").change(function(event){
         $("#startTimestampSelect").prop("checked", true);
