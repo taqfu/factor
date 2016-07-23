@@ -4,17 +4,34 @@
 @foreach($errors->all() as $error)
     {{$error}}
 @endforeach
-<ul class='list-inline text-center'>
-    <li>
-        <a href="{{route('time.index')}}"><h3 class=''>Today</h3></a>
+<ul class='nav nav-pills nav-justified'>
+    <li
+      @if ($period=="today")
+          class='active'
+      @endif
+      >
+      
+        <a href="{{route('time.index')}}"><h3>Today</h3></a>
     </li>
-    <li>
+    <li
+      @if ($period=="yesterday")
+          class='active'
+      @endif
+      >
         <a href="{{route('time.index', ['period'=>'yesterday'])}}"><h3>Yesterday</h3></a>
     </li>
-    <li>
+    <li
+      @if ($period=="week")
+          class='active'
+      @endif
+      >
         <a href="{{route('time.index', ['period'=>'week'])}}"><h3>Week</h3></a>
     </li>
-    <li>
+    <li
+      @if ($period=="all")
+          class='active'
+      @endif
+      >
         <a href="{{route('time.index', ['period'=>'all'])}}"><h3>All</h3></a>
     </li>
 </ul>

@@ -18,6 +18,7 @@ class TimePeriodController extends Controller
      */
     public function index(Request $request)
     {
+        $period=$request->period;
         switch($request->period){
             case "all":
                 $begin = TimePeriod::orderBy('created_at', 'asc')
@@ -33,11 +34,13 @@ class TimePeriodController extends Controller
                 $end = date("Y-m-d") . " 23:59:59";
                 break;
             default:
+                $period="today";
                 $begin = date("Y-m-d") . " 00:00:00";
                 $end = date("Y-m-d") . " 23:59:59";
                 break;
         }
-        return View::make('time.index', [
+        return View::make('time', [
+            'period'=>$period,
             "time_periods" => TimePeriod::where("created_at", ">", $begin)
               ->where("created_at", "<", $end)->orderBy("start", "desc")->get(),
             "task_types" => TaskType::orderBy("name", "asc")->get(),

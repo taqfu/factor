@@ -30,9 +30,6 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
     ]);
 });
 
-Route::resource("log", "LogController");
-Route::resource("TagType", "TagTypeController");
-Route::resource("tag", "TagController");
 Route::resource("time", "TimePeriodController");
 Route::resource("TimePeriodNote", "TimePeriodNoteController");
 Route::resource("task", "TaskController");
