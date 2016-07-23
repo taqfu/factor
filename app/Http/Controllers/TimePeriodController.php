@@ -22,7 +22,6 @@ class TimePeriodController extends Controller
             case "all":
                 $begin = TimePeriod::orderBy('created_at', 'asc')
                   ->first()->created_at;
-                var_dump($begin);
                 $end = date("Y-m-d") . " 23:59:59";
                 break;
             case "yesterday":
@@ -65,7 +64,6 @@ class TimePeriodController extends Controller
      */
     public function store(Request $request)
     {
-        $time_period = new TimePeriod;
         $startGuess = false;
         $endGuess = false;
         if ($request->startWhen==="now"){
@@ -73,7 +71,9 @@ class TimePeriodController extends Controller
         }  else if ($request->startWhen==="unspecific"){
             $start = 0;
         } else if ($request->startWhen==="timestamp"){
-            $start = $request->startYear . "-" . $request->startMonth . "-" . $request->startDay . " " . $request->startHour . ":" . $request->startMinute . ":00"; 
+            $start = $request->startYear . "-" . $request->startMonth . "-" 
+              . $request->startDay . " " . $request->startHour . ":" 
+              . $request->startMinute . ":00"; 
             $startGuess = $request->startGuess==="on";
         }
 
@@ -82,15 +82,21 @@ class TimePeriodController extends Controller
         } else if ($request->endWhen==="unspecific"){
             $end = 0;
         } else if ($request->endWhen==="timestamp"){
-            $end = $request->endYear . "-" . $request->endMonth . "-" . $request->endDay . " " . $request->endHour . ":" . $request->endMinute . ":00"; 
+            $end = $request->endYear . "-" . $request->endMonth . "-" 
+              . $request->endDay . " " . $request->endHour . ":" 
+              . $request->endMinute . ":00"; 
             $endGuess = $request->endGuess==="on";
         }
+        $time_period = new TimePeriod;
         $time_period->start = $start;
         $time_period->startGuess = $startGuess; 
         $time_period->end = $end;
         $time_period->endGuess = $endGuess; 
         $time_period->save();
-       
+
+        if ($request->endWhen=="now"){
+            TimePeriod::new_now();
+        }
         return back();
         
 
@@ -130,12 +136,13 @@ class TimePeriodController extends Controller
         $time_period = TimePeriod::find($id);
         if ($request->when=="now"){
             $time_period->end = date('Y-m-d H:i:s');
-            $time_period->save();
         } else if ($request->when=="timestamp"){
-            $time_period->end =  $request->newEndYear . "-" . $request->newEndMonth . "-" . $request->newEndDay 
-              . " " . $request->newEndHour . ":" . $request->newEndMinute . ":00";
-            $time_period->save();
+            $time_period->end =  $request->newEndYear . "-" . $request->newEndMonth 
+              . "-" . $request->newEndDay . " " . $request->newEndHour . ":" 
+              . $request->newEndMinute . ":00";
         }
+        $time_period->save();
+        TimePeriod::new_now();
         return back();
     }
     
@@ -149,8 +156,7 @@ class TimePeriodController extends Controller
      */
     public function destroy($id)
     {
-        TimePeriod::where("id", $id)->delete();
+        TimePeriod::find($id)->delete();
         return back();
-        //
     }
 }

@@ -85,7 +85,7 @@ class TagController extends Controller
      */
     public function destroy(Request $request, $id)
     {
-        Tag::where("id", $id)->delete();
+        Tag::find($id)->delete();
         return back();
     }
 }

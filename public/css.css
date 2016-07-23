@@ -1,0 +1,54 @@
+#createNewTimePeriod{
+    width:200px;
+    height:100px;
+    margin:25px;
+}
+button.activeTaskCategoryType{
+    font-weight:bold;
+}
+.inline{
+    display:inline;
+}
+
+.margin-left{
+    margin-left:14px;
+}
+.margin-left-2{
+    margin-left:28px;
+}
+.margin-left-3{
+    margin-left:42px;
+}
+.margin-left-4{
+    margin-left:56px;
+}
+.margin-left-5{
+    margin-left:70px;
+}
+.margin-left-6{
+    margin-left:84px;
+}
+.margin-left-7{
+    margin-left:98px;
+}
+.margin-top{
+    margin-top:14px;
+}
+.padding-left{
+    padding-left:14px;
+}
+.padding-left-2{
+    padding-left:28px;
+}
+.padding-left-3{
+    padding-left:42px;
+}
+.padding-left-4{
+    padding-left:56px;
+}
+.padding-left-5{
+    padding-left:70px;
+}
+.padding-left-6{
+    padding-left:84px;
+}

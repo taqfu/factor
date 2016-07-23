@@ -29,8 +29,9 @@
         </div>
         <div class='col-lg-5 text-center col-xs-12'>
             <input type='hidden' name='test' value='test' />
-            <input id='createNewTimePeriod' type='submit' 
-              value='Create New Time Period' />
+            <button id='createNewTimePeriod' type='submit' class='btn btn-default'>
+                Create New Time Period
+            </button>
         </div>
     </div>
 </form>

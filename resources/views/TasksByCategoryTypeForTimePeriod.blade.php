@@ -1,26 +1,39 @@
 <?php use App\TaskType; ?>
 <!-- This is the [ Add Task ] menu. -->
-<input type='hidden' id='timePeriodIDForListOfNewTasks' value='{{ $time_period_id }}' />
-<div style='text-align:center;margin-top:16px;margin-bottom:8px;'>
+<input type='hidden' id='timePeriodIDForListOfNewTasks'
+  value='{{ $time_period_id }}' />
+<div class='text-center'>
+    <button id='hideNewTasks{{$time_period_id}}'
+      class='hideNewTasks btn btn-primary'>
+        Hide Tasks
+    </button>
+</div>
+<div class='text-center bg-info page-header'>
     @foreach ($task_category_types as $task_category_type)
         @if ($task_category_type->id == $active_task_category_type_id)
-            <input type='button' id='taskCategoryTypeForTimePeriod{{$task_category_type->id}}' 
-                class='textButton activeTaskCategoryTypeForTimePeriod' value='[ {{ $task_category_type->name }} ]' />
+            <button id='taskCategoryTypeForTimePeriod{{$task_category_type->id}}' 
+                class='activeTaskCategoryTypeForTimePeriod btn btn-link'>
+                <strong>
+                    {{ $task_category_type->name }}
+                </strong>
+            </button>
         @else
-            <input type='button' id='taskCategoryTypeForTimePeriod{{$task_category_type->id}}' 
-                class='textButton taskCategoryTypeForTimePeriod' value='[ {{ $task_category_type->name }} ]' />
+            <button id='taskCategoryTypeForTimePeriod{{$task_category_type->id}}' 
+                class='taskCategoryTypeForTimePeriod btn btn-link'>
+                {{ $task_category_type->name }}
+            </button>
         @endif
     @endforeach
 </div>
-<div style='margin-bottom:16px;'>
+<div class='text-center'>
 @foreach($task_types as $task_type)
-    <form method='POST' action="{{ route('task.store') }}" >   
-    {{ csrf_field () }}
-    <input type='hidden' name='timePeriodID' value='{{ $time_period_id }}'/>
-    <input type='hidden' name='typeID' value='{{ $task_type->task_type_id }}' />
-    
-    <input type='submit' value='{{ $task_type->name }}' class='textButton' /> - 
-    {{round((TaskType::total_time($task_type->id)/60/60),1)}}
+    <form method='POST' action="{{ route('task.store') }}" class='inline new_tasks'>   
+        {{ csrf_field () }}
+        <input type='hidden' name='timePeriodID' value='{{ $time_period_id }}'/>
+        <input type='hidden' name='typeID' value='{{ $task_type->task_type_id }}' />
+        <button type='submit' class='btn btn-success'>
+            {{ $task_type->name }}
+        </button>
     </form>
 @endforeach
 </div>

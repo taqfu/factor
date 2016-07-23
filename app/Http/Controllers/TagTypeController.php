@@ -86,7 +86,7 @@ class TagTypeController extends Controller
      */
     public function destroy($id)
     {
-        TagType::where("id", $id)->delete();
+        TagType::find($id)->delete();
         return back();
     }
 }

@@ -37,13 +37,25 @@ class TaskTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'newTaskName'=>'required|unique:task_types,name',
+        ]);
         $task_type = new TaskType;
         $task_type->name = $request->newTaskName;
         $task_type->save();
+
         $task_category = new TaskCategory;
         $task_category->task_category_type_id = 1;
         $task_category->task_type_id =  $task_type->id;
         $task_category->save();
+
+        if ($request->defaultTaskCategoryType!="NULL"){
+            $task_category = new TaskCategory;
+            $task_category->task_category_type_id = 
+              $request->defaultTaskCategoryType;
+            $task_category->task_type_id =  $task_type->id;
+            $task_category->save();
+        }
         return back();
     }
 
@@ -90,7 +102,7 @@ class TaskTypeController extends Controller
      */
     public function destroy($id)
     {
-        TaskType::where("id", $id)->delete();
+        TaskType::find($id)->delete();
         TaskCategory::where("task_type_id", $id)->delete();
         return back();
     }

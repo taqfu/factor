@@ -24,6 +24,7 @@ $(document.body).ready(function () {
         var classLength = "hideNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
         $("#showNewTaskCategory" + taskTypeID).show();
+        $("#showNewTaskCategory" + taskTypeID).removeClass('hidden');
         $("#hideNewTaskCategory" + taskTypeID).hide();
         $("#newTaskCategory" + taskTypeID).hide();
     });
@@ -40,12 +41,12 @@ $(document.body).ready(function () {
         $("#hideNewTaskNotes"+taskID).hide();       
         $("#newTaskNote"+taskID).hide();       
     });
-    $(".hideNewTasks").click(function(event){
+    $(document).on("click", ".hideNewTasks", function (event) {
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
         $('.listOfNewTasks').html("");
         $("#showNewTasks" + timePeriodID).show();
-        $("#hideNewTasks" + timePeriodID).hide();
-    
+        $("#showNewTasks" + timePeriodID).removeClass('hidden');
+        $(".showNewTasks").show(); 
     });
     $("#hideNewTaskTypes").click(function(event){
         var logID = event.target.id.substr(11,event.target.id.length-11);
@@ -58,6 +59,7 @@ $(document.body).ready(function () {
         var classLength = "hideNewTimePeriodNote".length;
         var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
         $("#showNewTimePeriodNote"+timePeriodID).show();       
+        $("#showNewTimePeriodNote"+timePeriodID).removeClass('hidden');
         $("#newTimePeriodNote"+timePeriodID).hide();       
     });
     $(".hideSelectEndTimestamp").click(function(event){
@@ -83,10 +85,12 @@ $(document.body).ready(function () {
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
-        console.log(classLength);
         $("#showNewTaskCategory" + taskTypeID).hide();
         $("#hideNewTaskCategory" + taskTypeID).show();
+        $("#hideNewTaskCategory" + taskTypeID).removeClass('hidden');
         $("#newTaskCategory" + taskTypeID).show();
+        $("#newTaskCategory" + taskTypeID).removeClass('hidden');
+        console.log(classLength);
     });
     $("#showNewTaskCategoryType").click(function(event){
         $("#showNewTaskCategoryType").hide();
@@ -109,6 +113,7 @@ $(document.body).ready(function () {
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
         $("#showNewTasks" + timePeriodID).hide();
         $("#hideNewTasks" + timePeriodID).show();
+        $("#hideNewTasks" + timePeriodID).removeClass('hidden');
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
         $("input[name='timePeriodID']").val(timePeriodID);
     
@@ -126,6 +131,7 @@ $(document.body).ready(function () {
         console.log(timePeriodID);
         $("#showNewTimePeriodNote"+timePeriodID).hide();       
         $("#newTimePeriodNote"+timePeriodID).show();       
+        $("#newTimePeriodNote"+timePeriodID).removeClass('hidden');
     });
     $(".specifyEndTime").click(function(event){
         var idTagLength = "specifyEndTime".length;

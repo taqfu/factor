@@ -1,43 +1,58 @@
 <?php
     use App\TaskType;
 ?>
-<div>
-    <form method="POST" action=" {{ route('TaskType.destroy', ['id'=>$task_type->id]) }}" style='float:left;'
-        onsubmit="return confirm('Are you sure you want to delete \'{{ $task_type->name }}\'');">
-    {{ csrf_field() }}
-    {{ method_field('delete') }}
-    <input type='submit' value='x' class='textButton delete' />
-    {{ $task_type->name }} ({{round(TaskType::total_time($task_type->id)/60/60, 1)}})
-    <?php
-
-    ?>
+<div class='clearfix'>
+    <div class='bg-primary clearfix'>
+        <form method="POST" action=" {{ route('TaskType.destroy', 
+          ['id'=>$task_type->task_type_id]) }}" onsubmit="return 
+          confirm('Are you sure you want to delete \'{{ $task_type->name }}\'');"
+          class='inline' >
+            {{ csrf_field() }}
+            {{ method_field('delete') }}
+            <button type='submit' class='btn btn-danger'>
+                x
+            </button>
+            {{ $task_type->name }} 
+            ({{round(TaskType::total_time($task_type->task_type_id)/60/60, 1)}})
+        </form>
+        <button id='showNewTaskCategory{{ $task_type->task_type_id }}' 
+          class='showNewTaskCategory btn btn-success'>
+            New
+        </button>
+        <button id='hideNewTaskCategory{{ $task_type->task_type_id }}'
+          class='hideNewTaskCategory btn btn-success hidden'>
+            Hide
+        </button>
+    </div>
+    <form method="POST" action="{{ route('TaskCategory.store') }}"
+      id='newTaskCategory{{ $task_type->task_type_id}}'
+      class='newTaskCategory hidden'>
+        {{ csrf_field() }}
+        <input type='hidden' name='newTaskTypeID' 
+          value='{{ $task_type->task_type_id }}' />
+        <select name='newTaskCategoryTypeID' class='form-control'>
+            @foreach ($task_category_types as $task_category_type)
+                <option value='{{ $task_category_type->id }}'>
+                    {{ $task_category_type->name }}
+                </option>
+            @endforeach
+        </select>
+        <button type='submit' class='btn btn-primary'>
+            Add
+        </button>
     </form>
     @foreach ($task_type->categories as $task_type_category)
-    <div style='float:left;margin-left:16px;margin-right:8px;font-style:italic;color:grey;'>
-            @if ($task_type_category->type->id!=1)
-            <form method='POST' action="{{ route('TaskCategory.destroy', ['id'=>$task_type_category->id]) }}" style='float:left;'>
-                {{csrf_field() }}
-                {{ method_field('DELETE') }}
-                <input type='submit' value='x' class='textButton delete' />
-                {{ $task_type_category->type->name }}  
-            </form>
-            @endif
-    </div>
-    <div id='newTaskCategory{{ $task_type->id}}' class='newTaskCategory clear' style='margin-bottom:8px;'> 
-        <form method="POST" action="{{ route('TaskCategory.store') }}" style=''>
-        {{ csrf_field() }}
-        <input type='hidden' name='newTaskTypeID' value='{{ $task_type->id }}' />
-        <select name='newTaskCategoryTypeID'>
-        @foreach ($task_category_types as $task_category_type)
-            <option value='{{ $task_category_type->id }}'>
-                {{ $task_category_type->name }}
-            </option>
-        @endforeach
-        </select>
-        <input type='submit' value='Add' />
-        <input type='button' id='hideNewTaskCategory{{ $task_type->id }}' class='hideNewTaskCategory textButton' value='[ Hide ]' />
+        @if ($task_type_category->type->id!=1)
+        <form method='POST' action="{{ route('TaskCategory.destroy', 
+          ['id'=>$task_type_category->id]) }}" 
+          class='clearfix margin-left-3 text-muted'>
+            {{csrf_field() }}
+            {{ method_field('DELETE') }}
+            <button type='submit' class='btn btn-danger'>
+                x
+            </button>
+            {{ $task_type_category->type->name }}  
         </form>
-    </div>
+        @endif
     @endforeach 
-    <input type='button' id='showNewTaskCategory{{ $task_type->id }}' class='showNewTaskCategory textButton' value='[ New ]' />
 </div>

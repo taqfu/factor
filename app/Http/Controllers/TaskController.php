@@ -36,6 +36,14 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request,[
+            'timePeriodID'=>'required',
+            'typeID'=>'required',
+        ]);
+        if (count(Task::where('time_period_id', $request->timePeriodID)
+          ->where('typE_id', $request->typeID)->get())>0){
+            return back()->withErrors('Task already exists.');
+        }
         $task = new Task;
         $task->time_period_id = $request->timePeriodID;
         $task->type_id = $request->typeID;
@@ -85,7 +93,7 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        Task::where("id", $id)->delete();
+        Task::find($id)->delete();
         return back();
     }
 }

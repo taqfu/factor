@@ -15,6 +15,7 @@ class LogController extends Controller
      */
     public function index()
     {
+        
         //
     }
 
@@ -84,7 +85,7 @@ class LogController extends Controller
      */
     public function destroy($id)
     {
-        Log::where("id", $id)->delete();
+        Log::find($id)->delete();
         return back();
     }
 }

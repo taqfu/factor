@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\TaskCategoryType;
 use App\TaskCategory;
+use App\TaskType;
 use View;
 class TaskCategoryTypeController extends Controller
 {
@@ -37,6 +38,9 @@ class TaskCategoryTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'newTaskCategoryTypeName'=>'required|unique:task_category_types,name',
+        ]);
         $task_category_type = new TaskCategoryType;
         $task_category_type->name = $request->newTaskCategoryTypeName;
         $task_category_type->save();
@@ -53,7 +57,10 @@ class TaskCategoryTypeController extends Controller
     public function show($id)
     {
         return View::make('TaskCategory.show', [
-        "task_categories"=>TaskCategory::where('task_category_type_id', $id)->get(),
+        "task_types"=>TaskType::join('task_categories', 'task_type_id', '=', 
+          'task_types.id')->where('task_categories.task_category_type_id', $id)
+          ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 
+          'asc')->get(),
         "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
         ]);
     }
@@ -89,7 +96,7 @@ class TaskCategoryTypeController extends Controller
      */
     public function destroy($id)
     {
-        TaskCategoryType:: where ("id", $id)->delete();
+        TaskCategoryType:: find($id)->delete();
         return back();
     }
 }

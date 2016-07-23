@@ -16,4 +16,12 @@ class TimePeriod extends Model
     public function notes(){
         return $this->hasMany("App\TimePeriodNote");
     }
+    public static function new_now(){
+            $time_period = new TimePeriod;
+            $time_period->start = date('Y-m-d H:i:s');
+            $time_period->startGuess = false;
+            $time_period->end = 0; 
+            $time_period->endGuess = false;
+            $time_period->save();
+    }
 }

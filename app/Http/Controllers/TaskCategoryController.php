@@ -35,6 +35,15 @@ class TaskCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'newTaskTypeID' => 'required',
+            'newTaskCategoryTypeID' => 'required',
+        ]);
+        if (count(TaskCategory::where('task_type_id', $request->newTaskTypeID)
+          ->where('task_category_type_id', $request->newTaskCategoryTypeID)
+          ->get())>0){
+            return back();
+        }
         $task_category = new TaskCategory;
         $task_category->task_type_id  =  $request->newTaskTypeID;
         $task_category->task_category_type_id = $request->newTaskCategoryTypeID;
@@ -85,7 +94,7 @@ class TaskCategoryController extends Controller
      */
     public function destroy($id)
     {
-        TaskCategory::where("id", $id)->delete();
+        TaskCategory::find($id)->delete();
         return back();
     }
 }
