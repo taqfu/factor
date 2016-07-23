@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\TaskCategoryType;
 use App\TaskType;
 use App\TimePeriod;
+use DB;
 use View;
 class TimePeriodController extends Controller
 {
@@ -143,6 +144,12 @@ class TimePeriodController extends Controller
             $time_period->end =  $request->newEndYear . "-" . $request->newEndMonth 
               . "-" . $request->newEndDay . " " . $request->newEndHour . ":" 
               . $request->newEndMinute . ":00";
+            
+        }
+        $interval = DB::select("select unix_timestamp(?) - unix_timestamp(?)
+          as output", [$time_period->end, $time_period->start])[0]->output;
+        if ((int)$interval<0){
+            return back()->withErrors('TimePeriod can not end before it has begun.');
         }
         $time_period->save();
         TimePeriod::new_now();
