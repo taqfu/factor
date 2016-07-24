@@ -1,9 +1,22 @@
 <?php 
+    use App\TimePeriod;
     $old_date = 0; 
+    $last_time_period_ended_at=0;
 ?>
 
 @foreach ($time_periods as $time_period)
-    <?php $date = date("m/d/y", strtotime($time_period->start)) ?>
+    @if ($last_time_period_ended_at!=0 
+      && TimePeriod::interval($time_period->end, $last_time_period_ended_at)>300)
+        <div class='lead margin-top-2'>
+            {{TimePeriod::
+              format_interval($time_period->end, $last_time_period_ended_at)}}
+            unnaccounted for
+        </div>
+    @endif
+    <?php 
+        $date = date("m/d/y", strtotime($time_period->start));
+        $last_time_period_ended_at = $time_period->start;
+    ?>
     @if ($date!= $old_date)
         <h1 class='text-center'>
             {{ $date }} 

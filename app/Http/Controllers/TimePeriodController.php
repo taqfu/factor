@@ -146,9 +146,7 @@ class TimePeriodController extends Controller
               . $request->newEndMinute . ":00";
             
         }
-        $interval = DB::select("select unix_timestamp(?) - unix_timestamp(?)
-          as output", [$time_period->end, $time_period->start])[0]->output;
-        if ((int)$interval<0){
+        if (TimePeriod::interval($time_period->start, $time_period->end)<0){
             return back()->withErrors('TimePeriod can not end before it has begun.');
         }
         $time_period->save();
