@@ -35,10 +35,13 @@
         <a href="{{route('time.index', ['period'=>'all'])}}"><h3>All</h3></a>
     </li>
 </ul>
-        @include ('TimePeriod.create') 
+
+@include ('TimePeriod.create') 
 <div class='container text-center margin-top'>
     <button id='showNewTaskTypes' class='btn-default'>Show Task Types</button>
     <button id='hideNewTaskTypes' class='btn-default hidden'>Hide Task Types</button>
+    <button id='showNewTimePeriod' class='btn-default'>New Time Period</button>
+    <button id='hideNewTimePeriod' class='btn-default hidden'>Hide New Time Period</button>
 </div>
 @include ('TaskType.index')
 

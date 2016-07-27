@@ -52,6 +52,11 @@ $(document.body).ready(function () {
         $("#hideNewTaskTypes").hide();       
         $("#taskTypeSection").hide();       
     });
+    $("#hideNewTimePeriod").click(function(event){
+        $("#createTimePeriod").addClass('hidden');
+        $("#hideNewTimePeriod").addClass('hidden');
+        $("#showNewTimePeriod").removeClass('hidden');
+    });
     $(document).on('click', ".hideNewTimePeriodNote", function(event){
         $(".newTimePeriodNote").html("");
         $(".showNewTimePeriodNote").removeClass('hidden');
@@ -121,6 +126,12 @@ $(document.body).ready(function () {
         $("#hideNewTaskTypes").removeClass('hidden');
         $("#taskTypeSection").show();       
         $("#taskTypeSection").removeClass('hidden');
+    });
+    $("#showNewTimePeriod").click(function(event){
+        $("#createTimePeriod").removeClass('hidden');
+        $("#hideNewTimePeriod").removeClass('hidden');
+        $("#showNewTimePeriod").addClass('hidden');
+
     });
     $(".showNewTimePeriodNote").click(function(event){
         var classLength = "showNewTimePeriodNote".length;
