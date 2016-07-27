@@ -140,17 +140,23 @@ class TimePeriodController extends Controller
         $time_period = TimePeriod::find($id);
         if ($request->when=="now"){
             $time_period->end = date('Y-m-d H:i:s');
+            TimePeriod::new_now();
         } else if ($request->when=="timestamp"){
-            $time_period->end =  $request->newEndYear . "-" . $request->newEndMonth 
+            $timestamp =  $request->newEndYear . "-" . $request->newEndMonth 
               . "-" . $request->newEndDay . " " . $request->newEndHour . ":" 
               . $request->newEndMinute . ":00";
+
+            $time_period->end = $timestamp;
+            $another_time_period = new TimePeriod;
+            $another_time_period->start = $timestamp;
+            $another_time_period->end = 0;
+            $another_time_period->save();
             
         }
         if (TimePeriod::interval($time_period->start, $time_period->end)<0){
             return back()->withErrors('TimePeriod can not end before it has begun.');
         }
         $time_period->save();
-        TimePeriod::new_now();
         return back();
     }
     
