@@ -24,9 +24,9 @@ class TimePeriodNoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return View('TimePeriodNote.create', ['id'=>$id]);
     }
 
     /**

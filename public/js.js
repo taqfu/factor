@@ -34,12 +34,9 @@ $(document.body).ready(function () {
         $("#hideNewTaskCategoryType").hide();
         $("#newTaskCategoryType").hide();
     });
-    $(".hideNewTaskNotes").click(function(event){
-        var taskID = event.target.id.substr(16,event.target.id.length-16);
-        $("#showNewTaskNotes"+taskID).show();       
-        $("#showNewTaskNotes"+taskID).removeClass('hidden');
-        $("#hideNewTaskNotes"+taskID).hide();       
-        $("#newTaskNote"+taskID).hide();       
+    $(document).on('click', ".hideNewTaskNotes", function(event){
+        $(".newTaskNote").html("");
+        $(".showNewTaskNotes").removeClass('hidden');
     });
     $(document).on("click", ".hideNewTasks", function (event) {
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
@@ -55,13 +52,11 @@ $(document.body).ready(function () {
         $("#hideNewTaskTypes").hide();       
         $("#taskTypeSection").hide();       
     });
-    $(".hideNewTimePeriodNote").click(function(event){
-        var classLength = "hideNewTimePeriodNote".length;
-        var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
-        $("#showNewTimePeriodNote"+timePeriodID).show();       
-        $("#showNewTimePeriodNote"+timePeriodID).removeClass('hidden');
-        $("#newTimePeriodNote"+timePeriodID).hide();       
+    $(document).on('click', ".hideNewTimePeriodNote", function(event){
+        $(".newTimePeriodNote").html("");
+        $(".showNewTimePeriodNote").removeClass('hidden');
     });
+        
     $(".hideSelectEndTimestamp").click(function(event){
         var idTagLength = "hideSelectEndTimestamp".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
@@ -102,11 +97,13 @@ $(document.body).ready(function () {
     $(".showNewTaskNotes").click(function(event){
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         console.log(taskID);
-        $("#showNewTaskNotes"+taskID).hide();       
-        $("#hideNewTaskNotes"+taskID).show();       
-        $("#hideNewTaskNotes"+taskID).removeClass('hidden');       
-        $("#newTaskNote"+taskID).show();       
-        $("#newTaskNote"+taskID).removeClass('hidden');       
+        $(".showNewTaskNotes").removeClass('hidden');
+        $("#showNewTaskNotes" + taskID).addClass('hidden');
+        $(".newTaskNote").html("");
+        $.get(siteRoot + "/TaskNote/create/" + taskID, 
+            function( data ) {
+                $("#newTaskNote"+taskID).html(data);
+        });
 
     });
     $(".showNewTasks").click(function(event){
@@ -128,10 +125,14 @@ $(document.body).ready(function () {
     $(".showNewTimePeriodNote").click(function(event){
         var classLength = "showNewTimePeriodNote".length;
         var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
-        console.log(timePeriodID);
-        $("#showNewTimePeriodNote"+timePeriodID).hide();       
-        $("#newTimePeriodNote"+timePeriodID).show();       
-        $("#newTimePeriodNote"+timePeriodID).removeClass('hidden');
+        $(".showNewTimePeriodNote").removeClass('hidden');
+        $("#showNewTimePeriodNote" + timePeriodID).addClass('hidden');
+        $(".newTimePeriodNote").html("");
+        $.get(siteRoot + "/TimePeriodNote/create/" + timePeriodID, 
+            function( data ) {
+                $('#newTimePeriodNote' + timePeriodID).html(data);
+        });
+        
     });
     $(".specifyEndTime").click(function(event){
         var idTagLength = "specifyEndTime".length;
@@ -156,7 +157,7 @@ $(document.body).ready(function () {
 });
 
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, id){ //This comes up when you click Add Tasks
-    console.log(siteRoot + "/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID);
+//    console.log(siteRoot + "/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + id + "/TimePeriodID/" + timePeriodID, 
         function( data ) {
             $('#listOfNewTasks' + timePeriodID).html(data);

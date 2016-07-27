@@ -29,6 +29,10 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
         "selected_task_category_type"=>TaskCategoryType::where('id', $id)->first(),
     ]);
 });
+Route::get('/TaskNote/create/{id}', 
+  ['uses'=>'TaskNoteController@create']);
+Route::get('/TimePeriodNote/create/{id}', 
+  ['uses'=>'TimePeriodNoteController@create']);
 
 Route::resource("time", "TimePeriodController");
 Route::resource("TimePeriodNote", "TimePeriodNoteController");

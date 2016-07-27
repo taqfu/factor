@@ -24,9 +24,9 @@ class TaskNoteController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id)
     {
-        //
+        return View('TaskNote.create', ['id'=>$id]);
     }
 
     /**

@@ -29,25 +29,9 @@
     </div>
     <div class='timePeriod clearfix row margin-top' style=''>
         <div class='col-xs-12 col-lg-3'>
-            <form method="POST" action="{{ route('time.destroy', 
-              ['id'=>$time_period->id]) }}" class='inline' >
-                {{ csrf_field() }}
-                {{ method_field('DELETE') }}
-                <button type='submit' class='btn btn-danger' />
-                    x
-                </button>
-                {{ date("H:i", strtotime($time_period->start)) }} - 
-            </form>
+            @include ('TimePeriod.destroy')
             @if ($time_period->end==0)
-                <form method="POST" action="{{ route('time.update', 
-                  ['id'=>$time_period->id]) }}" class='inline'>
-                    {{ csrf_field() }}
-                    {{ method_field('PUT') }}
-                    <input type='hidden' name='when' value='now' />
-                    <button type='submit' class='btn btn-default'/>
-                        Now
-                    </button>
-                </form>
+                @include ('TimePeriod.edit', ['when'=>'now'])
                 <button id='specifyEndTime{{ $time_period->id }}' 
                   class='specifyEndTime btn btn-default'>
                     Specify
@@ -104,62 +88,20 @@
               class='hideSelectEndTimestamp btn btn-default pull-left'>
                 -
             </button>
-            <form  method="POST" action="{{ route('time.update', 
-              ['id'=>$time_period->id]) }}" class='pull-left'>
-                {{ csrf_field() }}
-                {{ method_field('PUT') }}
-                @include ('timeSelect', ["timestamp_type"=>"newEnd", 'radio'=>false])
-                <input type='hidden' name='when' value='timestamp' />
-                <input type='submit' value='Submit' class='pull-left'/>
-            </form>
+            @include ('TimePeriod.edit', ['when'=>'specify'])
         </div>
     @endif
     <div id='newTimePeriodNote{{ $time_period->id }}' 
-      class='newTimePeriodNote clearfix hidden'>
-        <form method="POST" action="{{ route('TimePeriodNote.store') }}"
-          class='inline'>
-            {{ csrf_field() }}
-            <input type='hidden' name='timePeriodID' 
-              value='{{ $time_period->id }}' />
-            <textarea name='newTimePeriodNote' class='form-control'></textarea>
-            <button type='submit' class='btn btn-info'>
-                Add Note
-            </button>
-        </form>
-        <button id='hideNewTimePeriodNote{{$time_period->id}}' 
-          class='hideNewTimePeriodNote btn btn-info'>
-            Cancel
-        </button>
+      class='newTimePeriodNote clearfix'>
     </div>
     <div class='listOfActiveTasks clear'>
         @foreach ($time_period->notes as $time_period_note)
-            <form method="POST" action="{{ route('TimePeriodNote.destroy', 
-              ['id'=>$time_period_note->id]) }}" class='margin-left-3 bg-info text-muted'>
-                {{ csrf_field () }}
-                {{ method_field('DELETE') }}
-                <button type='submit' class='delete btn btn-danger'>
-                    x
-                </button>
-                <span class='timePeriodNote'>
-                    {{ $time_period_note->report }} 
-                    <span class='timePeriodNoteInfo'>
-                        (Created: {{ date("m/d/y g:i", strtotime($time_period_note->created_at)) }})
-                    </span>
-                </span>
-            </form>
+            @include('TimePeriodNote.destroy')
         @endforeach
         @foreach ($time_period->tasks as $task)
             <div class='task clearfix padding-left-3'>
                 <div class='col-xs-8 col-lg-3'>
-                    <form method="POST" action="{{ route('task.destroy', 
-                      ['id'=>$task->id]) }}" class='inline text-info'>
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        <button type='submit' class='delete btn btn-danger'>
-                            x
-                        </button>
-                        {{ $task->type->name }}
-                    </form>
+                    @include('Task.destroy')
                 </div>
                 <div class='col-xs-4 col-lg-9'>
                     <button id='showNewTaskNotes{{ $task->id }}'
@@ -168,37 +110,10 @@
                     </button>
                 </div>
             </div>
-            <div>
-                <form id='newTaskNote{{ $task->id }}' method="POST"
-                  action="{{ route('TaskNote.store') }}"
-                  class='newTaskNote hidden' style='display:inline;'>
-                    {{ csrf_field() }} 
-                    <input type='hidden' name='taskID' value='{{ $task->id }}' />
-                    <textarea name='newTaskNote' class='form-control'></textarea>
-                    <button type='submit' class='btn btn-info'>
-                        Create Note
-                    </button>
-                </form>
-                <button id='hideNewTaskNotes{{ $task->id }}' 
-                  class='hideNewTaskNotes btn btn-info hidden'>
-                    Cancel
-                </button>
+            <div id='newTaskNote{{ $task->id }}' class='newTaskNote' >
             </div>
             @foreach ( $task->notes as $note )
-                <form method="POST" action="{{ route('TaskNote.destroy', 
-                  ['id'=>$note->id]) }}"  
-                  class='taskNote bg-info text-muted margin-left-7'>
-                    {{ csrf_field() }}
-                    {{ method_field('DELETE') }}
-                    <button type='submit' class='delete btn btn-danger'>
-                        x
-                    </button>
-                    {{ $note->report }}
-                    <i class='small'>
-                        ( Created - 
-                        {{ date("m/d/y g:i", strtotime($note->created_at)) }} )
-                    </i>
-                </form>
+                @include('TaskNote.destroy')
             @endforeach
         @endforeach
         </div>
