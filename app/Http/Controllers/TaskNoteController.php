@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Task;
 use App\TaskNote;
 
 class TaskNoteController extends Controller
@@ -37,11 +38,16 @@ class TaskNoteController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            "newTaskNote"=>"required|string|max:20000",
+            "taskID"=>"required|integer",
+        ]);
         $task_note = new TaskNote;
         $task_note->report = $request->newTaskNote;
         $task_note->task_id = $request->taskID;
         $task_note->save();
-        return back();
+        $task = Task::find($request->taskID);
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $task->time_period_id);
     }
 
     /**
@@ -86,7 +92,9 @@ class TaskNoteController extends Controller
      */
     public function destroy($id)
     {
-        TaskNote::where("id", $id)->delete();
-        return back();
+        $task_note = TaskNote::find($id);
+        $task = Task::find($task_note->task_id);
+        $task_note->delete();
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $task->time_period_id);
     }
 }

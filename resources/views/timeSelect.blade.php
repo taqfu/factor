@@ -1,7 +1,7 @@
 <div>
     @if($radio)
-    <input id='{{ $timestamp_type }}TimestampSelect' type='radio' 
-      name='{{ $timestamp_type }}When' value='timestamp' />
+        <input id='{{ $timestamp_type }}TimestampSelect' type='radio' 
+          name='{{ $timestamp_type }}When' value='timestamp' />
     @endif
     <select id='{{ $timestamp_type }}Month' class='{{ $timestamp_type }}Timestamp' 
       name="{{ $timestamp_type }}Month" >
@@ -45,7 +45,7 @@
     
     </select>
 </div>
-<div class='text-center'>
+<div class='margin-left time-select'>
     <select id='{{ $timestamp_type }}Hour' class='{{ $timestamp_type }}Timestamp' 
       name="{{ $timestamp_type }}Hour">
     

@@ -10,7 +10,6 @@
           class='active'
       @endif
       >
-      
         <a href="{{route('time.index')}}"><h3>Today</h3></a>
     </li>
     <li

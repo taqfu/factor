@@ -48,7 +48,7 @@ class TaskController extends Controller
         $task->time_period_id = $request->timePeriodID;
         $task->type_id = $request->typeID;
         $task->save();
-        return back();
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $request->timePeriodID);
     }
 
     /**
@@ -93,7 +93,8 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
-        Task::find($id)->delete();
-        return back();
+        $task = Task::find($id);
+        $task->delete();
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $task->time_period_id);
     }
 }

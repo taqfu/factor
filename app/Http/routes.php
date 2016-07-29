@@ -41,3 +41,7 @@ Route::resource("TaskNote", "TaskNoteController");
 Route::resource("TaskType", "TaskTypeController");
 Route::resource('TaskCategory', 'TaskCategoryController');
 Route::resource('TaskCategoryType', 'TaskCategoryTypeController');
+
+Route::auth();
+
+Route::get('/home', 'HomeController@index');

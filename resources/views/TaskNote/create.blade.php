@@ -6,7 +6,6 @@
         Create Note
     </button>
 </form>
-<button id='hideNewTaskNotes{{ $id }}' 
-  class='hideNewTaskNotes btn btn-info'>
+<button id='hideNewTaskNotes{{ $id }}' class='hideNewTaskNotes btn btn-info'>
     Cancel
 </button>

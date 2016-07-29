@@ -15,13 +15,7 @@ class TaskType extends Model
     public function categories(){
         return $this->hasMany('App\TaskCategory', 'task_type_id', 'task_type_id');
     }
-/*
-    public static function categories ($id){
-        return TaskCategoryType::join("task_categories", 'task_category_type_id', 
-          '=', "task_category_types.id")->where('task_categories.task_type_id', $id)
-          ->orderBy('task_category_types.name', 'asc')->get();
-    }
-*/
+
     public static function total_time($id){
             $date = date("Y-m-d") . " 00:00:00";
             $query="select sum(time_to_sec(timediff(time_periods.end, 

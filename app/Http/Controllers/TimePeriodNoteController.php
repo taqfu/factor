@@ -37,11 +37,15 @@ class TimePeriodNoteController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            "newTimePeriodNote"=>"required|string|max:20000",
+            "timePeriodID"=>"required|integer",
+        ]);
         $time_period_note = new TimePeriodNote;
         $time_period_note->report = $request->newTimePeriodNote; 
         $time_period_note->time_period_id = $request->timePeriodID; 
         $time_period_note->save();
-        return back();
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $request->timePeriodID);
     }
     
 
@@ -87,7 +91,8 @@ class TimePeriodNoteController extends Controller
      */
     public function destroy($id)
     {
-        TimePeriodNote::where("id", $id)->delete();
-        return back();
+        $time_period_note = TimePeriodNote::find($id);
+        $time_period_note->delete();
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $time_period_note->time_period_id);
     }
 }

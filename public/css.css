@@ -15,7 +15,9 @@ button.activeTaskCategoryType{
 .inline{
     display:inline;
 }
-
+div.time-select.margin-left{
+    margin-left:17px;
+}
 .margin-left{
     margin-left:14px;
 }

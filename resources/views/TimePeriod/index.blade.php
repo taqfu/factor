@@ -5,11 +5,11 @@
 ?>
 
 @foreach ($time_periods as $time_period)
+    <a name="TP{{$time_period->id}}"></a>
     @if ($last_time_period_ended_at!=0 
       && TimePeriod::interval($time_period->end, $last_time_period_ended_at)>300)
         <div class='lead margin-top-2'>
-            {{TimePeriod::
-              format_interval($time_period->end, $last_time_period_ended_at)}}
+            {{TimePeriod::format_interval($time_period->end, $last_time_period_ended_at)}}
             unnaccounted for
         </div>
     @endif
@@ -24,10 +24,9 @@
         <?php $old_date = $date ?>
     @endif
 
-    <div id='listOfNewTasks{{$time_period->id}}' 
-      class='listOfNewTasks clearfix'>
+    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clearfix'>
     </div>
-    <div class='timePeriod clearfix row margin-top' style=''>
+    <div class='timePeriod clearfix row margin-top'>
         <div class='col-xs-12 col-lg-3'>
             @include ('TimePeriod.destroy')
             @if ($time_period->end==0)
@@ -42,11 +41,11 @@
                 ?>
             @elseif ($time_period->end!=0)
                 <div class='inline'>
-                {{ date("H:i", strtotime($time_period->end)) }}  
-                <?php 
-                    $begin = new DateTime($time_period->start); 
-                    $end = new DateTime($time_period->end); 
-                ?>
+                    {{ date("H:i", strtotime($time_period->end)) }}  
+                    <?php 
+                        $begin = new DateTime($time_period->start); 
+                        $end = new DateTime($time_period->end); 
+                    ?>
                 </div>
             @endif
             <div class='inline'>
@@ -71,8 +70,7 @@
         </div>
         <div class='col-xs-4'></div>
         <div class='col-lg-9 col-xs-8 secondary-menu'>
-            <button id='showNewTasks{{$time_period->id}}'
-              class='showNewTasks btn btn-primary'>
+            <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary'>
                 Task
             </button>
             <button id='showNewTimePeriodNote{{$time_period->id}}'
