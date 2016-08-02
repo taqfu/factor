@@ -8,7 +8,7 @@
     <li class='dropdown'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <h3>
-                Today
+                {{ucfirst($period)}}
             </h3>
             <span class="caret"></span>
         </a>
@@ -44,8 +44,18 @@
 
         </ul>
     </li>
-    <li>
-        <a href="{{url('/logout')}}"><h3>{{Auth::user()->username}}</h3></a>
+    <li class='dropdown'>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <h3>
+                {{Auth::user()->username}}
+            </h3>
+            <span class="caret"></span>
+        </a>
+        <ul class='dropdown-menu'>
+            <li>
+                <a href="{{url('/logout')}}"><h3>Logout</h3></a>
+            </li>
+        </ul>
     </li>
 </ul>
 
@@ -55,7 +65,6 @@
     <button id='hideNewTaskTypes' class='btn-default hidden'>Hide Task Types</button>
     <button id='showNewTimePeriod' class='btn-default'>New Time Period</button>
     <button id='hideNewTimePeriod' class='btn-default hidden'>Hide New Time Period</button>
-    <button id='logout' class='btn-default'>Logout</button>
 </div>
 @include ('TaskType.index')
 
