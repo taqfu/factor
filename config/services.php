@@ -13,7 +13,9 @@ return [
     | to have a conventional place to find your various credentials.
     |
     */
+    'facebook'=>[
 
+    ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
