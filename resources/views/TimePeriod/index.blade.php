@@ -74,7 +74,7 @@
                 Task
             </button>
             <button id='showNewTimePeriodNote{{$time_period->id}}'
-              class='showNewTimePeriodNote btn btn-primary'>
+              class='showNewTimePeriodNote btn btn-info'>
                 Note
             </button>
         </div>
@@ -92,27 +92,26 @@
     <div id='newTimePeriodNote{{ $time_period->id }}' 
       class='newTimePeriodNote clearfix'>
     </div>
-    <div class='listOfActiveTasks clear'>
+    <div class='listOfActiveTasks clear margin-left-3'>
         @foreach ($time_period->notes as $time_period_note)
-            @include('TimePeriodNote.destroy')
+            @include('Note.destroy', ["note"=>$time_period_note, "type"=>"timePeriodNote" ])
         @endforeach
         @foreach ($time_period->tasks as $task)
-            <div class='task clearfix padding-left-3'>
-                <div class='col-xs-8 col-lg-3'>
-                    @include('Task.destroy')
-                </div>
-                <div class='col-xs-4 col-lg-9'>
-                    <button id='showNewTaskNotes{{ $task->id }}'
-                      class='showNewTaskNotes btn btn-info margin-left'>
-                        Note
-                    </button>
-                </div>
-            </div>
+             <div class='col-xs-8 col-lg-3' style='padding:0px;'>
+                 @include('Task.destroy')
+             </div>
+             <div class='col-xs-4 col-lg-9'>
+                 <button id='showNewTaskNotes{{ $task->id }}' class='showNewTaskNotes btn btn-info'>
+                     Note
+                 </button>
+             </div>
             <div id='newTaskNote{{ $task->id }}' class='newTaskNote' >
             </div>
-            @foreach ( $task->notes as $note )
-                @include('TaskNote.destroy')
-            @endforeach
+            <div class='margin-left-3'>
+                @foreach ( $task->notes as $task_note )
+                    @include('Note.destroy', ["note"=>$task_note, "type"=>"taskNote"])
+                @endforeach
+            </div>
         @endforeach
         </div>
     </div>

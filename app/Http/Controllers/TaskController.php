@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Task;
+use Auth;
 class TaskController extends Controller
 {
     /**
@@ -36,17 +37,22 @@ class TaskController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::guest()){
+            return back()->withErrors("You must logged in in order to do this.");
+        }
         $this->validate($request,[
-            'timePeriodID'=>'required',
-            'typeID'=>'required',
+            'timePeriodID'=>'required|integer',
+            'typeID'=>'required|integer',
         ]);
         if (count(Task::where('time_period_id', $request->timePeriodID)
-          ->where('typE_id', $request->typeID)->get())>0){
+          ->where('user_id', Auth::user()->id)
+          ->where('type_id', $request->typeID)->get())>0){
             return back()->withErrors('Task already exists.');
         }
         $task = new Task;
         $task->time_period_id = $request->timePeriodID;
         $task->type_id = $request->typeID;
+        $task->user_id = Auth::user()->id;
         $task->save();
         return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $request->timePeriodID);
     }
@@ -93,7 +99,13 @@ class TaskController extends Controller
      */
     public function destroy($id)
     {
+        if (Auth::guest()){
+            return back()->withErrors("You must logged in in order to do this.");
+        }
         $task = Task::find($id);
+        if ($task->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
         $task->delete();
         return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $task->time_period_id);
     }

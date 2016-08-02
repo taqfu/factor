@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\TaskCategoryType;
 use App\TaskType;
 use App\TimePeriod;
+use Auth;
 use DB;
 use View;
 class TimePeriodController extends Controller
@@ -19,6 +20,9 @@ class TimePeriodController extends Controller
      */
     public function index(Request $request)
     {
+        if (Auth::guest()){
+            return redirect(route('root'))->withErrors("Please login before trying to do this.");
+        }
         $period=$request->period;
         switch($request->period){
             case "all":
@@ -43,10 +47,12 @@ class TimePeriodController extends Controller
         return View::make('time', [
             'period'=>$period,
             "time_periods" => TimePeriod::where("created_at", ">", $begin)
-              ->where("created_at", "<", $end)->orderBy("start", "desc")->get(),
-            "task_types" => TaskType::orderBy("name", "asc")->get(),
-            "task_category_types" => TaskCategoryType::where("id", ">", 1)
+              ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
+              ->orderBy("start", "desc")->get(),
+            "task_types" => TaskType::where('user_id', Auth::user()->id)
               ->orderBy("name", "asc")->get(),
+            "task_category_types" => TaskCategoryType::where("id", ">", 1)
+              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
         ]);
     }
 
@@ -68,6 +74,9 @@ class TimePeriodController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::guest()){
+            return back()->withErrors("Please login before trying to do this.");
+        }
         $startGuess = false;
         $endGuess = false;
         if ($request->startWhen==="now"){
@@ -96,14 +105,13 @@ class TimePeriodController extends Controller
         $time_period->startGuess = $startGuess; 
         $time_period->end = $end;
         $time_period->endGuess = $endGuess; 
+        $time_period->user_id = Auth::user()->id;
         $time_period->save();
 
         if ($request->endWhen=="now"){
             TimePeriod::new_now();
         }
-        return back();
-        
-
+        return redirect(redirect()->getUrlGenerator()->previous());
     }
 
     /**
@@ -137,7 +145,16 @@ class TimePeriodController extends Controller
      */
     public function update(Request $request, $id)
     {
+        if (Auth::guest()){
+            return back()->withErrors("Please login before trying to do this.");
+        }
+
         $time_period = TimePeriod::find($id);
+
+        if (Auth::user()->id!=$time_period->user_id){
+            return back()->withErrors('You are not authorized to do this.');
+        }
+
         if ($request->when=="now"){
             $time_period->end = date('Y-m-d H:i:s');
             TimePeriod::new_now();
@@ -157,7 +174,7 @@ class TimePeriodController extends Controller
             return back()->withErrors('TimePeriod can not end before it has begun.');
         }
         $time_period->save();
-        return back();
+        return redirect(redirect()->getUrlGenerator()->previous());
     }
     
 
@@ -170,7 +187,18 @@ class TimePeriodController extends Controller
      */
     public function destroy($id)
     {
-        TimePeriod::find($id)->delete();
+        if (Auth::guest()){
+            return back()->withErrors("Please login before trying to do this.");
+        }
+
+        $time_period = TimePeriod::find($id);
+
+        if (Auth::user()->id!=$time_period->user_id){
+            return back()->withErrors('You are not authorized to do this.');
+        }
+
+        $time_period->delete();
         return back();
+        return redirect(redirect()->getUrlGenerator()->previous());
     }
 }

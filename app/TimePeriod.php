@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use Auth;
 use DateTime;
 use DB;
 use Illuminate\Database\Eloquent\Model;
@@ -37,7 +38,7 @@ class TimePeriod extends Model
         return $this->hasMany("App\Task");
     }
     public function notes(){
-        return $this->hasMany("App\TimePeriodNote");
+        return $this->hasMany("App\Note");
     }
     public static function new_now(){
             $time_period = new TimePeriod;
@@ -45,6 +46,7 @@ class TimePeriod extends Model
             $time_period->startGuess = false;
             $time_period->end = 0; 
             $time_period->endGuess = false;
+            $time_period->user_id = Auth::user()->id;
             $time_period->save();
     }
 }

@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\TaskCategoryType;
 use App\TaskCategory;
 use App\TaskType;
+use Auth;
 use View;
 class TaskCategoryTypeController extends Controller
 {
@@ -38,11 +39,15 @@ class TaskCategoryTypeController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
         $this->validate($request, [
             'newTaskCategoryTypeName'=>'required|unique:task_category_types,name',
         ]);
         $task_category_type = new TaskCategoryType;
         $task_category_type->name = $request->newTaskCategoryTypeName;
+        $task_category_type->user_id = Auth::user()->id;
         $task_category_type->save();
         return back();
         
@@ -56,12 +61,17 @@ class TaskCategoryTypeController extends Controller
      */
     public function show($id)
     {
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
         return View::make('TaskCategory.show', [
         "task_types"=>TaskType::join('task_categories', 'task_type_id', '=', 
           'task_types.id')->where('task_categories.task_category_type_id', $id)
-          ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 
-          'asc')->get(),
-        "task_category_types" => TaskCategoryType::where("id", ">", 1)->orderBy("name", "asc")->get(),
+          ->where('task_categories.user_id', Auth::user()->id)
+          ->where('task_types.user_id', Auth::user()->id)
+          ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 'asc')->get(),
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)
+          ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
         ]);
     }
 
@@ -96,7 +106,15 @@ class TaskCategoryTypeController extends Controller
      */
     public function destroy($id)
     {
-        TaskCategoryType:: find($id)->delete();
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
+        $task_category_type = TaskCategoryType:: find($id);
+        
+        if ($task_category_type->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        $task_category_type->delete();
         return back();
     }
 }

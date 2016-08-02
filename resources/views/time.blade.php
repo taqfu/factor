@@ -5,33 +5,47 @@
     {{$error}}
 @endforeach
 <ul class='nav nav-pills nav-justified'>
-    <li
-      @if ($period=="today")
-          class='active'
-      @endif
-      >
-        <a href="{{route('time.index')}}"><h3>Today</h3></a>
+    <li class='dropdown'>
+        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+            <h3>
+                Today
+            </h3>
+            <span class="caret"></span>
+        </a>
+        <ul class='dropdown-menu'>
+            <li
+              @if ($period=="today")
+                  class='active'
+              @endif
+              >
+                <a href="{{route('time.index')}}"><h3>Today</h3></a>
+            </li>
+            <li
+              @if ($period=="yesterday")
+                  class='active'
+              @endif
+              >
+                <a href="{{route('time.index', ['period'=>'yesterday'])}}"><h3>Yesterday</h3></a>
+            </li>
+            <li
+              @if ($period=="week")
+                  class='active'
+              @endif
+              >
+                <a href="{{route('time.index', ['period'=>'week'])}}"><h3>Week</h3></a>
+            </li>
+            <li
+              @if ($period=="all")
+                  class='active'
+              @endif
+              >
+                <a href="{{route('time.index', ['period'=>'all'])}}"><h3>All</h3></a>
+            </li>
+
+        </ul>
     </li>
-    <li
-      @if ($period=="yesterday")
-          class='active'
-      @endif
-      >
-        <a href="{{route('time.index', ['period'=>'yesterday'])}}"><h3>Yesterday</h3></a>
-    </li>
-    <li
-      @if ($period=="week")
-          class='active'
-      @endif
-      >
-        <a href="{{route('time.index', ['period'=>'week'])}}"><h3>Week</h3></a>
-    </li>
-    <li
-      @if ($period=="all")
-          class='active'
-      @endif
-      >
-        <a href="{{route('time.index', ['period'=>'all'])}}"><h3>All</h3></a>
+    <li>
+        <a href="{{url('/logout')}}"><h3>{{Auth::user()->username}}</h3></a>
     </li>
 </ul>
 
@@ -41,6 +55,7 @@
     <button id='hideNewTaskTypes' class='btn-default hidden'>Hide Task Types</button>
     <button id='showNewTimePeriod' class='btn-default'>New Time Period</button>
     <button id='hideNewTimePeriod' class='btn-default hidden'>Hide New Time Period</button>
+    <button id='logout' class='btn-default'>Logout</button>
 </div>
 @include ('TaskType.index')
 

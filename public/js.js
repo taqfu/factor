@@ -1,6 +1,10 @@
 var taqfuHost=true;
 var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "/factor/public";
 $(document.body).ready(function () {
+    $("#logout").click(function(event){
+        $.get(siteRoot + "/logout");
+        window.location.replace(siteRoot);
+    });
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
     });
@@ -34,7 +38,8 @@ $(document.body).ready(function () {
         $("#hideNewTaskCategoryType").hide();
         $("#newTaskCategoryType").hide();
     });
-    $(document).on('click', ".hideNewTaskNotes", function(event){
+    $(document).on('click', ".hideNewTaskNote", function(event){
+        console.log(event);
         $(".newTaskNote").html("");
         $(".showNewTaskNotes").removeClass('hidden');
     });
@@ -66,6 +71,10 @@ $(document.body).ready(function () {
         var idTagLength = "hideSelectEndTimestamp".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
         $('#selectEndTimestamp'+timePeriodID).hide();
+    });
+    $("#hide-sign-up").click(function(event){
+        $("#register").addClass('hidden');
+        $("#login").removeClass('hidden');    
     });
     $("#showInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").hide();
@@ -105,7 +114,7 @@ $(document.body).ready(function () {
         $(".showNewTaskNotes").removeClass('hidden');
         $("#showNewTaskNotes" + taskID).addClass('hidden');
         $(".newTaskNote").html("");
-        $.get(siteRoot + "/TaskNote/create/" + taskID, 
+        $.get(siteRoot + "/note/task/" + taskID + "/timePeriod/0", 
             function( data ) {
                 $("#newTaskNote"+taskID).html(data);
         });
@@ -139,11 +148,15 @@ $(document.body).ready(function () {
         $(".showNewTimePeriodNote").removeClass('hidden');
         $("#showNewTimePeriodNote" + timePeriodID).addClass('hidden');
         $(".newTimePeriodNote").html("");
-        $.get(siteRoot + "/TimePeriodNote/create/" + timePeriodID, 
+        $.get(siteRoot + "/note/task/0/timePeriod/" + timePeriodID, 
             function( data ) {
                 $('#newTimePeriodNote' + timePeriodID).html(data);
         });
         
+    });
+    $("#sign-up-button").click(function(event){
+        $("#register").removeClass('hidden');
+        $("#login").addClass('hidden');    
     });
     $(".specifyEndTime").click(function(event){
         var idTagLength = "specifyEndTime".length;

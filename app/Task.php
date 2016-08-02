@@ -14,6 +14,6 @@ class Task extends Model
         return $this->belongsTo("App\TaskType");
     }
     public function notes(){
-        return $this->hasMany("App\TaskNote");
+        return $this->hasMany("App\Note");
     }
 }

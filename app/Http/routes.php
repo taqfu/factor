@@ -16,24 +16,36 @@ use \App\TaskCategoryType;
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/', ['as'=>'root', function(){
+    if (Auth::guest()){
+        return View('public');
+    } else if (Auth::user()){
+        return redirect(route('time.index'));
+    }
+}]);
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', 
   function ($id, $time_period_id ) {
     return view('TasksByCategoryTypeForTimePeriod', [
         "active_task_category_type_id"=>$id,
         "time_period_id"=>$time_period_id,
-        "task_categories"=>TaskCategory::where('task_category_type_id', $id)->get(),
-        "task_category_types" => TaskCategoryType::orderBy("name", "asc")->get(),
+        "task_categories"=>TaskCategory::where('task_category_type_id', $id)
+          ->where('user_id', Auth::user()->id)->get(),
+        "task_category_types" => TaskCategoryType::where('user_id', Auth::user()->id)
+          ->orderBy("name", "asc")->get(),
         "task_types"=>TaskType::join('task_categories', 'task_type_id', '=', 
           'task_types.id')->where('task_categories.task_category_type_id', $id)
+          ->where('task_categories.user_id', Auth::user()->id)
+          ->where('task_types.user_id', Auth::user()->id)
           ->orderBy('task_types.name', 'asc')->get(),
-        "selected_task_category_type"=>TaskCategoryType::where('id', $id)->first(),
+        "selected_task_category_type"=>TaskCategoryType::where('id', $id)
+          ->where('user_id', Auth::user()->id)->first(),
     ]);
 });
-Route::get('/TaskNote/create/{id}', 
-  ['uses'=>'TaskNoteController@create']);
-Route::get('/TimePeriodNote/create/{id}', 
-  ['uses'=>'TimePeriodNoteController@create']);
 
+//REPLACE THIS WITH NOTE CONTROLLER CREATE
+Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
+
+Route::resource('note', 'NoteController');
 Route::resource("time", "TimePeriodController");
 Route::resource("TimePeriodNote", "TimePeriodNoteController");
 Route::resource("task", "TaskController");
@@ -44,4 +56,3 @@ Route::resource('TaskCategoryType', 'TaskCategoryTypeController');
 
 Route::auth();
 
-Route::get('/home', 'HomeController@index');

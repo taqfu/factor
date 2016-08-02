@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\TaskType;
 use App\TaskCategory;
+use Auth;
 class TaskTypeController extends Controller
 {
     /**
@@ -37,22 +38,27 @@ class TaskTypeController extends Controller
      */
     public function store(Request $request)
     {
+        if (Auth::guest()){
+            return back()->withErrors("You must logged in in order to do this.");
+        }
         $this->validate($request, [
             'newTaskName'=>'required|unique:task_types,name',
         ]);
         $task_type = new TaskType;
         $task_type->name = $request->newTaskName;
+        $task_type->user_id = Auth::user()->id;
         $task_type->save();
 
         $task_category = new TaskCategory;
         $task_category->task_category_type_id = 1;
         $task_category->task_type_id =  $task_type->id;
+        $task_category->user_id = Auth::user()->id;
         $task_category->save();
 
         if ($request->defaultTaskCategoryType!="NULL"){
             $task_category = new TaskCategory;
-            $task_category->task_category_type_id = 
-              $request->defaultTaskCategoryType;
+            $task_category->task_category_type_id = $request->defaultTaskCategoryType;
+            $task_category->user_id = Auth::user()->id;
             $task_category->task_type_id =  $task_type->id;
             $task_category->save();
         }
@@ -102,8 +108,15 @@ class TaskTypeController extends Controller
      */
     public function destroy($id)
     {
-        TaskType::find($id)->delete();
-        TaskCategory::where("task_type_id", $id)->delete();
+        if (Auth::guest()){
+            return back()->withErrors("You must logged in in order to do this.");
+        }
+        $task_type = TaskType::find($id);
+        if ($task_type->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        $task_type->delete();
+        TaskCategory::where("task_type_id", $id)->where('user_id', Auth::user()->id)->delete();
         return back();
     }
 }
