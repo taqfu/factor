@@ -14,7 +14,9 @@ return [
     |
     */
     'facebook'=>[
-
+        'client_id'=>env('FB_ID'),
+        'client_secret'=>env('FB_SECRET'),
+        'redirect'=>'http://taqfu.com/dev-env/factor/public/callback',
     ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
