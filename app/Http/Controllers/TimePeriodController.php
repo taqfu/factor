@@ -196,9 +196,11 @@ class TimePeriodController extends Controller
         if (Auth::user()->id!=$time_period->user_id){
             return back()->withErrors('You are not authorized to do this.');
         }
-
+        foreach (Task::where('time_period_id', $id)->get() as $task){
+            $task->delete();
+        }
         $time_period->delete();
-        return back();
+        
         return redirect(redirect()->getUrlGenerator()->previous());
     }
 }

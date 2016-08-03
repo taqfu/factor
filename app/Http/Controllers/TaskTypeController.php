@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Task;
 use App\TaskType;
 use App\TaskCategory;
 use Auth;
@@ -68,7 +69,15 @@ class TaskTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        $task_type = TaskType::find($id);
+        return View('TaskType.show', [
+            'task_type'=>$task_type,
+            'tasks'=>Task::where('type_id', $id)->where('user_id', Auth::user()->id)->get(),
+        ]);
+        echo "<PRE>";
+        var_dump($task_type);
+        echo "</PRE>";
+
     }
 
     /**

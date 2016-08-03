@@ -4,5 +4,7 @@
     <button type='submit' class='btn btn-danger'>
         x
     </button>
-    {{ $task->type->name }}
+    <a href="{{route('TaskType.show', ['id'=>$task->type_id])}}">
+        {{ $task->type->name }}
+    </a>
 </form>
