@@ -49,12 +49,6 @@ class TaskTypeController extends Controller
         $task_type->user_id = Auth::user()->id;
         $task_type->save();
 
-        $task_category = new TaskCategory;
-        $task_category->task_category_type_id = 1;
-        $task_category->task_type_id =  $task_type->id;
-        $task_category->user_id = Auth::user()->id;
-        $task_category->save();
-
         if ($request->defaultTaskCategoryType!="NULL"){
             $task_category = new TaskCategory;
             $task_category->task_category_type_id = $request->defaultTaskCategoryType;
