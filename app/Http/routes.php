@@ -28,24 +28,34 @@ Route::get('/', ['as'=>'root', function(){
 }]);
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', 
   function ($id, $time_period_id ) {
-    return view('TasksByCategoryTypeForTimePeriod', [
-        "active_task_category_type_id"=>$id,
-        "time_period_id"=>$time_period_id,
-        "task_categories"=>TaskCategory::where('task_category_type_id', $id)
-          ->where('user_id', Auth::user()->id)->get(),
-        "task_category_types" => TaskCategoryType::where('user_id', Auth::user()->id)
-          ->orderBy("name", "asc")->get(),
-        "task_types"=>TaskType::join('task_categories', 'task_type_id', '=', 
+    if ($id =="all"){
+        $task_categories = TaskCategory::where('user_id', Auth::user()->id)->get();
+        $task_category_types  =  TaskCategoryType::where('user_id', Auth::user()->id)
+          ->orderBy("name", "asc")->get();
+        $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
+          'task_types.id')->where('task_categories.user_id', Auth::user()->id)
+          ->where('task_types.user_id', Auth::user()->id)
+          ->orderBy('task_types.name', 'asc')->get();
+    } else {
+        $task_categories = TaskCategory::where('task_category_type_id', $id)
+          ->where('user_id', Auth::user()->id)->get();
+        $task_category_types = TaskCategoryType::where('user_id', Auth::user()->id)
+          ->orderBy("name", "asc")->get();
+        $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
           'task_types.id')->where('task_categories.task_category_type_id', $id)
           ->where('task_categories.user_id', Auth::user()->id)
           ->where('task_types.user_id', Auth::user()->id)
-          ->orderBy('task_types.name', 'asc')->get(),
-        "selected_task_category_type"=>TaskCategoryType::where('id', $id)
-          ->where('user_id', Auth::user()->id)->first(),
+          ->orderBy('task_types.name', 'asc')->get();
+    }
+    return view('TasksByCategoryTypeForTimePeriod', [
+        "active_task_category_type_id"=>$id,
+        "time_period_id"=>$time_period_id,
+        "task_categories"=>$task_categories,
+        "task_category_types" => $task_category_types,
+        "task_types"=>$task_types,
     ]);
 });
 
-//REPLACE THIS WITH NOTE CONTROLLER CREATE
 Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
 
 Route::resource('note', 'NoteController');

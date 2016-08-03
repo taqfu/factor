@@ -1,7 +1,7 @@
 <div id='taskTypeSection'class='fix-clear bg-info hidden'>
     @include ('TaskType.store')
     <div class='text-center'>
-        <button id='taskCategoryType1' 
+        <button id='taskCategoryTypeall' 
           class='btn-link activeTaskCategoryType taskCategoryType'>
             All
         </button>

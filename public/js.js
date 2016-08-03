@@ -153,6 +153,7 @@ $(document.body).ready(function () {
         var classLength =  "taskCategoryType".length; 
         var taskCategoryTypeID = 
           event.target.id.substr(classLength, event.target.id.length-classLength);
+        console.log(taskCategoryTypeID);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
 

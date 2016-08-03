@@ -64,14 +64,22 @@ class TaskCategoryTypeController extends Controller
         if (Auth::guest()){
             return back()->withErrors("You must be logged in to do this.");
         }
+        if ($id=="all"){
+            $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
+              'task_types.id')->where('task_categories.user_id', Auth::user()->id)
+              ->where('task_types.user_id', Auth::user()->id)
+              ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 'asc')->get();
+        } else {
+            $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
+              'task_types.id')->where('task_categories.task_category_type_id', $id)
+              ->where('task_categories.user_id', Auth::user()->id)
+              ->where('task_types.user_id', Auth::user()->id)
+              ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 'asc')->get();
+        }
         return View::make('TaskCategory.show', [
-        "task_types"=>TaskType::join('task_categories', 'task_type_id', '=', 
-          'task_types.id')->where('task_categories.task_category_type_id', $id)
-          ->where('task_categories.user_id', Auth::user()->id)
-          ->where('task_types.user_id', Auth::user()->id)
-          ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 'asc')->get(),
-        "task_category_types" => TaskCategoryType::where("id", ">", 1)
-          ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+            "task_types"=>$task_types,
+            "task_category_types" => TaskCategoryType::where("id", ">", 1)
+              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
         ]);
     }
 

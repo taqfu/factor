@@ -1,25 +1,34 @@
 <?php use App\TaskType; ?>
-<!-- This is the [ Add Task ] menu. -->
-<input type='hidden' id='timePeriodIDForListOfNewTasks'
-  value='{{ $time_period_id }}' />
+<!-- This is the Task menu. -->
+<input type='hidden' id='timePeriodIDForListOfNewTasks' value='{{ $time_period_id }}' />
 <div class='text-center'>
-    <button id='hideNewTasks{{$time_period_id}}'
-      class='hideNewTasks btn btn-primary'>
+    <button id='hideNewTasks{{$time_period_id}}' class='hideNewTasks btn btn-primary'>
         Hide Tasks
     </button>
 </div>
 <div class='text-center bg-info page-header'>
+      @if ($active_task_category_type_id=='all')
+        <button id='taskCategoryTypeForTimePeriodall' 
+          class="btn btn-link activeTaskCategoryTypeForTimePeriod"><strong>
+            All
+        </strong></button>
+      @else 
+        <button id='taskCategoryTypeForTimePeriodall' 
+          class="btn btn-link taskCategoryTypeForTimePeriod">
+            All
+        </button>
+      @endif
     @foreach ($task_category_types as $task_category_type)
         @if ($task_category_type->id == $active_task_category_type_id)
             <button id='taskCategoryTypeForTimePeriod{{$task_category_type->id}}' 
-                class='activeTaskCategoryTypeForTimePeriod btn btn-link'>
+              class='activeTaskCategoryTypeForTimePeriod btn btn-link'>
                 <strong>
                     {{ $task_category_type->name }}
                 </strong>
             </button>
         @else
             <button id='taskCategoryTypeForTimePeriod{{$task_category_type->id}}' 
-                class='taskCategoryTypeForTimePeriod btn btn-link'>
+              class='taskCategoryTypeForTimePeriod btn btn-link'>
                 {{ $task_category_type->name }}
             </button>
         @endif
