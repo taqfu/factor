@@ -17,9 +17,6 @@
     </div>
     <div id='newTaskCategoryType' class='hidden text-center margin-top'>
         @include ('TaskCategoryType.store')
-        <button id='hideNewTaskCategoryType' class='hidden pull-left'>
-            Cancel
-        </button>
     </div>
     <div id='listOfNewTaskTypes'>
     </div>
