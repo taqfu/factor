@@ -55,7 +55,13 @@ class NoteController extends Controller
         $note->report = $request->report;
         $note->user_id = Auth::user()->id;
         $note->save();
-        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $request->timePeriodID);
+        if ($request->taskID>0){
+            $task = Task::find($request->taskID);
+            $time_period_id = $task->time_period_id;
+        } else if ($request->timePeriodID>0){
+            $time_period_id = $request->timePeriodID;
+        }
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $time_period_id);
         
     }
 
