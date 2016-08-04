@@ -47,7 +47,7 @@
     <li class='dropdown'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
             <h3>
-                {{Auth::user()->username}}
+                {{strlen(Auth::user()->username)>0 ? Auth::user()->username : Auth::user()->name}}
             </h3>
             <span class="caret"></span>
         </a>

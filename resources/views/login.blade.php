@@ -34,5 +34,6 @@
     </button>
 </form>
 <div>
-    <a href="redirect">FB Login</a>
+    <a href="redirect/facebook">Facebook Login</a>
+    <a href="redirect/twitter">Twitter Login</a>
 </div>        

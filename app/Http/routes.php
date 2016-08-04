@@ -16,8 +16,8 @@ use \App\TaskCategoryType;
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/redirect', 'SocialAuthController@redirect');
-Route::get('/callback', 'SocialAuthController@callback');
+Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
+Route::get('/callback/{provider}', 'SocialAuthController@callback');
 
 Route::get('/', ['as'=>'root', function(){
     if (Auth::guest()){

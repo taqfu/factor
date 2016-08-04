@@ -16,7 +16,7 @@ return [
     'facebook'=>[
         'client_id'=>env('FB_ID'),
         'client_secret'=>env('FB_SECRET'),
-        'redirect'=>'http://taqfu.com/dev-env/factor/public/callback',
+        'redirect'=>'http://taqfu.com/dev-env/factor/public/callback/facebook',
     ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
@@ -39,4 +39,9 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'twitter' => [
+        'client_id'=>env('TWITTER_ID'),
+        'client_secret'=>env('TWITTER_SECRET'),
+        'redirect'=>'http://taqfu.com/dev-env/factor/public/callback/twitter',
+    ],
 ];
