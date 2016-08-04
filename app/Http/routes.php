@@ -66,6 +66,7 @@ Route::resource("TaskNote", "TaskNoteController");
 Route::resource("TaskType", "TaskTypeController");
 Route::resource('TaskCategory', 'TaskCategoryController');
 Route::resource('TaskCategoryType', 'TaskCategoryTypeController');
+Route::resource('user', 'UserController');
 
 Route::auth();
 
