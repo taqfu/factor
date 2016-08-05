@@ -32,10 +32,8 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
         $task_categories = TaskCategory::where('user_id', Auth::user()->id)->get();
         $task_category_types  =  TaskCategoryType::where('user_id', Auth::user()->id)
           ->orderBy("name", "asc")->get();
-        $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
-          'task_types.id')->where('task_categories.user_id', Auth::user()->id)
-          ->where('task_types.user_id', Auth::user()->id)
-          ->orderBy('task_types.name', 'asc')->get();
+        $task_types = TaskType::where('user_id', Auth::user()->id)
+          ->orderBy('name', 'asc')->get();
     } else {
         $task_categories = TaskCategory::where('task_category_type_id', $id)
           ->where('user_id', Auth::user()->id)->get();

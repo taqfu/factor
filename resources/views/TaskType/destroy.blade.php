@@ -10,5 +10,9 @@
         x
     </button>
     {{ $task_type->name }} 
+    @if (isset($task_type->task_type_id))
     ({{round(TaskType::total_time($task_type->task_type_id)/60/60, 1)}})
+    @elseif (isset($task_type->id))
+    ({{round(TaskType::total_time($task_type->id)/60/60, 1)}})
+    @endif
 </form>

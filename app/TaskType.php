@@ -15,6 +15,9 @@ class TaskType extends Model
     public function categories(){
         return $this->hasMany('App\TaskCategory', 'task_type_id', 'task_type_id');
     }
+    public function categories_all(){
+        return $this->hasMany('App\TaskCategory', 'task_type_id', 'id');
+    }
 
     public static function total_time($id){
             $date = date("Y-m-d") . " 00:00:00";

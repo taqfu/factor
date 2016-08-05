@@ -12,8 +12,13 @@
             </button>
         </div>
         @include ('TaskCategory.store')
+        <?php 
+            $task_type_categories = isset($task_type->task_type_id) 
+              ? $task_type->categories
+              : $task_type->categories_all;
+        ?>
        
-        @foreach ($task_type->categories as $task_type_category)
+        @foreach ($task_type_categories as $task_type_category)
                 @include('TaskCategory.destroy')
         @endforeach 
     </div>
