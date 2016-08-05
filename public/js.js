@@ -105,10 +105,8 @@ $(document.body).ready(function () {
     });
 
     $("#showNewTaskTypes").click(function(event){
-        $("#showNewTaskTypes").hide();       
-        $("#hideNewTaskTypes").show();       
+        $("#showNewTaskTypes").addClass('hidden');
         $("#hideNewTaskTypes").removeClass('hidden');
-        $("#taskTypeSection").show();       
         $("#taskTypeSection").removeClass('hidden');
     });
 
