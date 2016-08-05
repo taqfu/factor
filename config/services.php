@@ -18,6 +18,11 @@ return [
         'client_secret'=>env('FB_SECRET'),
         'redirect'=>'http://taqfu.com/dev-env/factor/public/callback/facebook',
     ],
+    'google'=>[
+        'client_id'=>env('GOOGLE_ID'),
+        'client_secret'=>env('GOOGLE_SECRET'),
+        'redirect'=>'http://taqfu.com/dev-env/factor/public/callback/google',
+    ],
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),

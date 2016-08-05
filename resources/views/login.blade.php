@@ -36,4 +36,5 @@
 <div>
     <a href="redirect/facebook">Facebook Login</a>
     <a href="redirect/twitter">Twitter Login</a>
+    <a href="redirect/google">Google Login</a>
 </div>        
