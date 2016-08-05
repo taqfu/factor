@@ -15,14 +15,12 @@ $(document.body).ready(function () {
         $("#hideInactiveTimePeriods").hide();
         $(".inactive").hide();
     });
-/*
     $(document).on("click", ".hideNewTaskCategory", function (event) {
         var classLength = "hideNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
         $("#showNewTaskCategory" + taskTypeID).removeClass('hidden');
         $("#newTaskCategory" + taskTypeID).addClass('hidden');
     });
-*/
     $("#hideNewTaskCategoryType").click(function(event){
         $("#showNewTaskCategoryType").removeClass('hidden');
         $("#newTaskCategoryType").addClass('hidden');
@@ -71,6 +69,7 @@ $(document.body).ready(function () {
         $("#hideInactiveTimePeriods").show();
         $(".inactive").show();
     });
+*/
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
@@ -79,7 +78,6 @@ $(document.body).ready(function () {
         $("#newTaskCategory" + taskTypeID).removeClass('hidden');
     });
 
-*/
     $("#showNewTaskCategoryType").click(function(event){
         $("#showNewTaskCategoryType").addClass('hidden');
         $("#newTaskCategoryType").removeClass('hidden');
