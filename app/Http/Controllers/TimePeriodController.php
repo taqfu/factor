@@ -168,6 +168,7 @@ class TimePeriodController extends Controller
             $another_time_period = new TimePeriod;
             $another_time_period->start = $timestamp;
             $another_time_period->end = 0;
+            $another_time_period->user_id=Auth::user()->id;
             $another_time_period->save();
             
         }
