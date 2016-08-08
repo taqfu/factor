@@ -145,7 +145,12 @@ $(document.body).ready(function () {
           event.target.id.substr(classLength, event.target.id.length-classLength);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
-
+    $(document).on('click', '.newTask', function(event){
+        var typeID = event.target.id.substr(7, event.target.id.length-7);
+        var timePeriodID = $("#task-time-period" + typeID).val();
+        createTask(typeID, timePeriodID);
+    
+    });
     $(document).on("click", ".taskCategoryTypeForTimePeriod", function (event) {
         var classLength =  "taskCategoryTypeForTimePeriod".length; 
         var taskCategoryTypeID = event.target.id.substr(classLength, 
@@ -155,6 +160,23 @@ $(document.body).ready(function () {
     });
 });
 
+function createTask(typeID, timePeriodID){
+    console.log(siteRoot + "/time/" + timePeriodID); 
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },  
+        method: "POST",
+        url: siteRoot + "/task",
+        data:{timePeriodID:timePeriodID, typeID:typeID},
+    })  
+        .done(function (result){
+            console.log("\"" + result + "\"", result=="OK");
+            result=="OK" 
+              ? reloadTimePeriod(timePeriodID)
+              : $("#time-period-error" + timePeriodID).html(result);
+        }); 
+}
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){ 
     //This comes up when you click Add Tasks
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/" 
@@ -174,4 +196,10 @@ function displayTimePeriods(){
     $.get(siteRoot + "/time", function(data){
         $("#time-period-index").html(data);
     });
+}
+function reloadTimePeriod(id){
+    $.get(siteRoot + "/time/" + id, function(data){
+        $("#time-period" + id).html(data);
+    });
+
 }

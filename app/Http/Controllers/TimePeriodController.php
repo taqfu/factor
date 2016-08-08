@@ -100,7 +100,9 @@ class TimePeriodController extends Controller
      */
     public function show($id)
     {
-        //
+        return View('TimePeriod.show', [
+           'time_period'=>TimePeriod::find($id), 
+        ]);
     }
 
     /**

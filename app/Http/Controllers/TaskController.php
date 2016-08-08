@@ -38,7 +38,7 @@ class TaskController extends Controller
     public function store(Request $request)
     {
         if (Auth::guest()){
-            return back()->withErrors("You must logged in in order to do this.");
+            return "You must logged in in order to do this.";
         }
         $this->validate($request,[
             'timePeriodID'=>'required|integer',
@@ -47,14 +47,14 @@ class TaskController extends Controller
         if (count(Task::where('time_period_id', $request->timePeriodID)
           ->where('user_id', Auth::user()->id)
           ->where('type_id', $request->typeID)->get())>0){
-            return back()->withErrors('Task already exists.');
+            return "Task already exists.";
         }
         $task = new Task;
         $task->time_period_id = $request->timePeriodID;
         $task->type_id = $request->typeID;
         $task->user_id = Auth::user()->id;
         $task->save();
-        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $request->timePeriodID);
+        return "OK";
     }
 
     /**

@@ -36,13 +36,21 @@
 </div>
 <div class='text-center'>
 @foreach($task_types as $task_type)
-    <form method='POST' action="{{ route('task.store') }}" class='inline new_tasks'>   
-        {{ csrf_field () }}
-        <input type='hidden' name='timePeriodID' value='{{ $time_period_id }}'/>
-        <input type='hidden' name='typeID' value='{{ $task_type->task_type_id }}' />
-        <button type='submit' class='btn btn-success'>
+
+    @if (isset($task_type->task_type_id))
+        <button type='submit' id='newTask{{$task_type->task_type_id}}' 
+          class='btn btn-success newTask'>
             {{ $task_type->name }}
         </button>
-    </form>
+        <input type='hidden' id='task-time-period{{$task_type->task_type_id}}' 
+          value='{{$time_period_id}}' />
+    @else 
+        <button type='submit' id='newTask{{$task_type->id}}' 
+          class='btn btn-success newTask'>
+            {{ $task_type->name }}
+        </button>
+        <input type='hidden' id='task-time-period{{$task_type->id}}' 
+          value='{{$time_period_id}}' />
+    @endif
 @endforeach
 </div>
