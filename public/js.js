@@ -78,7 +78,7 @@ $(document.body).ready(function () {
         $("#hideNewTaskCategoryType").removeClass('hidden');
     });
 
-    $(document)on('click', ".showNewTaskNotes", function(event){
+    $(document).on('click', ".showNewTaskNotes", function(event){
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         $(".showNewTaskNotes").removeClass('hidden');
         $("#showNewTaskNotes" + taskID).addClass('hidden');
@@ -89,7 +89,7 @@ $(document.body).ready(function () {
         });
     });
 
-    $(".showNewTasks").click(function(event){
+    $(document).on('click', ".showNewTasks", function(event){
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
         $("#showNewTasks" + timePeriodID).addClass('hidden');
         $("#hideNewTasks" + timePeriodID).removeClass('hidden');
@@ -111,7 +111,7 @@ $(document.body).ready(function () {
 
     });
 
-    $(".showNewTimePeriodNote").click(function(event){
+    $(document).on('click', ".showNewTimePeriodNote", function(event){
         var classLength = "showNewTimePeriodNote".length;
         var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
         $(".showNewTimePeriodNote").removeClass('hidden');
@@ -143,7 +143,6 @@ $(document.body).ready(function () {
         var classLength =  "taskCategoryType".length; 
         var taskCategoryTypeID = 
           event.target.id.substr(classLength, event.target.id.length-classLength);
-        console.log(taskCategoryTypeID);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
 
