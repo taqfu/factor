@@ -44,18 +44,8 @@
 
         </ul>
     </li>
-    <li class='dropdown'>
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-            <h3>
-                {{strlen(Auth::user()->username)>0 ? Auth::user()->username : Auth::user()->name}}
-            </h3>
-            <span class="caret"></span>
-        </a>
-        <ul class='dropdown-menu'>
-            <li>
-                <a href="{{url('/logout')}}"><h3>Logout</h3></a>
-            </li>
-        </ul>
+    <li>
+        <a href="{{url('/logout')}}"><h3>Logout</h3></a>
     </li>
 </ul>
 
@@ -67,7 +57,6 @@
     <button id='hideNewTimePeriod' class='btn-default hidden'>Hide New Time Period</button>
 </div>
 @include ('TaskType.index')
-
-@include ("TimePeriod.index")
+<div id='time-period-index'></div>
 
 @endsection

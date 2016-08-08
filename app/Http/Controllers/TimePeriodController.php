@@ -24,36 +24,13 @@ class TimePeriodController extends Controller
         if (Auth::guest()){
             return redirect(route('root'))->withErrors("Please login before trying to do this.");
         }
-        $period=$request->period;
-        switch($request->period){
-            case "all":
-                $begin = TimePeriod::orderBy('created_at', 'asc')
-                  ->first()->created_at;
-                $end = date("Y-m-d") . " 23:59:59";
-                break;
-            case "yesterday":
-                $begin = date("Y-m-d", strtotime("-1 days")) . " 00:00:00";
-                $end = date("Y-m-d", strtotime("-1 days")) . " 23:59:59";
-                break;
-            case "week":
-                $begin = date("Y-m-d", strtotime("-1 weeks")) . " 00:00:00";
-                $end = date("Y-m-d") . " 23:59:59";
-                break;
-            default:
-                $period="today";
-                $begin = date("Y-m-d") . " 00:00:00";
-                $end = date("Y-m-d") . " 23:59:59";
-                break;
-        }
-        return View::make('time', [
-            'period'=>$period,
-            "time_periods" => TimePeriod::where("created_at", ">", $begin)
-              ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
+        $period = TimePeriod::fetch_period($request->period);
+        return View::make('TimePeriod.index', [
+            "time_periods" => TimePeriod::where("created_at", ">", $period['begin'])
+              ->where('user_id', Auth::user()->id)->where("created_at", "<", $period['end'])
               ->orderBy("start", "desc")->get(),
             "task_types" => TaskType::where('user_id', Auth::user()->id)
               ->orderBy("name", "asc")->get(),
-            "task_category_types" => TaskCategoryType::where("id", ">", 1)
-              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
         ]);
     }
 

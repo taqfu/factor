@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\TaskCategoryType;
+use Auth;
 
 class UserController extends Controller
 {
@@ -47,7 +49,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return View('User.show', [
+          'task_category_types'=>TaskCategoryType::where('user_id', Auth::user()->id)
+          ->orderBy('name', 'asc')->get(),
+        ]);
     }
 
     /**

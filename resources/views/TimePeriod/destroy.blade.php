@@ -2,8 +2,6 @@
   ['id'=>$time_period->id]) }}" class='inline' >
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    <button type='submit' class='btn btn-danger' />
-        x
-    </button>
+    <input type='submit' class='btn btn-danger' value="x"/>
     {{ date("H:i", strtotime($time_period->start)) }} - 
 </form>

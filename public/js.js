@@ -1,6 +1,7 @@
 var taqfuHost=true;
 var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "/factor/public";
 $(document.body).ready(function () {
+    displayTimePeriods();
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
@@ -53,7 +54,7 @@ $(document.body).ready(function () {
         $(".showNewTimePeriodNote").removeClass('hidden');
     });
         
-    $(".hideSelectEndTimestamp").click(function(event){
+    $(document).on('click', ".hideSelectEndTimestamp", function(event){
         var idTagLength = "hideSelectEndTimestamp".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
         $('#selectEndTimestamp'+timePeriodID).addClass('hidden');
@@ -63,13 +64,6 @@ $(document.body).ready(function () {
         $("#register").addClass('hidden');
         $("#login").removeClass('hidden');    
     });
-/*
-    $("#showInactiveTimePeriods").click(function(event){
-        $("#showInactiveTimePeriods").hide();
-        $("#hideInactiveTimePeriods").show();
-        $(".inactive").show();
-    });
-*/
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
@@ -84,7 +78,7 @@ $(document.body).ready(function () {
         $("#hideNewTaskCategoryType").removeClass('hidden');
     });
 
-    $(".showNewTaskNotes").click(function(event){
+    $(document)on('click', ".showNewTaskNotes", function(event){
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         $(".showNewTaskNotes").removeClass('hidden');
         $("#showNewTaskNotes" + taskID).addClass('hidden');
@@ -177,3 +171,8 @@ function displayTasksFromCategoryType(id){ // [ Show Task Types ]
         $('#listOfNewTaskTypes').html( data );
     });
 } 
+function displayTimePeriods(){
+    $.get(siteRoot + "/time", function(data){
+        $("#time-period-index").html(data);
+    });
+}
