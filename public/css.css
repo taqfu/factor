@@ -18,6 +18,9 @@ button.activeTaskCategoryType{
 div.time-select.margin-left{
     margin-left:17px;
 }
+.listOfActiveTasks{
+    margin-left:60px;
+}
 .margin-left{
     margin-left:14px;
 }

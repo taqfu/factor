@@ -35,6 +35,7 @@ $(document.body).ready(function () {
     $(document).on("click", ".hideNewTasks", function (event) {
         $('.listOfNewTasks').html("");
         $(".showNewTasks").removeClass('hidden');
+        $("#hideNewTasks" + event.target.id.substr(12, event.target.id.length-12)).addClass('hidden');
     });
 
     $("#hideNewTaskTypes").click(function(event){
