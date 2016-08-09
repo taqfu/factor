@@ -129,7 +129,7 @@ $(document.body).ready(function () {
         $("#login").addClass('hidden');    
     });
 
-    $(".specifyEndTime").click(function(event){
+    $(document).on('click', ".specifyEndTime", function(event){
         var idTagLength = "specifyEndTime".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
         $('#selectEndTimestamp'+timePeriodID).removeClass('hidden');
