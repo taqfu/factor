@@ -65,8 +65,9 @@ Route::get('/{period?}', ['as'=>'root', function($period=null){
     if (Auth::guest()){
         return View('public');
     } else if (Auth::user()){
+        $period_data = TimePeriod::fetch_period($period);
         return View('time', [
-            "period"=>TimePeriod::fetch_period($period),
+            "period"=>$period_data['name'],
             "task_category_types" => TaskCategoryType::where("id", ">", 1)
               ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
         ]);
