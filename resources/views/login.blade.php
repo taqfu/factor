@@ -33,8 +33,9 @@
         Login
     </button>
 </form>
-<div>
-    <a href="redirect/facebook">Facebook Login</a>
-    <a href="redirect/twitter">Twitter Login</a>
-    <a href="redirect/google">Google Login</a>
+<div class='text-center'>
+    Log In:
+    <a href="redirect/facebook">Facebook</a>
+    <a href="redirect/twitter">Twitter</a>
+    <a href="redirect/google">Google</a>
 </div>        

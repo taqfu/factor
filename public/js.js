@@ -1,5 +1,5 @@
 var taqfuHost=true;
-var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "/factor/public";
+var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "http://rootbasis.com";
 $(document.body).ready(function () {
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
