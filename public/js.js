@@ -1,7 +1,7 @@
 var taqfuHost=true;
 var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "/factor/public";
 $(document.body).ready(function () {
-    displayTimePeriods();
+    displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
@@ -192,8 +192,9 @@ function displayTasksFromCategoryType(id){ // [ Show Task Types ]
         $('#listOfNewTaskTypes').html( data );
     });
 } 
-function displayTimePeriods(){
-    $.get(siteRoot + "/time", function(data){
+function displayTimePeriods(periodOfTime){
+    console.log(siteRoot + "/time?period=" + periodOfTime);
+    $.get(siteRoot + "/time?period=" + periodOfTime, function(data){
         $("#time-period-index").html(data);
     });
 }

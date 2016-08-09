@@ -4,6 +4,7 @@
 @foreach($errors->all() as $error)
     {{$error}}
 @endforeach
+<input type='hidden' value='{{$period}}' id='period-of-time' />
 <ul class='nav nav-pills nav-justified'>
     <li class='dropdown'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -18,7 +19,7 @@
                   class='active'
               @endif
               >
-                <a href="{{route('time.index')}}"><h3>Today</h3></a>
+                <a href="{{route('root')}}"><h3>Today</h3></a>
             </li>
             <li
               @if ($period=="yesterday")

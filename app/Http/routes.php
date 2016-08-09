@@ -19,21 +19,6 @@ use \App\TaskCategoryType;
 Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/callback/{provider}', 'SocialAuthController@callback');
 
-Route::get('/', ['as'=>'root', function(Request $request){
-    if (Auth::guest()){
-        return View('public');
-    } else if (Auth::user()){
-        $period = isset($request->period)
-          ? TimePeriod::fetch_period($request->period)
-          : TimePeriod::fetch_period(null);
-        
-        return View('time', [
-            "period"=>$period['name'],
-            "task_category_types" => TaskCategoryType::where("id", ">", 1)
-              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
-        ]);
-    }
-}]);
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', 
   function ($id, $time_period_id ) {
     if ($id =="all"){
@@ -76,3 +61,14 @@ Route::resource('user', 'UserController');
 
 Route::auth();
 
+Route::get('/{period?}', ['as'=>'root', function($period=null){
+    if (Auth::guest()){
+        return View('public');
+    } else if (Auth::user()){
+        return View('time', [
+            "period"=>TimePeriod::fetch_period($period),
+            "task_category_types" => TaskCategoryType::where("id", ">", 1)
+              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+        ]);
+    }
+}]);

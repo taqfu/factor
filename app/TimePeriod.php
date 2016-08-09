@@ -12,28 +12,29 @@ class TimePeriod extends Model
     use SoftDeletes;
     protected $dates =["deleted_at"];
     public static function fetch_period($period){
-        $period=["name"=>$period, "begin"=>"", "end"=>""];
+        $period_data=["name"=>$period, "begin"=>"", "end"=>""];
+
         switch($period){
             case "all":
-                $period['begin'] = TimePeriod::orderBy('created_at', 'asc')
+                $period_data['begin'] = TimePeriod::orderBy('created_at', 'asc')
                   ->first()->created_at;
-                $period['end'] = date("Y-m-d") . " 23:59:59";
+                $period_data['end'] = date("Y-m-d") . " 23:59:59";
                 break;
             case "yesterday":
-                $period['begin'] = date("Y-m-d", strtotime("-1 days")) . " 00:00:00";
-                $period['end'] = date("Y-m-d", strtotime("-1 days")) . " 23:59:59";
+                $period_data['begin'] = date("Y-m-d", strtotime("-1 days")) . " 00:00:00";
+                $period_data['end'] = date("Y-m-d", strtotime("-1 days")) . " 23:59:59";
                 break;
             case "week":
-                $period['begin'] = date("Y-m-d", strtotime("-1 weeks")) . " 00:00:00";
-                $period['end'] = date("Y-m-d") . " 23:59:59";
+                $period_data['begin'] = date("Y-m-d", strtotime("-1 weeks")) . " 00:00:00";
+                $period_data['end'] = date("Y-m-d") . " 23:59:59";
                 break;
             default:
-                $period['name']="today";
-                $period['begin'] = date("Y-m-d") . " 00:00:00";
-                $period['end'] = date("Y-m-d") . " 23:59:59";
+                $period_data['name']="today";
+                $period_data['begin'] = date("Y-m-d") . " 00:00:00";
+                $period_data['end'] = date("Y-m-d") . " 23:59:59";
                 break;
         }
-        return $period;
+        return $period_data;
 
     }
     public static function format_interval($begin, $end){
