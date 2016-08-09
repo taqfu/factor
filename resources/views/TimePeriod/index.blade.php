@@ -16,7 +16,7 @@
     $date = date("m/d/y", strtotime($time_period->start));
     $last_time_period_ended_at = $time_period->start;
 ?>
-<div id="time-period{{$time_period->id}}" class='margin-top'>
+<div class='margin-top'>
     <div id='time-period-error{{$time_period->id}}' class='text-danger'></div>
     <a name="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
@@ -79,21 +79,22 @@
             Note
         </button>
     </div>
-</div>
-@if ($time_period->end==0)
-    <div id='selectEndTimestamp{{ $time_period->id }}'
-      class='selectEndTimestamp hidden clearfix margin-left-3'>
-        <button id='hideSelectEndTimestamp{{ $time_period->id }}' 
-          class='hideSelectEndTimestamp btn btn-default pull-left'>
-            -
-        </button>
-        @include ('TimePeriod.edit', ['when'=>'specify'])
+    @if ($time_period->end==0)
+        <div id='selectEndTimestamp{{ $time_period->id }}'
+          class='selectEndTimestamp hidden clearfix margin-left-3'>
+            <button id='hideSelectEndTimestamp{{ $time_period->id }}' 
+              class='hideSelectEndTimestamp btn btn-default pull-left'>
+                -
+            </button>
+            @include ('TimePeriod.edit', ['when'=>'specify'])
+        </div>
+    @endif
+    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clearfix'></div>
+    <div id='newTimePeriodNote{{ $time_period->id }}' 
+      class='newTimePeriodNote clearfix'>
     </div>
-@endif
-<div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clearfix'></div>
-<div id='newTimePeriodNote{{ $time_period->id }}' 
-  class='newTimePeriodNote clearfix'>
-</div>
+    <div id="time-period{{$time_period->id}}">
     @include ('TimePeriod.show')
+    </div>
 </div>
 @endforeach
