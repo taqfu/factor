@@ -92,6 +92,7 @@ $(document.body).ready(function () {
 
     $(document).on('click', ".showNewTasks", function(event){
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
+        resetTaskButtons(timePeriodID);
         $("#showNewTasks" + timePeriodID).addClass('hidden');
         $("#hideNewTasks" + timePeriodID).removeClass('hidden');
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
@@ -180,6 +181,7 @@ function createTask(typeID, timePeriodID){
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){ 
     //This comes up when you click Add Tasks
+    $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID).html("");
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/" 
       + timePeriodID, function( data ) {
         $('#listOfNewTasks' + timePeriodID).html(data);
@@ -203,5 +205,10 @@ function reloadTimePeriod(id){
     $.get(siteRoot + "/time/" + id, function(data){
         $("#time-period" + id).html(data);
     });
+}
 
+function resetTaskButtons(timePeriodID){
+    $(".hideNewTasks").addClass('hidden');
+    $(".showNewTasks").removeClass('hidden');
+    $("#hideNewTasks" + timePeriodID).addClass('hidden');
 }
