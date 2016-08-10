@@ -24,10 +24,13 @@ class TimePeriodController extends Controller
         if (Auth::guest()){
             return redirect(route('root'))->withErrors("Please login before trying to do this.");
         }
-        $period = TimePeriod::fetch_period($request->period);
-        return View::make('TimePeriod.index', [
-            "time_periods" => TimePeriod::where("created_at", ">", $period['begin'])
-              ->where('user_id', Auth::user()->id)->where("created_at", "<", $period['end'])
+        $period_data = TimePeriod::fetch_period($request->period);
+        return View::make('time', [
+            "period"=>$period_data['name'],
+            "task_category_types" => TaskCategoryType::where("id", ">", 1)
+              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+            "time_periods" => TimePeriod::where("created_at", ">", $period_data['begin'])
+              ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
               ->orderBy("start", "desc")->get(),
             "task_types" => TaskType::where('user_id', Auth::user()->id)
               ->orderBy("name", "asc")->get(),

@@ -17,8 +17,8 @@
     $last_time_period_ended_at = $time_period->start;
 ?>
 <div class='margin-top'>
+    <a id="TP{{$time_period->id}}"></a>
     <div id='time-period-error{{$time_period->id}}' class='text-danger'></div>
-    <a name="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
         <h1 class='text-center'>
             {{ $date }} 

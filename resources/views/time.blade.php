@@ -58,6 +58,6 @@
     <button id='hideNewTimePeriod' class='btn-default hidden'>Hide New Time Period</button>
 </div>
 @include ('TaskType.index')
-<div id='time-period-index'></div>
+@include ('TimePeriod.index')
 
 @endsection
