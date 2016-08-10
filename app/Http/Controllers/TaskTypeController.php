@@ -43,8 +43,12 @@ class TaskTypeController extends Controller
             return back()->withErrors("You must logged in in order to do this.");
         }
         $this->validate($request, [
-            'newTaskName'=>'required|unique:task_types,name',
+            'newTaskName'=>'required|string'
         ]);
+        if (count(TaskType::where('user_id', Auth::user()->id)
+          ->where('name', $request->newTaskName)->get())>0){
+            return back()->withErrors("Task type already exists.");
+        }
         $task_type = new TaskType;
         $task_type->name = $request->newTaskName;
         $task_type->user_id = Auth::user()->id;
@@ -70,13 +74,13 @@ class TaskTypeController extends Controller
     public function show($id)
     {
         $task_type = TaskType::find($id);
+        if ($task_type->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
         return View('TaskType.show', [
             'task_type'=>$task_type,
             'tasks'=>Task::where('type_id', $id)->where('user_id', Auth::user()->id)->get(),
         ]);
-        echo "<PRE>";
-        var_dump($task_type);
-        echo "</PRE>";
 
     }
 

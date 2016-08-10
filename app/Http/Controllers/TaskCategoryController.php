@@ -43,7 +43,8 @@ class TaskCategoryController extends Controller
             'newTaskTypeID' => 'required|integer',
             'newTaskCategoryTypeID' => 'required|integer',
         ]);
-        if (count(TaskCategory::where('task_type_id', $request->newTaskTypeID)
+        if (count(TaskCategory::where('user_id', Auth::user()->id)
+          ->where('task_type_id', $request->newTaskTypeID)
           ->where('task_category_type_id', $request->newTaskCategoryTypeID)
           ->get())>0){
             return back()->withErrors("This task category type already exists.");

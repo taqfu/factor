@@ -43,8 +43,12 @@ class TaskCategoryTypeController extends Controller
             return back()->withErrors("You must be logged in to do this.");
         }
         $this->validate($request, [
-            'newTaskCategoryTypeName'=>'required|unique:task_category_types,name',
+            'newTaskCategoryTypeName'=>'required|string',
         ]);
+        if (count(TaskCategoryTime::where('user_id', Auth::user()->id)
+          ->where('name', $request->newTaskCategoryTypeName)->get())>0){
+            return back()->withErrors("This Task Category Type already exists.";
+        }
         $task_category_type = new TaskCategoryType;
         $task_category_type->name = $request->newTaskCategoryTypeName;
         $task_category_type->user_id = Auth::user()->id;
@@ -63,6 +67,9 @@ class TaskCategoryTypeController extends Controller
     {
         if (Auth::guest()){
             return back()->withErrors("You must be logged in to do this.");
+        }
+        if (Auth::user()->id!=TaskCategoryType::find($id)->user_id){
+            return back()->withErrors("You are not authorized to do this.");
         }
         if ($id=="all"){
             $task_types = TaskType::where('user_id', Auth::user()->id)

@@ -49,6 +49,11 @@ class NoteController extends Controller
             "timePeriodID"=>"required|integer",
             "report"=>"required|string|max:20000",
         ]);
+        if (count(Note::where('user_id', Auth::user()->id)->where('task_id', $request->taskID)
+          ->where('time_period_id', $request->timePeriodID)->where('report', $request->report)
+          ->get())>0){
+            return;
+        }
         $note = new Note;
         $note->task_id = $request->taskID;
         $note->time_period_id = $request->timePeriodID;
@@ -100,8 +105,14 @@ class NoteController extends Controller
             'newReport'=>'required|string|max:20000',
         ]);
         $note = Note::find($id);
+
+        if ($note->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+
         $note->report = trim($request->newReport);
         $note->save();
+
         if ($note->task_id>0){
             $task = Task::find($note->task_id);
             $time_period_id = $task->time_period_id;

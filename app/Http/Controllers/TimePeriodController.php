@@ -103,8 +103,15 @@ class TimePeriodController extends Controller
      */
     public function show($id)
     {
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
+        $time_period = TimePeriod::find($id);
+        if (Auth::user()->id != $time_period->user_id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
         return View('TimePeriod.show', [
-           'time_period'=>TimePeriod::find($id), 
+           'time_period'=>$time_period, 
         ]);
     }
 
@@ -132,7 +139,7 @@ class TimePeriodController extends Controller
             return back()->withErrors("Please login before trying to do this.");
         }
         if (TimePeriod::is_there_one_already()){
-            return false;
+            return back()->withErrors("Time Period has been duplicated.");
         }
 
         $time_period = TimePeriod::find($id);
