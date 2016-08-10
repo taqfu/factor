@@ -2,12 +2,10 @@
   class='text-muted {{$type}} inline clearfix'><i>
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    <button type='submit' class='delete btn btn-danger'>
+    <button type='submit' class='delete btn btn-danger pull-left'>
         x
     </button>
-    {{ $note->report }}
-    <span class='small'>
-        ( Created - 
-        {{ date("m/d/y g:i", strtotime($note->created_at)) }} )
-    </span>
+    <div class='col-lg-6'>
+        {{ $note->report }}
+    </div>
 </i></form>
