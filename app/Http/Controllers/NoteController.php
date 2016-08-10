@@ -96,7 +96,19 @@ class NoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'newReport'=>'required|string|max:20000',
+        ]);
+        $note = Note::find($id);
+        $note->report = trim($request->newReport);
+        $note->save();
+        if ($note->task_id>0){
+            $task = Task::find($note->task_id);
+            $time_period_id = $task->time_period_id;
+        } else if ($note->time_period_id>0){
+            $time_period_id = $note->time_period_id;
+        }
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $time_period_id);
     }
 
     /**

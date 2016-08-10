@@ -48,6 +48,12 @@ div.time-select.margin-left{
 .margin-top-2{
     margin-top:28px;
 }
+.note-report:hover{
+    text-decoration:underline;
+}
+.note-report{
+    cursor:pointer;
+}
 .padding-left{
     padding-left:14px;
 }

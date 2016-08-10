@@ -1,11 +1,11 @@
 <form method="POST" action="{{ route('note.destroy', ['id'=>$note->id]) }}" 
-  class='text-muted {{$type}} inline clearfix'><i>
+  class='text-muted {{$type}} inline'><i>
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    <button type='submit' class='delete btn btn-danger pull-left'>
+    <button type='submit' class='delete btn btn-danger'>
         x
     </button>
-    <div class='col-lg-6'>
+    <span id='note-report{{$note->id}}' class='note-report'>
         {{ $note->report }}
-    </div>
+    </span>
 </i></form>

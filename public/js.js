@@ -6,6 +6,12 @@ $(document.body).ready(function () {
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
     });
+    $(document).on('click', '.cancel-edit-note', function(event){
+        var noteID = event.target.id.substr(16, event.target.id.length-16);
+        $("#note-report"+noteID).removeClass("hidden");
+        $("#edit-note" + noteID).addClass("hidden");
+        
+    });
 
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
@@ -64,6 +70,11 @@ $(document.body).ready(function () {
     $("#hide-sign-up").click(function(event){
         $("#register").addClass('hidden');
         $("#login").removeClass('hidden');    
+    });
+    $(document).on('click', '.note-report', function(event){
+        noteID = event.target.id.substr(11, event.target.id.length-11);
+        $("#note-report"+noteID).addClass("hidden");
+        $("#edit-note" + noteID).removeClass("hidden");
     });
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
