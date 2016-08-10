@@ -103,7 +103,9 @@ $(document.body).ready(function () {
 
     $(document).on('click', ".showNewTasks", function(event){
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
-        resetTaskButtons(timePeriodID);
+        $(".hideNewTasks").addClass('hidden');
+        $(".showNewTasks").removeClass('hidden');
+        
         $("#showNewTasks" + timePeriodID).addClass('hidden');
         $("#hideNewTasks" + timePeriodID).removeClass('hidden');
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
@@ -218,8 +220,3 @@ function reloadTimePeriod(id){
     });
 }
 
-function resetTaskButtons(timePeriodID){
-    $(".hideNewTasks").addClass('hidden');
-    $(".showNewTasks").removeClass('hidden');
-    $("#hideNewTasks" + timePeriodID).addClass('hidden');
-}
