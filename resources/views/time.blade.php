@@ -19,28 +19,28 @@
                   class='active'
               @endif
               >
-                <a href="{{route('root')}}"><h3>Today</h3></a>
+                <a href="{{route('time.index')}}"><h3>Today</h3></a>
             </li>
             <li
               @if ($period=="yesterday")
                   class='active'
               @endif
               >
-                <a href="{{route('root', ['period'=>'yesterday'])}}"><h3>Yesterday</h3></a>
+                <a href="{{route('time.index', ['period'=>'yesterday'])}}"><h3>Yesterday</h3></a>
             </li>
             <li
               @if ($period=="week")
                   class='active'
               @endif
               >
-                <a href="{{route('root', ['period'=>'week'])}}"><h3>Week</h3></a>
+                <a href="{{route('time.index', ['period'=>'week'])}}"><h3>Week</h3></a>
             </li>
             <li
               @if ($period=="all")
                   class='active'
               @endif
               >
-                <a href="{{route('root', ['period'=>'all'])}}"><h3>All</h3></a>
+                <a href="{{route('time.index', ['period'=>'all'])}}"><h3>All</h3></a>
             </li>
 
         </ul>
