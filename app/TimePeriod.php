@@ -60,19 +60,26 @@ class TimePeriod extends Model
           as output", [$end, $start])[0]->output;
 
     }
-    public function tasks(){
-        return $this->hasMany("App\Task");
+    public static function is_there_one_already(){
+        $date = new DateTime;
+        $date->modify('-10 seconds');
+        $formatted_date = $date->format('Y-m-d H:i:s');
+        return count(DB::table('time_periods')->where('user_id', Auth::user()->id)
+          ->where('created_at','>=',$formatted_date)->get())>0; 
+    }
+    public static function new_now(){
+        $time_period = new TimePeriod;
+        $time_period->start = date('Y-m-d H:i:s');
+        $time_period->startGuess = false;
+        $time_period->end = 0; 
+        $time_period->endGuess = false;
+        $time_period->user_id = Auth::user()->id;
+        $time_period->save();
     }
     public function notes(){
         return $this->hasMany("App\Note");
     }
-    public static function new_now(){
-            $time_period = new TimePeriod;
-            $time_period->start = date('Y-m-d H:i:s');
-            $time_period->startGuess = false;
-            $time_period->end = 0; 
-            $time_period->endGuess = false;
-            $time_period->user_id = Auth::user()->id;
-            $time_period->save();
+    public function tasks(){
+        return $this->hasMany("App\Task");
     }
 }

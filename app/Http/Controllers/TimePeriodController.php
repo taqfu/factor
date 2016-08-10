@@ -131,6 +131,9 @@ class TimePeriodController extends Controller
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
         }
+        if (TimePeriod::is_there_one_already()){
+            return false;
+        }
 
         $time_period = TimePeriod::find($id);
 
