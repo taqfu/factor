@@ -47,7 +47,7 @@ class TaskCategoryTypeController extends Controller
         ]);
         if (count(TaskCategoryTime::where('user_id', Auth::user()->id)
           ->where('name', $request->newTaskCategoryTypeName)->get())>0){
-            return back()->withErrors("This Task Category Type already exists.";
+            return back()->withErrors("This Task Category Type already exists.)";
         }
         $task_category_type = new TaskCategoryType;
         $task_category_type->name = $request->newTaskCategoryTypeName;
