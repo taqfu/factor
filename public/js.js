@@ -1,5 +1,6 @@
-var taqfuHost=true;
-var siteRoot= taqfuHost ? "http://taqfu.com/dev-env/factor/public" : "http://rootbasis.com";
+var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16) 
+  ? "http://taqfu.com/dev-env/factor/public" 
+  : "http://rootbasis.com";
 $(document.body).ready(function () {
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
@@ -209,7 +210,6 @@ function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     });
 } 
 function displayTimePeriods(periodOfTime){
-    console.log(siteRoot + "/time?period=" + periodOfTime);
     $.get(siteRoot + "/time?period=" + periodOfTime, function(data){
         $("#time-period-index").html(data);
     });
