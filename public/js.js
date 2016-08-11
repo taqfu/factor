@@ -195,7 +195,7 @@ function createTask(typeID, timePeriodID){
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){ 
     //This comes up when you click Add Tasks
-    $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID).html("");
+    $(".listOfNewTasks").html("");
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/" 
       + timePeriodID, function( data ) {
         $('#listOfNewTasks' + timePeriodID).html(data);
