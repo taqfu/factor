@@ -9,9 +9,6 @@
             {{$error}}
         @endforeach
     @endif
-<h1 class='text-center margin-bottom-2'>
-    Track Time Easily
-</h1>
     @include ('login')
     @include ('register')
 @endsection
