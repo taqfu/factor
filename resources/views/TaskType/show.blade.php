@@ -8,10 +8,10 @@
 
 @section('content')
     <h1 class='text-center'>
-        {{$task_type->name}}<br>
+        {{$task_type->name}} - 
         {{TaskType::total_hours($task_type->id)}} hours
     </h1>
-    <h3>
+    <h3> 
         <a href="{{URL::previous()}}">Back</a>
     </h3>
 @foreach($tasks as $task)
@@ -24,26 +24,44 @@
     ?>
     
     @if ($last_date != $date)
-        <h3>
+        <h2 class='text-center'>
             {{$date}}
             @if ($date != $today)
              - {{$daily_hours}} hours 
             @endif
-        </h3>
+        </h2>
         <?php $last_date = $date; ?>
     @endif
-    <div class='margin-left'>
+    <div class='lead margin-left'>
         @if ($task->time_period->end!=0)
             {{$start_time}} -  {{$end_time}} 
+            <i>
             ({{TimePeriod::format_interval($task->time_period->start, $task->time_period->end)}})
+            </i>
         @else
             {{$start_time}} - ongoing
+            <i>
             ({{TimePeriod::format_interval($task->time_period->start, 'now')}})
+            </i>
         @endif
     </div>    
-    <ul class='margin-left'>
+    @if (count($task->time_period->tasks)>1)
+        <div class='margin-left'><strong>
+        Other activity:
+        </strong></div>
+        <ul class='margin-left'>
+        @foreach($task->time_period->tasks as $time_period_task)
+            @iF ($time_period_task->type_id != $task->type_id)
+                <li>
+                {{$time_period_task->type->name}}
+                </li>
+            @endif
+        @endforeach
+        </ul>
+    @endif
+    <ul class='list-group margin-left'>
         @foreach ($task->notes as $note)
-            <li><i>
+            <li class='list-group-item' title='Created {{$note->created_at}}'><i>
                 {{$note->report}}
             </i></li>
         @endforeach
