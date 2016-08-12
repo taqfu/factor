@@ -65,7 +65,7 @@ class TimePeriod extends Model
         $date->modify('-10 seconds');
         $formatted_date = $date->format('Y-m-d H:i:s');
         return count(DB::table('time_periods')->where('user_id', Auth::user()->id)
-          ->where('created_at','>=',$formatted_date)->get())>0; 
+          ->where('start','>=',$formatted_date)->get())>0; 
     }
     public static function new_now(){
         $time_period = new TimePeriod;

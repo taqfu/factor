@@ -1,9 +1,13 @@
 @extends ('master')
 
+<div class='text-danger text-center lead'>
 @section ('content')
 @foreach($errors->all() as $error)
-    {{$error}}
+    <div>
+        {{$error}}
+    </div>
 @endforeach
+</div>
 <input type='hidden' value='{{$period}}' id='period-of-time' />
 <ul class='nav nav-pills nav-justified'>
     <li class='dropdown'>
