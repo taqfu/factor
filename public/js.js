@@ -205,7 +205,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
 function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
     $("#taskCategoryType" + id).addClass('activeTaskCategoryType');
-    $.get(siteRoot + "/TaskCategoryType/"+id, function(data){
+    $.get(siteRoot + "/TasksByTaskCategoryType/"+id, function(data){
         $('#listOfNewTaskTypes').html( data );
     });
 } 

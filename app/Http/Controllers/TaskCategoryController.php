@@ -67,7 +67,6 @@ class TaskCategoryController extends Controller
      */
     public function show($id)
     {
-        //
     }
 
     /**

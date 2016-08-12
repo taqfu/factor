@@ -1,5 +1,6 @@
 <?php
     use App\TaskType;
+    use App\TaskCategoryType;
     use App\TimePeriod;
     $last_date = 0;
     $today = date('m/d/y');
@@ -11,9 +12,24 @@
         {{$task_type->name}} - 
         {{TaskType::total_hours($task_type->id)}} hours
     </h1>
-    <h3> 
+    <h3 class='margin-left margin-bottom'> 
         <a href="{{URL::previous()}}">Back</a>
     </h3>
+    <h4 class='margin-left'>Categories:</h4> 
+    <ul class='margin-left'>
+    @forelse($tasks->first()->type->categories_all as $task_category)
+        <li>
+            <a href="{{route('TaskCategoryType.show', ['id'=>$task_category->type->id])}}">
+                {{$task_category->type->name}}  
+            </a>
+            - {{TaskCategoryType::total_hours($task_category->type->id)}} hours
+        </li>
+    @empty
+        <li>
+            None
+        </li>
+    @endforelse
+    </ul>
 @foreach($tasks as $task)
     <?php 
         $date = date("m/d/y", strtotime($task->time_period->start));

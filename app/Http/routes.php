@@ -19,6 +19,30 @@ use \App\TaskCategoryType;
 Route::get('/redirect/{provider}', 'SocialAuthController@redirect');
 Route::get('/callback/{provider}', 'SocialAuthController@callback');
 
+Route::get('TasksByTaskCategoryType/{id}', function ($id){
+    if (Auth::guest()){
+        return back()->withErrors("You must be logged in to do this.");
+    }
+    if ($id=="all"){
+        $task_types = TaskType::where('user_id', Auth::user()->id)
+          ->orderBy('name', 'asc')->get();
+    } else {
+        if (Auth::user()->id!=TaskCategoryType::find($id)->user_id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
+          'task_types.id')->where('task_categories.task_category_type_id', $id)
+          ->where('task_categories.user_id', Auth::user()->id)
+          ->where('task_types.user_id', Auth::user()->id)
+          ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 'asc')->get();
+    }
+    return View::make('TasksByTaskCategoryType', [
+        "task_types"=>$task_types,
+        "task_category_types" => TaskCategoryType::where("id", ">", 1)
+          ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+    ]);
+
+});
 Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', 
   function ($id, $time_period_id ) {
     if ($id =="all"){

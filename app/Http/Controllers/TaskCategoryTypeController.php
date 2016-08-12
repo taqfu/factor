@@ -66,26 +66,16 @@ class TaskCategoryTypeController extends Controller
     public function show($id)
     {
         if (Auth::guest()){
-            return back()->withErrors("You must be logged in to do this.");
+            return back()->withErrors("You need to be logged in to do this.");
         }
-        if ($id=="all"){
-            $task_types = TaskType::where('user_id', Auth::user()->id)
-              ->orderBy('name', 'asc')->get();
-        } else {
-            if (Auth::user()->id!=TaskCategoryType::find($id)->user_id){
-                return back()->withErrors("You are not authorized to do this.");
-            }
-            $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
-              'task_types.id')->where('task_categories.task_category_type_id', $id)
-              ->where('task_categories.user_id', Auth::user()->id)
-              ->where('task_types.user_id', Auth::user()->id)
-              ->whereNull('task_categories.deleted_at')->orderBy('task_types.name', 'asc')->get();
+        if(Auth::user()->id != TaskCategoryType::find($id)->user_id){
+            return back()->withErrors("You are not authorized to view this.");
         }
-        return View::make('TaskCategory.show', [
-            "task_types"=>$task_types,
-            "task_category_types" => TaskCategoryType::where("id", ">", 1)
-              ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
-        ]);
+        $task_types = TaskType::join('task_categories', 'task_types.id', '=', 'task_categories.task_type_id')->where('task_categories.task_category_type_id', $id)->get();
+        return View('TaskCategoryType.show', [
+            'task_category_type'=>TaskCategoryType::find($id),
+            'task_types'=>$task_types,
+        ]);    
     }
 
     /**

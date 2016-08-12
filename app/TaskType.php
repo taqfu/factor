@@ -33,18 +33,10 @@ class TaskType extends Model
     }
 
     public static function total_hours($id){
-/*
-            $date = date("Y-m-d") . " 00:00:00";
-            $query="select sum(time_to_sec(timediff(time_periods.end, 
-              time_periods.start))) from time_periods inner join tasks 
-              on tasks.time_period_id=time_periods.id where 
-              time_periods.end>'$date' and tasks.type_id=$id 
-              and time_periods.deleted_at is null and tasks.deleted_at is null";
-*/
-            $query="select sum(time_to_sec(timediff(time_periods.end, 
-              time_periods.start))) from time_periods inner join tasks 
-              on tasks.time_period_id=time_periods.id where 
-              tasks.type_id=$id and time_periods.deleted_at is null and tasks.deleted_at is null";
+        $query="select sum(time_to_sec(timediff(time_periods.end, 
+          time_periods.start))) from time_periods inner join tasks 
+          on tasks.time_period_id=time_periods.id where 
+          tasks.type_id=$id and time_periods.deleted_at is null and tasks.deleted_at is null";
         $dbh = new PDO 
           ('mysql:host=localhost;dbname=factor', 'root',  env('DB_PASSWORD') );
         $statement = $dbh->query($query);
