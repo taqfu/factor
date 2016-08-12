@@ -1,7 +1,7 @@
 <?php
     use App\TaskType;
 ?>
-<form method="POST" action=" {{ route('TaskType.destroy', ['id'=>$task_type->task_type_id]) }}"
+<form method="POST" action=" {{ route('TaskType.destroy', ['id'=>$task_type->id])}}"
   onsubmit="return confirm('Are you sure you want to delete \'{{ $task_type->name }}\'');"
   class='inline' >
     {{ csrf_field() }}
