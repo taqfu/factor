@@ -18,7 +18,6 @@
 ?>
 <div class='margin-top'>
     <a id="TP{{$time_period->id}}"></a>
-    <div id='time-period-error{{$time_period->id}}' class='text-danger'></div>
     @if ($date!= $old_date)
         <h1 class='text-center'>
             {{ $date }} 
@@ -89,7 +88,8 @@
             @include ('TimePeriod.edit', ['when'=>'specify'])
         </div>
     @endif
-    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks clearfix'></div>
+    <div id='time-period-error{{$time_period->id}}' class='lead text-center text-danger'></div>
+    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks'></div>
     <div id='newTimePeriodNote{{ $time_period->id }}' 
       class='newTimePeriodNote clearfix'>
     </div>
