@@ -53,15 +53,17 @@
                 $seconds = (int)$interval->format('%S'); 
             ?>
             ( 
-            @if ($hours>0)
-                {{ $hours }}h
-            @endif 
-            @if ($minutes>0)
-                {{ $minutes }}m
-            @endif
-            @if ($seconds>0) 
-                {{ $seconds }}s
-            @endif
+            <strong>
+                @if ($hours>0)
+                    {{ $hours }}h
+                @endif 
+                @if ($minutes>0)
+                    {{ $minutes }}m
+                @endif
+                @if ($seconds>0) 
+                    {{ $seconds }}s
+                @endif
+            </strong>
             )
         </div>
     </div>
@@ -105,7 +107,7 @@
       class='newTimePeriodNote clearfix'>
     </div>
     <div id="time-period{{$time_period->id}}">
-    @include ('TimePeriod.show')
+        @include ('TimePeriod.show')
     </div>
 </div>
 @endforeach
