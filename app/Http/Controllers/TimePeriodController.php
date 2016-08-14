@@ -25,7 +25,16 @@ class TimePeriodController extends Controller
             return redirect(route('root'))->withErrors("Please login before trying to do this.");
         }
         $period_data = TimePeriod::fetch_period($request->period);
+        $first_time_period_id = 
+          count ( TimePeriod::where("created_at", ">", $period_data['begin'])
+            ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
+            ->orderBy("start", "desc")->get())>0
+          ? TimePeriod::where("created_at", ">", $period_data['begin'])
+            ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
+            ->orderBy("start", "desc")->first()->id
+          : 0;
         return View::make('time', [
+            "first_time_period_id"=>$first_time_period_id,
             "period"=>$period_data['name'],
             "task_category_types" => TaskCategoryType::where("id", ">", 1)
               ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
@@ -129,6 +138,20 @@ class TimePeriodController extends Controller
         //
     }
 
+    public function resume($id){
+        if (Auth::guest()){
+            return back()->withErrors("Please login before trying to do this.");
+        }
+        $time_period = TimePeriod::find($id);
+
+        if (Auth::user()->id!=$time_period->user_id){
+            return back()->withErrors('You are not authorized to do this.');
+        }
+        $time_period->end = 0;
+        $time_period->save();
+        return redirect(redirect()->getUrlGenerator()->previous());
+        
+    }
     /**
      * Update the specified resource in storage.
      *

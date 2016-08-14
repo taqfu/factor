@@ -77,6 +77,17 @@
           class='showNewTimePeriodNote btn btn-info'>
             Note
         </button>
+    @if ($time_period->end !=0)
+        <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}" class='inline' role='form'>
+            {{csrf_field()}}
+            <button class='btn btn-primary'>
+                Resume
+            </button>
+        </form>
+        @if ($time_period->id == $first_time_period_id)
+            @include ("TimePeriod.new")
+        @endif
+    @endif
     </div>
     @if ($time_period->end==0)
         <div id='selectEndTimestamp{{ $time_period->id }}'
