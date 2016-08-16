@@ -77,6 +77,7 @@ Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteCon
 Route::post('/time/resume/{id}', ['as'=>'time.resume', 'uses'=>'TimePeriodController@resume']);
 
 Route::resource('note', 'NoteController');
+Route::resource('PersonType', 'PersonTypeController');
 Route::resource("time", "TimePeriodController");
 Route::resource("TimePeriodNote", "TimePeriodNoteController");
 Route::resource("task", "TaskController");

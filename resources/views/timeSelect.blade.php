@@ -1,8 +1,3 @@
-@if (isset($_SERVER['HTTP_USER_AGENT']) )
-    {{$_SERVER['HTTP_USER_AGENT']}}
-@endif
-
-<!--
 <div>
     @if($radio)
         <input id='{{ $timestamp_type }}TimestampSelect' type='radio' 
@@ -79,7 +74,6 @@
     @endfor
     
     </select>
-Guess? <input type='checkbox' name='{{ $timestamp_type }}Guess' />
+    Guess? <input type='checkbox' name='{{ $timestamp_type }}Guess' />
 </div>
 
--->

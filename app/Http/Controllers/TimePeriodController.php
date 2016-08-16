@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\PersonType;
 use App\Task;
 use App\TaskCategoryType;
 use App\TaskType;
@@ -36,6 +37,8 @@ class TimePeriodController extends Controller
         return View::make('time', [
             "first_time_period_id"=>$first_time_period_id,
             "period"=>$period_data['name'],
+            "person_types"=>PersonType::where('user_id', Auth::user()->id)
+              ->whereNull('disabled_at')->orderBy('name', 'asc')->get(),
             "task_category_types" => TaskCategoryType::where("id", ">", 1)
               ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
             "time_periods" => TimePeriod::where("created_at", ">", $period_data['begin'])

@@ -54,13 +54,17 @@
     </li>
 </ul>
 
-@include ('TimePeriod.create') 
 <div class='container text-center margin-top'>
-    <button id='showNewTaskTypes' class='btn-default'>Show Task Types</button>
-    <button id='hideNewTaskTypes' class='btn-default hidden'>Hide Task Types</button>
-    <button id='showNewTimePeriod' class='btn-default'>New Time Period</button>
-    <button id='hideNewTimePeriod' class='btn-default hidden'>Hide New Time Period</button>
+    <button id='showNewTaskTypes' class='btn-default btn-show'>Show Task Types</button>
+    <button id='hideNewTaskTypes' class='btn-default hidden btn-hide'>Hide Task Types</button>
+    <button id='showNewTimePeriod' class='btn-default btn-show'>New Time Period</button>
+    <button id='hideNewTimePeriod' class='btn-default hidden btn-hide'>Hide New Time Period</button>
+    <button id='showPeople' class='btn-default btn-show'>People</button>
+    <button id='hidePeople' class='btn-default hidden btn-hide'>Hide People</button>
 </div>
+@include ('TimePeriod.create') 
+@include('PersonType.index')
+
 @include ('TaskType.index')
 @include ('TimePeriod.index')
 

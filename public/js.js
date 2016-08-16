@@ -61,11 +61,18 @@ $(document.body).ready(function () {
         $(".newTimePeriodNote").html("");
         $(".showNewTimePeriodNote").removeClass('hidden');
     });
+    $("#hidePeople").click(function(event){
+        $("#hidePeople").addClass('hidden');
+        $("#showPeople").removeClass('hidden');
+        $("#people-list").addClass('hidden');
+    });
         
-    $(document).on('click', ".hideSelectEndTimestamp", function(event){
-        var idTagLength = "hideSelectEndTimestamp".length;
+    $(document).on('click', ".hideSpecifyEndTime", function(event){
+        var idTagLength = "hideSpecifyEndTime".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
         $('#selectEndTimestamp'+timePeriodID).addClass('hidden');
+        $("#specifyEndTime" + timePeriodID).removeClass('hidden');
+        $("#hideSpecifyEndTime" + timePeriodID).addClass('hidden');
     });
 
     $("#hide-sign-up").click(function(event){
@@ -115,12 +122,15 @@ $(document.body).ready(function () {
     });
 
     $("#showNewTaskTypes").click(function(event){
+        resetTopButtons();
+        console.log("YO");
         $("#showNewTaskTypes").addClass('hidden');
         $("#hideNewTaskTypes").removeClass('hidden');
         $("#taskTypeSection").removeClass('hidden');
     });
 
     $("#showNewTimePeriod").click(function(event){
+        resetTopButtons();
         $("#createTimePeriod").removeClass('hidden');
         $("#hideNewTimePeriod").removeClass('hidden');
         $("#showNewTimePeriod").addClass('hidden');
@@ -139,6 +149,12 @@ $(document.body).ready(function () {
         });
         
     });
+    $("#showPeople").click(function(event){
+        resetTopButtons();
+        $("#showPeople").addClass('hidden');
+        $("#hidePeople").removeClass('hidden');
+        $("#people-list").removeClass('hidden');
+    });
 
     $("#sign-up-button").click(function(event){
         $("#register").removeClass('hidden');
@@ -148,6 +164,8 @@ $(document.body).ready(function () {
     $(document).on('click', ".specifyEndTime", function(event){
         var idTagLength = "specifyEndTime".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
+        $("#specifyEndTime" + timePeriodID).addClass('hidden');
+        $("#hideSpecifyEndTime" + timePeriodID).removeClass('hidden');
         $('#selectEndTimestamp'+timePeriodID).removeClass('hidden');
     });
 
@@ -218,5 +236,11 @@ function reloadTimePeriod(id){
     $.get(siteRoot + "/time/" + id, function(data){
         $("#time-period" + id).html(data);
     });
+}
+function resetTopButtons(){
+    console.log("ASDFSA");
+    $(".btn-show").removeClass("hidden");
+    $(".btn-hide").addClass("hidden");
+    $(".menu-top").addClass("hidden");
 }
 

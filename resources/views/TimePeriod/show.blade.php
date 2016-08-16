@@ -11,7 +11,7 @@
                  @include('Task.destroy')
              </div>
              <div class='col-xs-4 col-lg-9'>
-                 <button id='showNewTaskNotes{{ $task->id }}' class='showNewTaskNotes btn btn-info'>
+                 <button id='showNewTaskNotes{{ $task->id }}' class='showNewTaskNotes btn btn-primary'>
                      Note
                  </button>
              </div>

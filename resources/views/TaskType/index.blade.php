@@ -1,4 +1,4 @@
-<div id='taskTypeSection'class='fix-clear bg-info hidden'>
+<div id='taskTypeSection'class='fix-clear bg-info hidden menu-top'>
     @include ('TaskType.store')
     <div class='text-center'>
         <button id='taskCategoryTypeall' 

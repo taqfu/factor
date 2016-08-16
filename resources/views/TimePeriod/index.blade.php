@@ -28,10 +28,14 @@
         @include ('TimePeriod.destroy')
         @if ($time_period->end==0)
             @include ('TimePeriod.edit', ['when'=>'now'])
-            <button id='specifyEndTime{{ $time_period->id }}' 
-              class='specifyEndTime btn btn-default'>
+            <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-default'>
                 Specify
             </button> 
+            <button id='hideSpecifyEndTime{{ $time_period->id }}' 
+              class='hideSpecifyEndTime btn btn-default hidden'>
+                Hide
+            </button>
+            
             <?php
                 $begin = new DateTime($time_period->start); 
                 $end = new DateTime(); 
@@ -76,7 +80,7 @@
             Hide
         </button>
         <button id='showNewTimePeriodNote{{$time_period->id}}'
-          class='showNewTimePeriodNote btn btn-info'>
+          class='showNewTimePeriodNote btn btn-primary'>
             Note
         </button>
     @if ($time_period->end !=0)
@@ -94,10 +98,6 @@
     @if ($time_period->end==0)
         <div id='selectEndTimestamp{{ $time_period->id }}'
           class='selectEndTimestamp hidden clearfix margin-left-3'>
-            <button id='hideSelectEndTimestamp{{ $time_period->id }}' 
-              class='hideSelectEndTimestamp btn btn-default pull-left'>
-                -
-            </button>
             @include ('TimePeriod.edit', ['when'=>'specify'])
         </div>
     @endif
