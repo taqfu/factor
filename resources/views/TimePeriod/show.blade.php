@@ -25,6 +25,11 @@
             <div id='newTaskNote{{ $task->id }}' class='newTaskNote' >
             </div>
         </div>
+        <div class='margin-left-3 clerfix'>
+            @foreach($task->people as $person)
+                @include("Person.destroy")
+            @endforeach
+        </div>
         <div class='margin-left-3 clearfix'>
             @foreach ( $task->notes as $task_note )
                 <div class='row'>

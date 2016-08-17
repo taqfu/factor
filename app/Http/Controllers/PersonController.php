@@ -112,6 +112,24 @@ class PersonController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
+
+        $person = Person::find($id);    
+
+        if ($person->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+
+        $person->delete();
+        if ($person->time_period_id>0){
+            return redirect(redirect()->getUrlGenerator()->previous() 
+              . "#TP". $person->time_period_id);
+        } else if ($person->task_id>0){
+            $task=Task::find($person->task_id);
+            return redirect(redirect()->getUrlGenerator()->previous() 
+              . "#TP". $task->time_period_id);
+        }
     }
 }

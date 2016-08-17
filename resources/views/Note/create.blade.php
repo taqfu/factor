@@ -7,12 +7,3 @@
         Add Note
     </button>
 </form>
-<button id='
-  @if ($time_period_id>0)
-      hideNewTimePeriodNote{{$time_period_id}}' class='hideNewTimePeriodNote
-  @elseif($task_id>0)
-      hideNewTaskNote{{$task_id}}' class='hideNewTaskNote
-  @endif
-  btn btn-info'>
-    Cancel
-</button>

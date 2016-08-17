@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use App\Http\Requests;
+use App\Person;
 use App\PersonType;
 class PersonTypeController extends Controller
 {
@@ -59,7 +60,22 @@ class PersonTypeController extends Controller
      */
     public function show($id)
     {
-        //
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
+        $person_type = PersonType::find($id);
+        if ($person_type==null){
+            return back()->withErrors("This is not a valid ID. Sorry.");
+        }
+        if ($person_type->user_id!=Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        return View ('PersonType.show', [
+            "person_type"=>$person_type,
+            "people"=>Person::where("user_id", Auth::user()->id)
+              ->where('person_type_id', $id)->get(),
+        ]);
+        
     }
 
     /**
@@ -82,7 +98,20 @@ class PersonTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::guest()){
+            return back()->withErrors("You must logged in in order to do this.");
+        }
+        $this->validate($request, [
+            "name"=>"required|string|max:255",
+        ]);
+        $person_type = PersonType::find($id);
+        if ($person_type->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        $person_type->name = $request->name;
+        $person_type->save();
+        return back();
+        
     }
 
     /**

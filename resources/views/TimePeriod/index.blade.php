@@ -91,27 +91,35 @@
     </div>
     <div class='col-xs-4'></div>
     <div class='col-lg-9 col-xs-8 secondary-menu'>
-        <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary'>
+        <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary show-time-period-menu'>
             Task
         </button>
-        <button id='hideNewTasks{{$time_period->id}}' class='hideNewTasks hidden btn btn-info'>
+        <button id='hideNewTasks{{$time_period->id}}' class='hideNewTasks hidden btn btn-info hide-time-period-menu'>
             Hide
         </button>
         <button id='showNewTimePeriodNote{{$time_period->id}}'
-          class='showNewTimePeriodNote btn btn-primary'>
+          class='showNewTimePeriodNote btn btn-primary show-time-period-menu'>
             Note
         </button>
+        <button id='hideNewTimePeriodNote{{$time_period->id}}'
+          class='hideNewTimePeriodNote btn btn-info hide-time-period-menu hidden'>
+            Hide
+        </button>
         <button id='show-new-person-time-period{{$time_period->id}}'
-          class='show-new-person btn btn-primary'/>
+          class='show-new-person btn btn-primary show-time-period-menu'/>
             Person
+        </button>
+        <button id='hide-new-person-time-period{{$time_period->id}}'
+          class='hide-new-person btn btn-info hidden hide-time-period-menu'/>
+            Hide
         </button>
     </div>
     <div id='time-period-error{{$time_period->id}}' class='lead text-center text-danger'></div>
-    <div id='new-person-time-period{{$time_period->id}}' class='new-person col-lg-6'>
+    <div id='new-person-time-period{{$time_period->id}}' class='new-person time-period-menu'>
     </div>
-    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks'></div>
+    <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks time-period-menu'></div>
     <div id='newTimePeriodNote{{ $time_period->id }}' 
-      class='newTimePeriodNote clearfix'>
+      class='newTimePeriodNote clearfix time-period-menu'>
     </div>
     <div id="time-period{{$time_period->id}}">
         @include ('TimePeriod.show')

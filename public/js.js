@@ -26,6 +26,20 @@ $(document.body).ready(function () {
         $("#hideInactiveTimePeriods").hide();
         $(".inactive").hide();
     });
+    $(document).on('click', '.hide-new-person', function(event){
+        var id = event.target.id.substr(15, event.target.id.length-5);
+        if (id.substr(0, 5) == "-task"){
+            var divCategory = "-task";
+            var id = id.substr(5);
+        } else {
+            var divCategory = "-time-period";
+            var id = id.substr(12);
+        }
+        $("#hide-new-person" + divCategory + id).addClass('hidden');
+        $("#show-new-person" + divCategory + id).removeClass('hidden');
+        $(".new-person").html("");
+    });
+    
     $(document).on("click", ".hideNewTaskCategory", function (event) {
         var classLength = "hideNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
@@ -63,6 +77,7 @@ $(document.body).ready(function () {
     $(document).on('click', ".hideNewTimePeriodNote", function(event){
         $(".newTimePeriodNote").html("");
         $(".showNewTimePeriodNote").removeClass('hidden');
+        $(".hideNewTimePeriodNote").addClass('hidden');
     });
     $("#hidePeople").click(function(event){
         $("#hidePeople").addClass('hidden');
@@ -92,6 +107,7 @@ $(document.body).ready(function () {
       $("#show-edit-name").addClass("hidden"); 
     });
     $(document).on('click', '.show-new-person', function(event){
+        resetTimePeriodMenu();
         var id = event.target.id.substr(15, event.target.id.length-5);
         if (id.substr(0, 5) == "-task"){
             var divCategory = "-task";
@@ -104,6 +120,8 @@ $(document.body).ready(function () {
             var taskID=0;
             var timePeriodID = id;
         }
+        $("#show-new-person" + divCategory + id).addClass('hidden');
+        $("#hide-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person:not(#new-person" + divCategory + id + ")").html("");
         $.get(siteRoot + "/person/task/" + taskID + "/timePeriod/" + timePeriodID, 
             function( data ) {
@@ -127,9 +145,11 @@ $(document.body).ready(function () {
     });
 
     $(document).on('click', ".showNewTaskNotes", function(event){
+        resetTimePeriodMenu();
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         $(".showNewTaskNotes").removeClass('hidden');
         $("#showNewTaskNotes" + taskID).addClass('hidden');
+        $("#hideNewTaskNotes" + taskID).addClass('hidden');
         $(".newTaskNote").html("");
         $.get(siteRoot + "/note/task/" + taskID + "/timePeriod/0", 
             function( data ) {
@@ -138,6 +158,7 @@ $(document.body).ready(function () {
     });
 
     $(document).on('click', ".showNewTasks", function(event){
+        resetTimePeriodMenu();
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
         $(".hideNewTasks").addClass('hidden');
         $(".showNewTasks").removeClass('hidden');
@@ -166,10 +187,12 @@ $(document.body).ready(function () {
     });
 
     $(document).on('click', ".showNewTimePeriodNote", function(event){
+        resetTimePeriodMenu();
         var classLength = "showNewTimePeriodNote".length;
         var timePeriodID = event.target.id.substr(classLength,event.target.id.length-classLength);
         $(".showNewTimePeriodNote").removeClass('hidden');
         $("#showNewTimePeriodNote" + timePeriodID).addClass('hidden');
+        $("#hideNewTimePeriodNote" + timePeriodID).removeClass('hidden');
         $(".newTimePeriodNote").html("");
         $.get(siteRoot + "/note/task/0/timePeriod/" + timePeriodID, 
             function( data ) {
@@ -264,6 +287,12 @@ function reloadTimePeriod(id){
     $.get(siteRoot + "/time/" + id, function(data){
         $("#time-period" + id).html(data);
     });
+}
+function resetTimePeriodMenu(){
+    $(".time-period-menu").html("");
+    $(".hide-time-period-menu").addClass('hidden');    
+    $(".show-time-period-menu").removeClass('hidden');    
+
 }
 function resetTopButtons(){
     console.log("ASDFSA");

@@ -16,6 +16,9 @@ class Task extends Model
     public function notes(){
         return $this->hasMany("App\Note");
     }
+    public function people(){
+        return $this->hasMany('App\Person');
+    }
     public function time_period(){
         return $this->belongsTo('App\TimePeriod');
     }
