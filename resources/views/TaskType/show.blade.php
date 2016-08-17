@@ -16,7 +16,7 @@
     @include ('TaskType.edit')
     </h1>
     <h3 class='margin-left margin-bottom'> 
-        <a href="{{URL::previous()}}">Back</a>
+        <a href="{{route('time.index')}}">Home</a>
     </h3>
     <h4 class='margin-left'>Categories:</h4> 
     <ul class='margin-left'>

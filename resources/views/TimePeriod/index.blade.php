@@ -32,7 +32,7 @@
                 Specify
             </button> 
             <button id='hideSpecifyEndTime{{ $time_period->id }}' 
-              class='hideSpecifyEndTime btn btn-default hidden'>
+              class='hideSpecifyEndTime btn btn-info hidden'>
                 Hide
             </button>
             
@@ -69,6 +69,24 @@
                 @endif
             </strong>
             )
+            @if ($time_period->end !=0)
+                    <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}" 
+                      class='inline' role='form'>
+                        {{csrf_field()}}
+                        <button class='btn btn-primary'>
+                            Resume
+                        </button>
+                    </form>
+                    @if ($time_period->id == $first_time_period_id)
+                        @include ("TimePeriod.new")
+                    @endif
+            @endif
+            @if ($time_period->end==0)
+                <div id='selectEndTimestamp{{ $time_period->id }}'
+                  class='selectEndTimestamp hidden clearfix margin-left-3'>
+                    @include ('TimePeriod.edit', ['when'=>'specify'])
+                </div>
+            @endif
         </div>
     </div>
     <div class='col-xs-4'></div>
@@ -76,7 +94,7 @@
         <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary'>
             Task
         </button>
-        <button id='hideNewTasks{{$time_period->id}}' class='hideNewTasks hidden btn btn-primary'>
+        <button id='hideNewTasks{{$time_period->id}}' class='hideNewTasks hidden btn btn-info'>
             Hide
         </button>
         <button id='showNewTimePeriodNote{{$time_period->id}}'
@@ -87,24 +105,7 @@
           class='show-new-person btn btn-primary'/>
             Person
         </button>
-    @if ($time_period->end !=0)
-        <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}" class='inline' role='form'>
-            {{csrf_field()}}
-            <button class='btn btn-primary'>
-                Resume
-            </button>
-        </form>
-        @if ($time_period->id == $first_time_period_id)
-            @include ("TimePeriod.new")
-        @endif
-    @endif
     </div>
-    @if ($time_period->end==0)
-        <div id='selectEndTimestamp{{ $time_period->id }}'
-          class='selectEndTimestamp hidden clearfix margin-left-3'>
-            @include ('TimePeriod.edit', ['when'=>'specify'])
-        </div>
-    @endif
     <div id='time-period-error{{$time_period->id}}' class='lead text-center text-danger'></div>
     <div id='new-person-time-period{{$time_period->id}}' class='new-person col-lg-6'>
     </div>

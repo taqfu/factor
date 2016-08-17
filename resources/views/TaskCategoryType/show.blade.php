@@ -10,7 +10,7 @@
         {{TaskCategoryType::total_hours($task_category_type->id)}} hours
     </h1>
     <h3 class='margin-left margin-bottom'> 
-        <a href="{{URL::previous()}}">Back</a>
+        <a href="{{route('time.index')}}">Home</a>
     </h3>
 <ul>
 @foreach($task_types as $task_type)
