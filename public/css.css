@@ -4,6 +4,10 @@
         margin-bottom:28px;
     }
 }
+.note-report:hover, #show-edit-name:hover{
+    text-decoration:underline;
+    cursor:pointer;
+}
 #createNewTimePeriod{
     width:200px;
     height:100px;
@@ -56,12 +60,6 @@ div.time-select.margin-left{
 }
 .margin-top-2{
     margin-top:28px;
-}
-.note-report:hover{
-    text-decoration:underline;
-}
-.note-report{
-    cursor:pointer;
 }
 .padding-left{
     padding-left:14px;

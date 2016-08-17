@@ -7,14 +7,21 @@
     @endforeach
     @foreach ($time_period->tasks as $task)
         <div class='clearfix'>
-             <div class='col-xs-8 col-lg-3' style='padding:0px;'>
-                 @include('Task.destroy')
-             </div>
-             <div class='col-xs-4 col-lg-9'>
-                 <button id='showNewTaskNotes{{ $task->id }}' class='showNewTaskNotes btn btn-primary'>
-                     Note
-                 </button>
-             </div>
+            <div class='col-xs-8 col-lg-3' style='padding:0px;'>
+                @include('Task.destroy')
+            </div>
+            <div class='col-xs-4 col-lg-9'>
+                <button id='showNewTaskNotes{{ $task->id }}' 
+                  class='showNewTaskNotes btn btn-primary'>
+                    Note
+                </button>
+                <button id='show-new-person-task{{$task->id}}'
+                  class='show-new-person btn btn-primary'/>
+                    Person
+                </button>
+            </div>
+            <div id='new-person-task{{$task->id}}' class='new-person col-lg-6'>
+            </div>
             <div id='newTaskNote{{ $task->id }}' class='newTaskNote' >
             </div>
         </div>

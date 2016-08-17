@@ -73,10 +73,11 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
 
 
 Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
-
+Route::get('/person/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'PersonController@create']);
 Route::post('/time/resume/{id}', ['as'=>'time.resume', 'uses'=>'TimePeriodController@resume']);
 
 Route::resource('note', 'NoteController');
+Route::resource('person', 'PersonController');
 Route::resource('PersonType', 'PersonTypeController');
 Route::resource("time", "TimePeriodController");
 Route::resource("TimePeriodNote", "TimePeriodNoteController");

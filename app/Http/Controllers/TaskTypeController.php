@@ -104,7 +104,19 @@ class TaskTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        if (Auth::guest()){
+            return back()->withErrors("You must logged in in order to do this.");
+        }
+        $this->validate($request, [
+            "name"=>"required|string|max:255",
+        ]);
+        $task_type = TaskType::find($id);
+        if ($task_type->user_id != Auth::user()->id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        $task_type->name = $request->name;
+        $task_type->save();
+        return back();
     }
 
     /**

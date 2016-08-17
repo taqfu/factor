@@ -17,7 +17,10 @@ $(document.body).ready(function () {
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
     });
-
+    $(document).on('click', '#hide-edit-name', function(event){
+        $("#edit-name").addClass("hidden");
+        $("#show-edit-name").removeClass("hidden"); 
+    });
     $("#hideInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").show();
         $("#hideInactiveTimePeriods").hide();
@@ -83,6 +86,31 @@ $(document.body).ready(function () {
         noteID = event.target.id.substr(11, event.target.id.length-11);
         $("#note-report"+noteID).addClass("hidden");
         $("#edit-note" + noteID).removeClass("hidden");
+    });
+    $(document).on("click", "#show-edit-name", function(event){
+      $("#edit-name").removeClass("hidden");
+      $("#show-edit-name").addClass("hidden"); 
+    });
+    $(document).on('click', '.show-new-person', function(event){
+        var id = event.target.id.substr(15, event.target.id.length-5);
+        if (id.substr(0, 5) == "-task"){
+            var divCategory = "-task";
+            var id = id.substr(5);
+            var taskID = id;
+            var timePeriodID = 0;
+        } else {
+            var divCategory = "-time-period";
+            var id = id.substr(12);
+            var taskID=0;
+            var timePeriodID = id;
+        }
+        $(".new-person:not(#new-person" + divCategory + id + ")").html("");
+        $.get(siteRoot + "/person/task/" + taskID + "/timePeriod/" + timePeriodID, 
+            function( data ) {
+                console.log("#new-person" + divCategory + id);
+                $("#new-person" + divCategory + id).html(data);
+                
+        });
     });
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;

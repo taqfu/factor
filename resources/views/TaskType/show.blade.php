@@ -8,9 +8,12 @@
 @extends('master')
 
 @section('content')
-    <h1 class='text-center'>
+    <h1 id='show-edit-name' class='text-center'>
         {{$task_type->name}} - 
         {{TaskType::total_hours($task_type->id)}} hours
+    </h1>
+    <h1>
+    @include ('TaskType.edit')
     </h1>
     <h3 class='margin-left margin-bottom'> 
         <a href="{{URL::previous()}}">Back</a>

@@ -83,6 +83,10 @@
           class='showNewTimePeriodNote btn btn-primary'>
             Note
         </button>
+        <button id='show-new-person-time-period{{$time_period->id}}'
+          class='show-new-person btn btn-primary'/>
+            Person
+        </button>
     @if ($time_period->end !=0)
         <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}" class='inline' role='form'>
             {{csrf_field()}}
@@ -102,6 +106,8 @@
         </div>
     @endif
     <div id='time-period-error{{$time_period->id}}' class='lead text-center text-danger'></div>
+    <div id='new-person-time-period{{$time_period->id}}' class='new-person col-lg-6'>
+    </div>
     <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks'></div>
     <div id='newTimePeriodNote{{ $time_period->id }}' 
       class='newTimePeriodNote clearfix'>
