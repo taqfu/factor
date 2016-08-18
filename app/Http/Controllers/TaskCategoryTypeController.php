@@ -131,7 +131,7 @@ class TaskCategoryTypeController extends Controller
         }
         $task_category_type->delete();
         $task_categories = TaskCategory::where('task_category_type', $id)
-          ->where('user_id', Auth::user()->id)->get();     
+          ->where('user_id', Auth::user()->id)->get();
         foreach($task_categories as $task_category){
             $task_category->delete();
         }
