@@ -1,5 +1,5 @@
-var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16) 
-  ? "http://taqfu.com/dev-env/factor/public" 
+var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16)
+  ? "http://taqfu.com/dev-env/factor/public"
   : "http://rootbasis.com";
 $(document.body).ready(function () {
     displayTimePeriods($("#period-of-time").val());
@@ -11,7 +11,7 @@ $(document.body).ready(function () {
         var noteID = event.target.id.substr(16, event.target.id.length-16);
         $("#note-report"+noteID).removeClass("hidden");
         $("form#edit-note" + noteID).addClass("hidden");
-        
+
     });
 
     $(".endTimestamp").change(function(event){
@@ -19,7 +19,7 @@ $(document.body).ready(function () {
     });
     $(document).on('click', '#hide-edit-name', function(event){
         $("#edit-name").addClass("hidden");
-        $("#show-edit-name").removeClass("hidden"); 
+        $("#show-edit-name").removeClass("hidden");
     });
     $("#hideInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").show();
@@ -39,7 +39,7 @@ $(document.body).ready(function () {
         $("#show-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person").html("");
     });
-    
+
     $(document).on("click", ".hideNewTaskCategory", function (event) {
         var classLength = "hideNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
@@ -84,7 +84,7 @@ $(document.body).ready(function () {
         $("#showPeople").removeClass('hidden');
         $("#people-list").addClass('hidden');
     });
-        
+
     $(document).on('click', ".hideSpecifyEndTime", function(event){
         var idTagLength = "hideSpecifyEndTime".length;
         var timePeriodID = event.target.id.substr(idTagLength, event.target.id.length-idTagLength);
@@ -95,7 +95,7 @@ $(document.body).ready(function () {
 
     $("#hide-sign-up").click(function(event){
         $("#register").addClass('hidden');
-        $("#login").removeClass('hidden');    
+        $("#login").removeClass('hidden');
     });
     $(document).on('click', '.note-report', function(event){
         noteID = event.target.id.substr(11, event.target.id.length-11);
@@ -104,7 +104,7 @@ $(document.body).ready(function () {
     });
     $(document).on("click", "#show-edit-name", function(event){
       $("#edit-name").removeClass("hidden");
-      $("#show-edit-name").addClass("hidden"); 
+      $("#show-edit-name").addClass("hidden");
     });
     $(document).on('click', '.show-new-person', function(event){
         resetTimePeriodMenu();
@@ -123,11 +123,11 @@ $(document.body).ready(function () {
         $("#show-new-person" + divCategory + id).addClass('hidden');
         $("#hide-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person:not(#new-person" + divCategory + id + ")").html("");
-        $.get(siteRoot + "/person/task/" + taskID + "/timePeriod/" + timePeriodID, 
+        $.get(siteRoot + "/person/task/" + taskID + "/timePeriod/" + timePeriodID,
             function( data ) {
                 console.log("#new-person" + divCategory + id);
                 $("#new-person" + divCategory + id).html(data);
-                
+
         });
     });
     $(document).on("click", ".showNewTaskCategory", function (event) {
@@ -149,9 +149,9 @@ $(document.body).ready(function () {
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         $(".showNewTaskNotes").removeClass('hidden');
         $("#showNewTaskNotes" + taskID).addClass('hidden');
-        $("#hideNewTaskNotes" + taskID).addClass('hidden');
+        $("#hideNewTaskNotes" + taskID).removeClass('hidden');
         $(".newTaskNote").html("");
-        $.get(siteRoot + "/note/task/" + taskID + "/timePeriod/0", 
+        $.get(siteRoot + "/note/task/" + taskID + "/timePeriod/0",
             function( data ) {
                 $("#newTaskNote"+taskID).html(data);
         });
@@ -162,12 +162,12 @@ $(document.body).ready(function () {
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
         $(".hideNewTasks").addClass('hidden');
         $(".showNewTasks").removeClass('hidden');
-        
+
         $("#showNewTasks" + timePeriodID).addClass('hidden');
         $("#hideNewTasks" + timePeriodID).removeClass('hidden');
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
         $("input[name='timePeriodID']").val(timePeriodID);
-    
+
     });
 
     $("#showNewTaskTypes").click(function(event){
@@ -194,11 +194,11 @@ $(document.body).ready(function () {
         $("#showNewTimePeriodNote" + timePeriodID).addClass('hidden');
         $("#hideNewTimePeriodNote" + timePeriodID).removeClass('hidden');
         $(".newTimePeriodNote").html("");
-        $.get(siteRoot + "/note/task/0/timePeriod/" + timePeriodID, 
+        $.get(siteRoot + "/note/task/0/timePeriod/" + timePeriodID,
             function( data ) {
                 $('#newTimePeriodNote' + timePeriodID).html(data);
         });
-        
+
     });
     $("#showPeople").click(function(event){
         resetTopButtons();
@@ -209,7 +209,7 @@ $(document.body).ready(function () {
 
     $("#sign-up-button").click(function(event){
         $("#register").removeClass('hidden');
-        $("#login").addClass('hidden');    
+        $("#login").addClass('hidden');
     });
 
     $(document).on('click', ".specifyEndTime", function(event){
@@ -225,8 +225,8 @@ $(document.body).ready(function () {
     });
 
     $(".taskCategoryType").click(function(event){
-        var classLength =  "taskCategoryType".length; 
-        var taskCategoryTypeID = 
+        var classLength =  "taskCategoryType".length;
+        var taskCategoryTypeID =
           event.target.id.substr(classLength, event.target.id.length-classLength);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
@@ -234,11 +234,11 @@ $(document.body).ready(function () {
         var typeID = event.target.id.substr(7, event.target.id.length-7);
         var timePeriodID = $("#task-time-period" + typeID).val();
         createTask(typeID, timePeriodID);
-    
+
     });
     $(document).on("click", ".taskCategoryTypeForTimePeriod", function (event) {
-        var classLength =  "taskCategoryTypeForTimePeriod".length; 
-        var taskCategoryTypeID = event.target.id.substr(classLength, 
+        var classLength =  "taskCategoryTypeForTimePeriod".length;
+        var taskCategoryTypeID = event.target.id.substr(classLength,
           event.target.id.length-classLength);
         var timePeriodID = $("#timePeriodIDForListOfNewTasks").val();
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID);
@@ -246,26 +246,26 @@ $(document.body).ready(function () {
 });
 
 function createTask(typeID, timePeriodID){
-    console.log(siteRoot + "/time/" + timePeriodID); 
+    console.log(siteRoot + "/time/" + timePeriodID);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },  
+        },
         method: "POST",
         url: siteRoot + "/task",
         data:{timePeriodID:timePeriodID, typeID:typeID},
-    })  
+    })
         .done(function (result){
             console.log("\"" + result + "\"", result=="OK");
-            result=="OK" 
+            result=="OK"
               ? reloadTimePeriod(timePeriodID)
               : $("#time-period-error" + timePeriodID).html(result);
-        }); 
+        });
 }
-function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){ 
+function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
     $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
-    $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/" 
+    $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
         $('#listOfNewTasks' + timePeriodID).html(data);
     });
@@ -277,7 +277,7 @@ function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     $.get(siteRoot + "/TasksByTaskCategoryType/"+id, function(data){
         $('#listOfNewTaskTypes').html( data );
     });
-} 
+}
 function displayTimePeriods(periodOfTime){
     $.get(siteRoot + "/time?period=" + periodOfTime, function(data){
         $("#time-period-index").html(data);
@@ -290,8 +290,8 @@ function reloadTimePeriod(id){
 }
 function resetTimePeriodMenu(){
     $(".time-period-menu").html("");
-    $(".hide-time-period-menu").addClass('hidden');    
-    $(".show-time-period-menu").removeClass('hidden');    
+    $(".hide-time-period-menu").addClass('hidden');
+    $(".show-time-period-menu").removeClass('hidden');
 
 }
 function resetTopButtons(){
@@ -300,4 +300,3 @@ function resetTopButtons(){
     $(".btn-hide").addClass("hidden");
     $(".menu-top").addClass("hidden");
 }
-

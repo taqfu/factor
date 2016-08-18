@@ -135,6 +135,6 @@ class TaskCategoryTypeController extends Controller
         foreach($task_categories as $task_category){
             $task_category->delete();
         }
-        return back();
+        return url("/");
     }
 }
