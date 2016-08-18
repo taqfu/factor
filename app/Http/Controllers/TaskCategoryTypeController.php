@@ -130,7 +130,7 @@ class TaskCategoryTypeController extends Controller
             return back()->withErrors("You are not authorized to do this.");
         }
         $task_category_type->delete();
-        $task_categories = TaskCategory::where('task_category_type', $id)
+        $task_categories = TaskCategory::where('task_category_type_id', $id)
           ->where('user_id', Auth::user()->id)->get();
         foreach($task_categories as $task_category){
             $task_category->delete();
