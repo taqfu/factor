@@ -54,7 +54,7 @@ class TaskCategoryTypeController extends Controller
         $task_category_type->user_id = Auth::user()->id;
         $task_category_type->save();
         return back();
-        
+
     }
 
     /**
@@ -75,7 +75,7 @@ class TaskCategoryTypeController extends Controller
         return View('TaskCategoryType.show', [
             'task_category_type'=>TaskCategoryType::find($id),
             'task_types'=>$task_types,
-        ]);    
+        ]);
     }
 
     /**
@@ -104,7 +104,7 @@ class TaskCategoryTypeController extends Controller
         $this->validate($request, [
             "name"=>"required|string|max:255",
         ]);
-        $task_category_type = TaskType::find($id);
+        $task_category_type = TaskCategoryType::find($id);
         if ($task_category_type->user_id != Auth::user()->id){
             return back()->withErrors("You are not authorized to do this.");
         }
@@ -125,7 +125,7 @@ class TaskCategoryTypeController extends Controller
             return back()->withErrors("You must be logged in to do this.");
         }
         $task_category_type = TaskCategoryType:: find($id);
-        
+
         if ($task_category_type->user_id != Auth::user()->id){
             return back()->withErrors("You are not authorized to do this.");
         }
