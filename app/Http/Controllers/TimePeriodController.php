@@ -70,9 +70,11 @@ class TimePeriodController extends Controller
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
         }
+/* disabled 09/04/16 because of an app breaking bug
         if (TimePeriod::is_there_one_already()){
             return back()->withErrors("Time Period has already been created.");
         }
+*/
         $startGuess = false;
         $endGuess = false;
         if ($request->startWhen==="now"){
