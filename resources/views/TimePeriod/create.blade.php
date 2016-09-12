@@ -5,8 +5,8 @@
         <div id='startTimestamp' class='container col-lg-3 col-xs-12 '>
             <h3 class='text-center'>Start</h3>
             <div>
-                <input type='radio' name='startWhen' value='now' checked/>
-                Now
+                <input type='radio' name='startWhen' value='now' checked />
+                Now -xyz
             </div>
             <div>
                 @include ('timeSelect', ["timestamp_type"=>"start", 'radio'=>true])
