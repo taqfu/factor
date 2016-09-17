@@ -97,7 +97,7 @@ $(document.body).ready(function () {
         $("#register").addClass('hidden');
         $("#login").removeClass('hidden');
     });
-    $(document).on('click', '.note-report', function(event){
+    $(document).on('click touchstart', '.note-report', function(event){
         noteID = event.target.id.substr(11, event.target.id.length-11);
         $("#note-report"+noteID).addClass("hidden");
         $("#edit-note" + noteID).removeClass("hidden");
