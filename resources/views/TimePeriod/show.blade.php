@@ -1,4 +1,9 @@
 <div class='listOfActiveTasks clearfix'>
+  <div class='clearfix'>
+      @foreach($time_period->people as $person)
+          @include("Person.destroy")
+      @endforeach
+  </div>
     @foreach ($time_period->notes as $time_period_note)
         <div class='clearfix'>
                 @include('Note.destroy', ["note"=>$time_period_note, "type"=>"timePeriodNote" ])
@@ -29,7 +34,7 @@
             <div id='newTaskNote{{ $task->id }}' class='newTaskNote' >
             </div>
         </div>
-        <div class='margin-left-3 clerfix'>
+        <div class='margin-left-3 clearfix'>
             @foreach($task->people as $person)
                 @include("Person.destroy")
             @endforeach

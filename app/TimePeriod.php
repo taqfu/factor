@@ -65,19 +65,22 @@ class TimePeriod extends Model
         $date->modify('-10 seconds');
         $formatted_date = $date->format('Y-m-d H:i:s');
         return count(DB::table('time_periods')->where('user_id', Auth::user()->id)
-          ->where('start','>=',$formatted_date)->where('end', '!=', '0000-00-00 00:00:00')->get())>0; 
+          ->where('start','>=',$formatted_date)->where('end', '!=', '0000-00-00 00:00:00')->get())>0;
     }
     public static function new_now(){
         $time_period = new TimePeriod;
         $time_period->start = date('Y-m-d H:i:s');
         $time_period->startGuess = false;
-        $time_period->end = 0; 
+        $time_period->end = 0;
         $time_period->endGuess = false;
         $time_period->user_id = Auth::user()->id;
         $time_period->save();
     }
     public function notes(){
         return $this->hasMany("App\Note");
+    }
+    public function people(){
+        return $this->hasMany("App\Person");
     }
     public function tasks(){
         return $this->hasMany("App\Task");
