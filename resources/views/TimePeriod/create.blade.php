@@ -1,5 +1,5 @@
 <form id='createTimePeriod' method="POST" action="{{ route('time.store') }}"
-  class='menu-top hidden' role='form'>
+  class='menu-top ' role='form'>
     {{ csrf_field() }}
     <div class='container clear'>
         <div id='startTimestamp' class='container col-lg-3 col-xs-12 '>

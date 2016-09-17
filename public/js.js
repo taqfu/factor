@@ -256,10 +256,9 @@ function createTask(typeID, timePeriodID){
         data:{timePeriodID:timePeriodID, typeID:typeID},
     })
         .done(function (result){
-            console.log("\"" + result + "\"", result=="OK");
-            result=="OK"
-              ? reloadTimePeriod(timePeriodID)
-              : $("#time-period-error" + timePeriodID).html(result);
+            result!="OK"
+              ? $("#time-period-error" + timePeriodID).html(result)
+              : reloadTimePeriod(timePeriodID);
         });
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
