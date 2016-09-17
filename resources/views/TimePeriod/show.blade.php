@@ -11,13 +11,17 @@
                 @include('Task.destroy')
             </div>
             <div class='col-xs-4 col-lg-9'>
-                <button id='showNewTaskNotes{{ $task->id }}' 
+                <button id='showNewTaskNotes{{ $task->id }}'
                   class='showNewTaskNotes btn btn-primary'>
                     Note
                 </button>
                 <button id='show-new-person-task{{$task->id}}'
                   class='show-new-person btn btn-primary'/>
                     Person
+                </button>
+                <button id='hide-new-person-task{{$time_period->id}}'
+                  class='hide-new-person btn btn-info hidden hide-time-period-menu'/>
+                    Hide
                 </button>
             </div>
             <div id='new-person-task{{$task->id}}' class='new-person col-lg-6'>
@@ -42,4 +46,3 @@
         </div>
     @endforeach
 </div>
-
