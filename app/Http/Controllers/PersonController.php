@@ -28,7 +28,7 @@ class PersonController extends Controller
     public function create($task_id, $time_period_id)
     {
         return View('Person.create',[
-            'person_types'=>PersonType::where('user_id', Auth::user()->id)->get(),
+            'person_types'=>PersonType::where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
             'task_id'=>$task_id,
             'time_period_id'=>$time_period_id,
         ]);
@@ -49,14 +49,14 @@ class PersonController extends Controller
             "timePeriodID"=>"required|integer",
             "taskID"=>"required|integer",
             "personTypeID"=>"required|integer",
-        ]); 
+        ]);
         if (count(Person::where('user_id', Auth::user()->id)->where('task_id', $request->taskID)
           ->where('time_period_id', $request->timePeriodID)
           ->where('person_type_id', $request->personTypeID)->get())>0){
             return back()->withErrors("This person has already been tagged.");
         }
         $person = new Person;
-        $person->user_id = Auth::user()->id; 
+        $person->user_id = Auth::user()->id;
         $person->task_id = $request->taskID;
         $person->time_period_id = $request->timePeriodID;
         $person->person_type_id = $request->personTypeID;
@@ -116,7 +116,7 @@ class PersonController extends Controller
             return back()->withErrors("You must be logged in to do this.");
         }
 
-        $person = Person::find($id);    
+        $person = Person::find($id);
 
         if ($person->user_id != Auth::user()->id){
             return back()->withErrors("You are not authorized to do this.");
@@ -124,11 +124,11 @@ class PersonController extends Controller
 
         $person->delete();
         if ($person->time_period_id>0){
-            return redirect(redirect()->getUrlGenerator()->previous() 
+            return redirect(redirect()->getUrlGenerator()->previous()
               . "#TP". $person->time_period_id);
         } else if ($person->task_id>0){
             $task=Task::find($person->task_id);
-            return redirect(redirect()->getUrlGenerator()->previous() 
+            return redirect(redirect()->getUrlGenerator()->previous()
               . "#TP". $task->time_period_id);
         }
     }
