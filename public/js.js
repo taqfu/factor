@@ -35,6 +35,7 @@ $(document.body).ready(function () {
             var divCategory = "-time-period";
             var id = id.substr(12);
         }
+        console.log ("#hide-new-person" + divCategory + id);
         $("#hide-new-person" + divCategory + id).addClass('hidden');
         $("#show-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person").html("");
