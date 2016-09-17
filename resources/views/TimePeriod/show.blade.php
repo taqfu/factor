@@ -20,7 +20,7 @@
                     Person
                 </button>
                 <button id='hide-new-person-task{{$task->id}}'
-                  class='hide-new-person btn btn-info hidden'/>
+                  class='btn btn-info hidden'/>
                     Hide
                 </button>
             </div>
