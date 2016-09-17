@@ -26,7 +26,7 @@ class TimePeriodController extends Controller
             return redirect(route('root'))->withErrors("Please login before trying to do this.");
         }
         $period_data = TimePeriod::fetch_period($request->period);
-        $first_time_period_id = 
+        $first_time_period_id =
           count ( TimePeriod::where("created_at", ">", $period_data['begin'])
             ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
             ->orderBy("start", "desc")->get())>0
@@ -70,11 +70,14 @@ class TimePeriodController extends Controller
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
         }
-/* disabled 09/04/16 because of an app breaking bug
+/*  disabled 09/04/16 because of an app breaking bug
+    enabled on September 17, 2016 for testing purposes
+    Don't forget line 173
+*/
         if (TimePeriod::is_there_one_already()){
             return back()->withErrors("Time Period has already been created.");
         }
-*/
+
         $startGuess = false;
         $endGuess = false;
         if ($request->startWhen==="now"){
@@ -82,9 +85,9 @@ class TimePeriodController extends Controller
         }  else if ($request->startWhen==="unspecific"){
             $start = 0;
         } else if ($request->startWhen==="timestamp"){
-            $start = $request->startYear . "-" . $request->startMonth . "-" 
-              . $request->startDay . " " . $request->startHour . ":" 
-              . $request->startMinute . ":00"; 
+            $start = $request->startYear . "-" . $request->startMonth . "-"
+              . $request->startDay . " " . $request->startHour . ":"
+              . $request->startMinute . ":00";
             $startGuess = $request->startGuess==="on";
         }
 
@@ -93,16 +96,16 @@ class TimePeriodController extends Controller
         } else if ($request->endWhen==="unspecific"){
             $end = 0;
         } else if ($request->endWhen==="timestamp"){
-            $end = $request->endYear . "-" . $request->endMonth . "-" 
-              . $request->endDay . " " . $request->endHour . ":" 
-              . $request->endMinute . ":00"; 
+            $end = $request->endYear . "-" . $request->endMonth . "-"
+              . $request->endDay . " " . $request->endHour . ":"
+              . $request->endMinute . ":00";
             $endGuess = $request->endGuess==="on";
         }
         $time_period = new TimePeriod;
         $time_period->start = $start;
-        $time_period->startGuess = $startGuess; 
+        $time_period->startGuess = $startGuess;
         $time_period->end = $end;
-        $time_period->endGuess = $endGuess; 
+        $time_period->endGuess = $endGuess;
         $time_period->user_id = Auth::user()->id;
         $time_period->save();
 
@@ -128,7 +131,7 @@ class TimePeriodController extends Controller
             return back()->withErrors("You are not authorized to do this.");
         }
         return View('TimePeriod.show', [
-           'time_period'=>$time_period, 
+           'time_period'=>$time_period,
         ]);
     }
 
@@ -155,7 +158,7 @@ class TimePeriodController extends Controller
         $time_period->end = 0;
         $time_period->save();
         return redirect(redirect()->getUrlGenerator()->previous());
-        
+
     }
     /**
      * Update the specified resource in storage.
@@ -169,11 +172,11 @@ class TimePeriodController extends Controller
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
         }
-/*
+
         if (TimePeriod::is_there_one_already()){
             return back()->withErrors("Time Period has already been created.");
         }
-*/
+
         $time_period = TimePeriod::find($id);
 
         if (Auth::user()->id!=$time_period->user_id){
@@ -184,8 +187,8 @@ class TimePeriodController extends Controller
             $time_period->end = date('Y-m-d H:i:s');
             TimePeriod::new_now();
         } else if ($request->when=="timestamp"){
-            $timestamp =  $request->newEndYear . "-" . $request->newEndMonth 
-              . "-" . $request->newEndDay . " " . $request->newEndHour . ":" 
+            $timestamp =  $request->newEndYear . "-" . $request->newEndMonth
+              . "-" . $request->newEndDay . " " . $request->newEndHour . ":"
               . $request->newEndMinute . ":00";
 
             $time_period->end = $timestamp;
@@ -194,7 +197,7 @@ class TimePeriodController extends Controller
             $another_time_period->end = 0;
             $another_time_period->user_id=Auth::user()->id;
             $another_time_period->save();
-            
+
         }
         if (TimePeriod::interval($time_period->start, $time_period->end)<0){
             return back()->withErrors('TimePeriod can not end before it has begun.');
@@ -202,7 +205,7 @@ class TimePeriodController extends Controller
         $time_period->save();
         return redirect(redirect()->getUrlGenerator()->previous());
     }
-    
+
 
 
     /**
@@ -226,7 +229,7 @@ class TimePeriodController extends Controller
             $task->delete();
         }
         $time_period->delete();
-        
+
         return redirect(redirect()->getUrlGenerator()->previous());
     }
 }
