@@ -19,7 +19,7 @@
                   class='show-new-person btn btn-primary'/>
                     Person
                 </button>
-                <button id='hide-new-person-task{{$time_period->id}}'
+                <button id='hide-new-person-task{{$task->id}}'
                   class='hide-new-person btn btn-info hidden hide-time-period-menu'/>
                     Hide
                 </button>
