@@ -2,7 +2,7 @@
   class='menu-top ' role='form'>
     {{ csrf_field() }}
     <div class='container clear'>
-        <div id='startTimestamp' class='container col-lg-3 col-xs-12 '>
+        <div id='startTimestamp' class=''>
             <h3 class='text-center'>Start</h3>
             <div>
                 <input type='radio' name='startWhen' value='now' checked />
