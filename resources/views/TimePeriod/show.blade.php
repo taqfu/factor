@@ -12,7 +12,7 @@
     @endforeach
     @foreach ($time_period->tasks as $task)
         <div class='clearfix'>
-            <div class='col-xs-8 col-lg-3' style='padding:0px;'>
+            <div class='' style='padding:0px;'>
                 @include('Task.destroy')
             </div>
             <div class='col-xs-4 col-lg-9'>
