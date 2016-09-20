@@ -1,5 +1,5 @@
 <form method="POST" action="{{ route('note.update', ['id'=>$note->id]) }}"
-  id='edit-note{{$note->id}}' class='edit-note hidden' />
+  id='edit-note{{$note->id}}' class='hidden edit-note' />
 
     {{ csrf_field() }}
     {{ method_field('PUT') }}
