@@ -21,11 +21,11 @@
                     Note
                 </button>
                 <button id='show-new-person-task{{$task->id}}'
-                  class='show-new-person btn btn-primary'/>
+                  class='show-new-person btn btn-primary'>
                     Person
                 </button>
                 <button id='hide-new-person-task{{$task->id}}'
-                  class='hide-new-person btn btn-info hidden'/>
+                  class='hide-new-person btn btn-info hidden'>
                     Hide
                 </button>
             </div>
