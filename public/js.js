@@ -283,13 +283,9 @@ function displayTimePeriods(periodOfTime){
     });
 }
 function reloadTimePeriod(id){
-
-
     $.get(siteRoot + "/time/" + id, function(data){
         $("#time-period" + id).html(data);
     });
-    $(".edit-note").addClass("hidden");
-    $(".note-report").removeClass("hidden"); 
 }
 function resetTimePeriodMenu(){
     $(".time-period-menu").html("");
