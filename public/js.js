@@ -134,6 +134,7 @@ $(document.body).ready(function () {
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
+        console.log (" test" ); 
         $("#showNewTaskCategory" + taskTypeID).addClass('hidden');
         $("#hideNewTaskCategory" + taskTypeID).removeClass('hidden');
         $("#newTaskCategory" + taskTypeID).removeClass('hidden');
@@ -173,7 +174,6 @@ $(document.body).ready(function () {
 
     $("#showNewTaskTypes").click(function(event){
         resetTopButtons();
-        console.log("YO");
         $("#showNewTaskTypes").addClass('hidden');
         $("#hideNewTaskTypes").removeClass('hidden');
         $("#taskTypeSection").removeClass('hidden');
@@ -295,7 +295,6 @@ function resetTimePeriodMenu(){
 
 }
 function resetTopButtons(){
-    console.log("ASDFSA");
     $(".btn-show").removeClass("hidden");
     $(".btn-hide").addClass("hidden");
     $(".menu-top").addClass("hidden");

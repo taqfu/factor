@@ -1,5 +1,5 @@
 <div class='listOfActiveTasks clearfix'>
-  <div class='clearfix'>
+  <div class='clearfix margin-bottom'>
       @foreach($time_period->people as $person)
           @include("Person.destroy")
       @endforeach
