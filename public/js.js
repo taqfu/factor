@@ -134,7 +134,6 @@ $(document.body).ready(function () {
     $(document).on("click", ".showNewTaskCategory", function (event) {
         var classLength = "showNewTaskCategory".length;
         var taskTypeID = event.target.id.substr(classLength, event.target.id.length-classLength);
-        console.log (" test" ); 
         $("#showNewTaskCategory" + taskTypeID).addClass('hidden');
         $("#hideNewTaskCategory" + taskTypeID).removeClass('hidden');
         $("#newTaskCategory" + taskTypeID).removeClass('hidden');
