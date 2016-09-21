@@ -10,8 +10,7 @@ $(document.body).ready(function () {
     $(document).on('click', '.cancel-edit-note', function(event){
         var noteID = event.target.id.substr(16, event.target.id.length-16);
         $("#note-report"+noteID).removeClass("hidden");
-        $("form#edit-note" + noteID).addClass("hidden");
-
+        $("div#edit-note" + noteID).addClass("hidden");
     });
 
     $(".endTimestamp").change(function(event){

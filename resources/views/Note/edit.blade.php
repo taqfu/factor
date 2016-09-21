@@ -5,8 +5,9 @@
         {{ method_field('PUT') }}
         <textarea name='newReport' class='form-control'>{{ $note->report }}</textarea>
         <div class='text-right'>
-        <input type='submit' class='btn btn-info' value='Submit' />
-        <input type='button' id='cancel-edit-note{{$note->id}}' class='cancel-edit-note btn btn-info' value='Cancel' />
+            <input type='submit' class='btn btn-info' value='Submit' />
+            <input type='button' id='cancel-edit-note{{$note->id}}'
+              class='cancel-edit-note btn btn-info' value='Cancel' />
         </div>
     </form>
 </div>
