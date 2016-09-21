@@ -2,11 +2,14 @@
 @extends('master')
 
 @section('content')
-<h4>Tme Zone</h4>
+    <h3 class='margin-left margin-bottom'> 
+        <a href="{{route('time.index')}}">Home</a>
+    </h3>
+
 <p class='margin-left'>
     Your time-zone is: {{Auth::user()->timezone}}
 </p>
-<form method="POST" action="{{route('timezone')}}" class='margin-left'>
+<form method="POST" action="{{route('timezone-change')}}" class='margin-left'>
     <div>
     @if ($errors->get('timezone'))
         @foreach ($errors->get('timezone') as $error)
