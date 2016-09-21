@@ -30,7 +30,7 @@ Route::get('TasksByTaskCategoryType/{id}', function ($id){
         if (Auth::user()->id!=TaskCategoryType::find($id)->user_id){
             return back()->withErrors("You are not authorized to do this.");
         }
-        $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
+        $task_types = TaskType::join('task_categories', 'task_type_id', '=',
           'task_types.id')->where('task_categories.task_category_type_id', $id)
           ->where('task_categories.user_id', Auth::user()->id)
           ->where('task_types.user_id', Auth::user()->id)
@@ -43,7 +43,7 @@ Route::get('TasksByTaskCategoryType/{id}', function ($id){
     ]);
 
 });
-Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}', 
+Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
   function ($id, $time_period_id ) {
     if ($id =="all"){
         $task_categories = TaskCategory::where('user_id', Auth::user()->id)->get();
@@ -56,7 +56,7 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
           ->where('user_id', Auth::user()->id)->get();
         $task_category_types = TaskCategoryType::where('user_id', Auth::user()->id)
           ->orderBy("name", "asc")->get();
-        $task_types = TaskType::join('task_categories', 'task_type_id', '=', 
+        $task_types = TaskType::join('task_categories', 'task_type_id', '=',
           'task_types.id')->where('task_categories.task_category_type_id', $id)
           ->where('task_categories.user_id', Auth::user()->id)
           ->where('task_types.user_id', Auth::user()->id)
@@ -74,6 +74,9 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
 
 Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
 Route::get('/person/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'PersonController@create']);
+Route::get("/timezone", ['as'=>'timezones', function(){
+    return view('timezones');
+}]);
 Route::post('/time/resume/{id}', ['as'=>'time.resume', 'uses'=>'TimePeriodController@resume']);
 
 Route::resource('note', 'NoteController');

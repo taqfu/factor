@@ -1,7 +1,8 @@
 @extends ('master')
 
-<div class='text-danger text-center lead'>
 @section ('content')
+<div class='text-danger text-center lead'>
+
 @foreach($errors->all() as $error)
     <div>
         {{$error}}
@@ -62,10 +63,13 @@
     <button id='showPeople' class='btn-default btn-show'>People</button>
     <button id='hidePeople' class='btn-default hidden btn-hide'>Hide People</button>
 </div>
-@include ('TimePeriod.create') 
+@include ('TimePeriod.create')
 @include('PersonType.index')
 
 @include ('TaskType.index')
+<form action="{{route('timezones')}}">
+    <input type='submit' value='Time Zones' class='btn-default btn' />
+</form>
 @include ('TimePeriod.index')
 
 @endsection
