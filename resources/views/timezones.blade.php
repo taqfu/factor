@@ -1,3 +1,4 @@
+<?php use DateTimeZone; ?>
 @extends('master')
 
 @section('content')
@@ -17,7 +18,7 @@
     {{ method_field('PUT') }}
     <select name='timezone'>
     <?php
-    $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL);    
+    $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
         foreach($tzlist as $tz){
             echo "<option ";
             if ($tz == Auth::user()->timezone){
