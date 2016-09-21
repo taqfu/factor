@@ -77,9 +77,7 @@ Route::get('/person/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'Perso
 Route::get("/timezone", ['as'=>'timezone', function(){
     return view('timezones');
 }]);
-Route::post("/timezone", ['as'=>'timezone', function(){
-    
-}]);
+Route::post("/timezone", ['as'=>'timezone', 'uses'=>'UserController@updateTimeZone']);
 Route::post('/time/resume/{id}', ['as'=>'time.resume', 'uses'=>'TimePeriodController@resume']);
 
 Route::resource('note', 'NoteController');

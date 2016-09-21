@@ -78,6 +78,27 @@ class UserController extends Controller
         //
     }
 
+    public function updateTimeZone(Request $request){
+        $this->validate($request, [
+            'timezone'=>'required|string'
+        ]);
+        $tzlist = DateTimeZone::listIdentifiers(DateTimeZone::ALL);
+        $clear=false;
+        foreach ($tzlist as $timezone){
+            if ($timezone==$request->timezone){
+                $clear=true;
+            }
+        }
+        if($clear){
+            $user = User::find(Auth::user()->id);
+            $user->timezone = $request->timezone;
+            $user->save();
+            return back();
+        } else {
+            return back()->withErrors(["timezone"=>'This time zone does not exist.']);
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *
