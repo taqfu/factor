@@ -67,7 +67,7 @@
 @include('PersonType.index')
 
 @include ('TaskType.index')
-<form action="{{route('timezones')}}">
+<form action="{{route('timezone')}}">
     <input type='submit' value='Time Zones' class='btn-default btn' />
 </form>
 @include ('TimePeriod.index')

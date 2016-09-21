@@ -1,4 +1,4 @@
-<?php use DateTimeZone; ?>
+<?php ?>
 @extends('master')
 
 @section('content')
@@ -6,7 +6,7 @@
 <p class='margin-left'>
     Your time-zone is: {{Auth::user()->timezone}}
 </p>
-<form method="POST" action="{{route('settings.timezone')}}" class='margin-left'>
+<form method="POST" action="{{route('timezone')}}" class='margin-left'>
     <div>
     @if ($errors->get('timezone'))
         @foreach ($errors->get('timezone') as $error)
