@@ -24,9 +24,11 @@ class TimePeriodController extends Controller
       if (Auth::guest()){
           return redirect(route('root'))->withErrors("Please login before trying to do this.");
       }
-      $date = $month . "/" . $day . "/" . $year;
+      $date = "20" . $year . "-" . $month . "-" . $day;
+
       $begin = $date . " 00:00:00";
       $end = $date . " 23:59:59";
+        var_dump($begin, $end);
       $first_time_period_id =
         count ( TimePeriod::where("created_at", ">", $begin)
           ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
@@ -35,6 +37,7 @@ class TimePeriodController extends Controller
           ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
           ->orderBy("start", "desc")->first()->id
         : 0;
+        var_dump($first_time_period_id);
       return View::make('time', [
           "first_time_period_id"=>$first_time_period_id,
           "period"=>'date',
@@ -42,6 +45,7 @@ class TimePeriodController extends Controller
             ->whereNull('disabled_at')->orderBy('name', 'asc')->get(),
           "task_category_types" => TaskCategoryType::where("id", ">", 1)
             ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+
           "time_periods" => TimePeriod::where("created_at", ">", $begin)
             ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
             ->orderBy("start", "desc")->get(),
