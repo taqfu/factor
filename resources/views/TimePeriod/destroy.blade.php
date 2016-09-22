@@ -1,3 +1,6 @@
+<?php 
+    use App\User;
+?>
 <form method="POST" action="{{ route('time.destroy',
   ['id'=>$time_period->id]) }}" class='inline' >
     {{ csrf_field() }}

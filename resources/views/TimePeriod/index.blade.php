@@ -1,5 +1,6 @@
 <?php
     use App\TimePeriod;
+    use App\User;
     $old_date = 0;
     $last_time_period_ended_at=0;
 ?>
