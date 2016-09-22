@@ -16,7 +16,8 @@ class TimePeriod extends Model
 
         switch($period){
             case "all":
-                $period_data['begin'] = date("Y-m-d");
+                $period_data['begin'] = TimePeriod::orderBy('created_at', 'asc')
+                  ->first()->created_at;
                 $period_data['end'] = date("Y-m-d") . " 23:59:59";
                 break;
             case "yesterday":

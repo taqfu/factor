@@ -37,6 +37,8 @@
          fjs.parentNode.insertBefore(js, fjs);
        }(document, 'script', 'facebook-jssdk'));
     </script>
+<!--{{Config::get('app.timezone')}}-->
+
 
     @yield('content')
 </body>
