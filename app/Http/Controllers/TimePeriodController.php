@@ -20,6 +20,35 @@ class TimePeriodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function indexDate($month, $day, $year){
+      if (Auth::guest()){
+          return redirect(route('root'))->withErrors("Please login before trying to do this.");
+      }
+      $date = $month . "/" . $day . "/" . $year;
+      $begin = $date . " 00:00:00";
+      $end = $date . " 23:59:59";
+      $first_time_period_id =
+        count ( TimePeriod::where("created_at", ">", $begin)
+          ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
+          ->orderBy("start", "desc")->get())>0
+        ? TimePeriod::where("created_at", ">", $begin)
+          ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
+          ->orderBy("start", "desc")->first()->id
+        : 0;
+      return View::make('time', [
+          "first_time_period_id"=>$first_time_period_id,
+          "period"=>'date',
+          "person_types"=>PersonType::where('user_id', Auth::user()->id)
+            ->whereNull('disabled_at')->orderBy('name', 'asc')->get(),
+          "task_category_types" => TaskCategoryType::where("id", ">", 1)
+            ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+          "time_periods" => TimePeriod::where("created_at", ">", $begin)
+            ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
+            ->orderBy("start", "desc")->get(),
+          "task_types" => TaskType::where('user_id', Auth::user()->id)
+            ->orderBy("name", "asc")->get(),
+      ]);
+    }
     public function index(Request $request)
     {
         if (Auth::guest()){

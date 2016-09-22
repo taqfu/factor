@@ -14,14 +14,19 @@
     </div>
 @endif
 <?php
-    $date = date("m/d/y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
+    $date   = date("m/d/y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
+    $month  = date("m", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
+    $day    = date("d", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
+    $year   = date("y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $last_time_period_ended_at = $time_period->start;
 ?>
 <div class='margin-top'>
     <a id="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
         <h1 class='text-center'>
-            {{ $date }}
+            <a href="{{ route('indexDate', ['month'=>$month, 'day'=>$day, 'year'=>$year]) }}">
+                {{ $date }}
+            </a>
         </h1>
         <?php $old_date = $date ?>
     @endif
