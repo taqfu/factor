@@ -1,6 +1,6 @@
-<?php 
+<?php
     use App\TimePeriod;
-    $old_date = 0; 
+    $old_date = 0;
     $last_time_period_ended_at=0;
 ?>
 
@@ -12,15 +12,15 @@
         unnaccounted for
     </div>
 @endif
-<?php 
-    $date = date("m/d/y", strtotime($time_period->start));
+<?php
+    $date = date("m/d/y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $last_time_period_ended_at = $time_period->start;
 ?>
 <div class='margin-top'>
     <a id="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
         <h1 class='text-center'>
-            {{ $date }} 
+            {{ $date }}
         </h1>
         <?php $old_date = $date ?>
     @endif
@@ -30,47 +30,47 @@
             @include ('TimePeriod.edit', ['when'=>'now'])
             <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-default'>
                 Specify
-            </button> 
-            <button id='hideSpecifyEndTime{{ $time_period->id }}' 
+            </button>
+            <button id='hideSpecifyEndTime{{ $time_period->id }}'
               class='hideSpecifyEndTime btn btn-info hidden'>
                 Hide
             </button>
-            
+
             <?php
-                $begin = new DateTime($time_period->start); 
-                $end = new DateTime(); 
+                $begin = new DateTime($time_period->start);
+                $end = new DateTime();
             ?>
         @elseif ($time_period->end!=0)
             <div class='inline'>
-                {{ date("H:i", strtotime($time_period->end)) }}  
-                <?php 
-                    $begin = new DateTime($time_period->start); 
-                    $end = new DateTime($time_period->end); 
+                {{ date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->end)))  }}
+                <?php
+                    $begin = new DateTime($time_period->start);
+                    $end = new DateTime($time_period->end);
                 ?>
             </div>
         @endif
         <div class='inline'>
             <?php
                 $interval = $begin->diff($end);
-                $hours = (int)$interval->format('%h'); 
-                $minutes = (int)$interval->format('%i'); 
-                $seconds = (int)$interval->format('%S'); 
+                $hours = (int)$interval->format('%h');
+                $minutes = (int)$interval->format('%i');
+                $seconds = (int)$interval->format('%S');
             ?>
-            ( 
+            (
             <strong>
                 @if ($hours>0)
                     {{ $hours }}h
-                @endif 
+                @endif
                 @if ($minutes>0)
                     {{ $minutes }}m
                 @endif
-                @if ($seconds>0) 
+                @if ($seconds>0)
                     {{ $seconds }}s
                 @endif
             </strong>
             )
             @if ($time_period->end !=0)
-                    <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}" 
+                    <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}"
                       class='inline' role='form'>
                         {{csrf_field()}}
                         <button class='btn btn-primary'>
@@ -118,7 +118,7 @@
     <div id='new-person-time-period{{$time_period->id}}' class='new-person time-period-menu'>
     </div>
     <div id='listOfNewTasks{{$time_period->id}}' class='listOfNewTasks time-period-menu'></div>
-    <div id='newTimePeriodNote{{ $time_period->id }}' 
+    <div id='newTimePeriodNote{{ $time_period->id }}'
       class='newTimePeriodNote clearfix time-period-menu'>
     </div>
     <div id="time-period{{$time_period->id}}">

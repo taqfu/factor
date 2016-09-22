@@ -23,4 +23,10 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+    public static function local_time($timezone, $timestamp){
+      date_default_timezone_set($timezone);
+      $timezone = date("Z");
+      date_default_timezone_set(Config::get('app.timezone'));
+      return $timestamp + $timezone;
+    }
 }
