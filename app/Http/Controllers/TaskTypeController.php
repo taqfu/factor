@@ -77,10 +77,10 @@ class TaskTypeController extends Controller
         if ($task_type->user_id != Auth::user()->id){
             return back()->withErrors("You are not authorized to do this.");
         }
-        
+
         return View('TaskType.show', [
             'task_type'=>$task_type,
-            'tasks'=>Task::where('type_id', $id)->where('user_id', Auth::user()->id)->get(),
+            'tasks'=>Task::where('type_id', $id)->where('user_id', Auth::user()->id)->orderBy('created_at', 'desc')->get(),
         ]);
 
     }
