@@ -24,9 +24,14 @@
     <a id="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
         <h1 class='text-center'>
-            <a href="{{ route('indexDate', ['month'=>$month, 'day'=>$day, 'year'=>$year]) }}"> 
+            @if ($period!="today" || $period!="yesterday" || $period!="date")
+                <a href="{{ route('indexDate', ['month'=>$month, 'day'=>$day, 'year'=>$year]) }}">
+                    {{ $date }}
+                </a>
+            @else
                 {{ $date }}
-            </a>
+            @endif
+
         </h1>
         <?php $old_date = $date ?>
     @endif
