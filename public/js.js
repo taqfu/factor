@@ -272,6 +272,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
 function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
     $("#taskCategoryType" + id).addClass('activeTaskCategoryType');
+    loadingMenu("#listOfNewTaskTypes");
     $.get(siteRoot + "/TasksByTaskCategoryType/"+id, function(data){
         $('#listOfNewTaskTypes').html( data );
     });
@@ -280,6 +281,15 @@ function displayTimePeriods(periodOfTime){
     $.get(siteRoot + "/time?period=" + periodOfTime, function(data){
         $("#time-period-index").html(data);
     });
+}
+function loadingMenu(divName){
+    var dots = window.setInterval( function() {
+        if ( $(divName).html().length > 3 )
+            $(divName).html("");
+        else
+            $(divName).html($(divName).html() += ".");
+        }
+    , 100);
 }
 function reloadTimePeriod(id){
     $.get(siteRoot + "/time/" + id, function(data){
