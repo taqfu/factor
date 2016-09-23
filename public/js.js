@@ -245,7 +245,6 @@ $(document.body).ready(function () {
 });
 
 function createTask(typeID, timePeriodID){
-    console.log(siteRoot + "/time/" + timePeriodID);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -263,8 +262,10 @@ function createTask(typeID, timePeriodID){
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
     $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
+    var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
+        clearInterval(interval);
         $('#listOfNewTasks' + timePeriodID).html(data);
     });
 }
@@ -272,10 +273,13 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
 function displayTasksFromCategoryType(id){ // [ Show Task Types ]
     $(".activeTaskCategoryType").removeClass('activeTaskCategoryType');
     $("#taskCategoryType" + id).addClass('activeTaskCategoryType');
-    loadingMenu("#listOfNewTaskTypes");
+    var interval = loadingMenu("#listOfNewTaskTypes");
+
     $.get(siteRoot + "/TasksByTaskCategoryType/"+id, function(data){
+        clearInterval(interval);
         $('#listOfNewTaskTypes').html( data );
     });
+
 }
 function displayTimePeriods(periodOfTime){
     $.get(siteRoot + "/time?period=" + periodOfTime, function(data){
@@ -283,16 +287,25 @@ function displayTimePeriods(periodOfTime){
     });
 }
 function loadingMenu(divName){
-    var dots = window.setInterval( function() {
-        if ( $(divName).html().length > 3 )
-            $(divName).html("");
-        else
-            $(divName).html($(divName).html() += ".");
-        }
-    , 100);
+    console.log(divName);
+    var begin = "<h1 style='text-align:center;'>";
+    var chars = ".";
+    var end = "</h1>";
+    var otherChars = begin.length + end.length;
+    var interval = window.setInterval( function() {
+    if ($(divName).html().length - otherChars >10){
+        chars = ".";
+    } else if ($(divName).html().length>0){
+        chars = $(divName).html().substr(begin.length, $(divName).html().length - otherChars) + ".";
+    } 
+    $(divName).html(begin + chars + end);
+    }, 100);
+    return interval;
 }
 function reloadTimePeriod(id){
+    var interval = loadingMenu("#time-period" + id);
     $.get(siteRoot + "/time/" + id, function(data){
+        clearInterval(interval);
         $("#time-period" + id).html(data);
     });
 }

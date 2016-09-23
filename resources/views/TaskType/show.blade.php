@@ -3,7 +3,6 @@
     use App\TaskCategoryType;
     use App\TimePeriod;
     use App\User;
-    use Auth;
     $last_date = 0;
     $today = date('m/d/y');
 ?>
