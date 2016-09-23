@@ -123,9 +123,10 @@ $(document.body).ready(function () {
         $("#show-new-person" + divCategory + id).addClass('hidden');
         $("#hide-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person:not(#new-person" + divCategory + id + ")").html("");
+        var interval = loadingMenu("#new-person" + divCategory + id);
         $.get(siteRoot + "/person/task/" + taskID + "/timePeriod/" + timePeriodID,
             function( data ) {
-                console.log("#new-person" + divCategory + id);
+                clearInterval(interval);
                 $("#new-person" + divCategory + id).html(data);
 
         });
@@ -151,8 +152,11 @@ $(document.body).ready(function () {
         $("#showNewTaskNotes" + taskID).addClass('hidden');
         $("#hideNewTaskNotes" + taskID).removeClass('hidden');
         $(".newTaskNote").html("");
+        var interval = loadingMenu("#newTaskNote"+taskID);
+
         $.get(siteRoot + "/note/task/" + taskID + "/timePeriod/0",
             function( data ) {
+                clearInterval(interval);
                 $("#newTaskNote"+taskID).html(data);
         });
     });
@@ -193,8 +197,11 @@ $(document.body).ready(function () {
         $("#showNewTimePeriodNote" + timePeriodID).addClass('hidden');
         $("#hideNewTimePeriodNote" + timePeriodID).removeClass('hidden');
         $(".newTimePeriodNote").html("");
+        var interval = loadingMenu('#newTimePeriodNote' + timePeriodID);
+
         $.get(siteRoot + "/note/task/0/timePeriod/" + timePeriodID,
             function( data ) {
+                clearInterval(interval);
                 $('#newTimePeriodNote' + timePeriodID).html(data);
         });
 
@@ -282,7 +289,9 @@ function displayTasksFromCategoryType(id){ // [ Show Task Types ]
 
 }
 function displayTimePeriods(periodOfTime){
+    var interval = loadingMenu("#time-period-index");
     $.get(siteRoot + "/time?period=" + periodOfTime, function(data){
+        clearInterval(interval);
         $("#time-period-index").html(data);
     });
 }
@@ -297,9 +306,9 @@ function loadingMenu(divName){
         chars = ".";
     } else if ($(divName).html().length>0){
         chars = $(divName).html().substr(begin.length, $(divName).html().length - otherChars) + ".";
-    } 
+    }
     $(divName).html(begin + chars + end);
-    }, 100);
+  }, 500);
     return interval;
 }
 function reloadTimePeriod(id){
