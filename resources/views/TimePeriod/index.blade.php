@@ -24,7 +24,7 @@
     <a id="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
         <h1 class='text-center'>
-            <a href="{{ route('indexDate', ['month'=>$month, 'day'=>$day, 'year'=>$year]) }}">
+            <a href="{{ route('indexDate', ['month'=>$month, 'day'=>$day, 'year'=>$year]) }}"> 
                 {{ $date }}
             </a>
         </h1>

@@ -28,7 +28,6 @@ class TimePeriodController extends Controller
 
       $begin = $date . " 00:00:00";
       $end = $date . " 23:59:59";
-        var_dump($begin, $end);
       $first_time_period_id =
         count ( TimePeriod::where("created_at", ">", $begin)
           ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
@@ -37,7 +36,6 @@ class TimePeriodController extends Controller
           ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
           ->orderBy("start", "desc")->first()->id
         : 0;
-        var_dump($first_time_period_id);
       return View::make('time', [
           "first_time_period_id"=>$first_time_period_id,
           "period"=>'date',

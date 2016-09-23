@@ -9,21 +9,21 @@
 
 @section('content')
     <h1 id='show-edit-name' class='text-center'>
-        {{$task_type->name}} - 
+        {{$task_type->name}} -
         {{TaskType::total_hours($task_type->id)}} hours
     </h1>
     <h1>
     @include ('TaskType.edit')
     </h1>
-    <h3 class='margin-left margin-bottom'> 
+    <h3 class='margin-left margin-bottom'>
         <a href="{{route('time.index')}}">Home</a>
     </h3>
-    <h4 class='margin-left'>Categories:</h4> 
+    <h4 class='margin-left'>Categories:</h4>
     <ul class='margin-left'>
     @forelse($tasks->first()->type->categories_all as $task_category)
         <li>
             <a href="{{route('TaskCategoryType.show', ['id'=>$task_category->type->id])}}">
-                {{$task_category->type->name}}  
+                {{$task_category->type->name}}
             </a>
             - {{TaskCategoryType::total_hours($task_category->type->id)}} hours
         </li>
@@ -34,26 +34,29 @@
     @endforelse
     </ul>
 @foreach($tasks as $task)
-    <?php 
-        $date = date("m/d/y", strtotime($task->time_period->start));
-        $start_time = date("H:i", strtotime($task->time_period->start));
-        $end_time = date("H:i", strtotime($task->time_period->end));
-        $daily_hours = 
+    <?php
+        $date   = date("m/d/y", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
+        $month  = date("m", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
+        $day    = date("d", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
+        $year   = date("y", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
+        $start_time = date("H:i", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
+        $end_time = date("H:i", User::local_time(Auth::user()->timezone, strtotime($task->time_period->end)));
+        $daily_hours =
           TaskType::daily_hours(date('Y-m-d', strtotime($task->time_period->start)), $task_type->id);
     ?>
-    
+
     @if ($last_date != $date)
-        <h2 class='text-center'>
+        <h2 class='text-center'><a href="{{ route('indexDate', ['month'=>$month, 'day'=>$day, 'year'=>$year]) }}">
             {{$date}}
             @if ($date != $today)
-             - {{$daily_hours}} hours 
+             - {{$daily_hours}} hours
             @endif
-        </h2>
+        </a></h2>
         <?php $last_date = $date; ?>
     @endif
     <div class='lead margin-left'>
         @if ($task->time_period->end!=0)
-            {{$start_time}} -  {{$end_time}} 
+            {{$start_time}} -  {{$end_time}}
             <i>
             ({{TimePeriod::format_interval($task->time_period->start, $task->time_period->end)}})
             </i>
@@ -63,7 +66,7 @@
             ({{TimePeriod::format_interval($task->time_period->start, 'now')}})
             </i>
         @endif
-    </div>    
+    </div>
     @if (count($task->time_period->tasks)>1)
         <div class='margin-left'><strong>
         Other activity:
