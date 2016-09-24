@@ -25,7 +25,7 @@
 <ul>
 @foreach($task_types as $task_type)
     <?php
-        $hours = {{TaskType::total_hours($task_type->task_type_id)}};
+        $hours = TaskType::total_hours($task_type->task_type_id);
         $total += $hours;
      ?>
     <li>
@@ -35,8 +35,8 @@
         - {{$hours}} hours
     </li>
 @endforeach
-    <li>
-        Total:
-    </li>
+    <li><strong>
+        Total: {{$total}}
+    </strong></li>
 </ul>
 @endsection
