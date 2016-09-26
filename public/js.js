@@ -51,7 +51,7 @@ $(document.body).ready(function () {
         $("#newTaskCategoryType").addClass('hidden');
     });
 
-    $(document).on('click', ".hideNewTaskNote", function(event){
+    $(document).on('click', ".hideNewTaskNotes", function(event){
         $(".newTaskNote").html("");
         $(".showNewTaskNotes").removeClass('hidden');
     });
