@@ -54,6 +54,8 @@ $(document.body).ready(function () {
     $(document).on('click', ".hideNewTaskNotes", function(event){
         $(".newTaskNote").html("");
         $(".showNewTaskNotes").removeClass('hidden');
+        $(".hideNewTaskNotes").addClass('hidden');
+
     });
 
     $(document).on("click", ".hideNewTasks", function (event) {
