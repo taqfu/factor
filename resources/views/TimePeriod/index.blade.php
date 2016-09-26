@@ -4,8 +4,8 @@
     $old_date = 0;
     $last_time_period_ended_at=0;
 ?>
-
 @foreach ($time_periods as $time_period)
+
 @if ($last_time_period_ended_at!=0 && $time_period->end!="0000-00-00 00:00:00"
   && TimePeriod::interval($time_period->end, $last_time_period_ended_at)>300)
     <div class='lead margin-top-2'>

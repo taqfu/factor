@@ -1,3 +1,6 @@
+<?php
+    use App\User;
+?>
 <div>
     @if($radio)
         <input id='{{ $timestamp_type }}TimestampSelect' type='radio' 
@@ -51,6 +54,7 @@
     
     @for ($hour=0; $hour<24; $hour++)
         <?php $hour = $hour<10 ? "0".$hour : $hour; ?>
+        
         @if ($hour==date("H"))
            <option selected value="{{$hour}}"> 
         @elseif ($hour!=date("H"))
