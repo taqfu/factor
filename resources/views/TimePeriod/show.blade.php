@@ -21,8 +21,8 @@
                     Note
                 </button>
                 <button id='hideNewTaskNotes{{ $task->id }}'
-                  class='hideNewTaskNotes btn btn-primary'>
-                    Note
+                  class='hideNewTaskNotes btn btn-info hidden'>
+                    Hide
                 </button>
                 <button id='show-new-person-task{{$task->id}}'
                   class='show-new-person btn btn-primary'>
