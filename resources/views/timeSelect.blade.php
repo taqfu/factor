@@ -2,7 +2,7 @@
     use App\User;
 ?>
 <div>
-    {{ User::local_now("n j, Y H:i")}}
+    {{ var_dump(User::local_now("n j, Y H:i"))}}
     @if($radio)
         <input id='{{ $timestamp_type }}TimestampSelect' type='radio'
           name='{{ $timestamp_type }}When' value='timestamp' />
