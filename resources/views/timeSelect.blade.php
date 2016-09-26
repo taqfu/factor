@@ -13,9 +13,9 @@
         <?php
             $month_val = $month<10 ? "0".$month : $month;
         ?>
-            @if ($month==date("n"))
+            @if ($month==local_now("n"))
                 <option selected value='{{ $month_val }}' >
-            @elseif ($month!=date("n"))
+            @elseif ($month!=local_now("n"))
                 <option value='{{ $month_val }}' >
             @endif
         {{ date("F",mktime(0, 0, 0, $month, 10)) }}</option>
@@ -26,9 +26,9 @@
       name="{{ $timestamp_type }}Day">
         @for($day=1 ; $day<32 ; $day++)
         <?php $day_val = $day<10 ? "0".$day : $day;?>
-            @if ($day==date("j"))
+            @if ($day==local_now("j"))
                 <option selected value='{{ $day_val }}' >
-            @elseif ($day!=date("j"))
+            @elseif ($day!=local_now("j"))
                 <option value='{{ $day_val }}' >
             @endif
         {{ $day }}</option
@@ -39,9 +39,9 @@
     <select id='{{ $timestamp_type }}Year' class='{{ $timestamp_type }}Timestamp'
       name="{{ $timestamp_type }}Year">
         @for($year=date("Y")-1 ; $year<date("Y")+2 ; $year++)
-            @if ($year==date("Y"))
+            @if ($year==local_now("Y"))
                 <option selected value='{{ $year }}' >
-            @elseif ($year!=date("Y"))
+            @elseif ($year!=local_now("Y"))
                 <option value='{{ $year }}' >
             @endif
         {{ $year }}</option>
@@ -56,9 +56,9 @@
     @for ($hour=0; $hour<24; $hour++)
         <?php $hour = $hour<10 ? "0".$hour : $hour; ?>
 
-        @if ($hour==date("H"))
+        @if ($hour==local_now("H"))
            <option selected value="{{$hour}}">
-        @elseif ($hour!=date("H"))
+        @elseif ($hour!=local_now("H"))
            <option value="{{$hour}}">
         @endif
         {{ $hour }}</option>
@@ -70,9 +70,9 @@
       name="{{ $timestamp_type }}Minute">
     @for ($minute=0; $minute<60; $minute++)
         <?php $minute = $minute<10 ? "0".$minute : $minute; ?>
-        @if ($minute==date("i"))
+        @if ($minute==local_now("i"))
            <option selected value="{{$minute}}">
-        @elseif ($minute!=date("i"))
+        @elseif ($minute!=local_now("i"))
            <option value="{{$minute}}">
         @endif
         {{ $minute }}</option>
