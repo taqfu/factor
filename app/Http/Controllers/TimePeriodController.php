@@ -204,17 +204,14 @@ class TimePeriodController extends Controller
             return back()->withErrors("Please login before trying to do this.");
         }
 
-        if (TimePeriod::is_there_one_already()){
-            return back()->withErrors("Time Period has already been created.");
-        }
-
         $time_period = TimePeriod::find($id);
-
         if (Auth::user()->id!=$time_period->user_id){
             return back()->withErrors('You are not authorized to do this.');
         }
 
-        if ($request->when=="now"){
+        if ($time_period->end!=0){
+            return back()->withErrors("Time period has already ended.");
+        } else if ($request->when=="now"){
             $time_period->end = date('Y-m-d H:i:s');
             TimePeriod::new_now();
         } else if ($request->when=="timestamp"){
@@ -230,6 +227,7 @@ class TimePeriodController extends Controller
             $another_time_period->save();
 
         }
+
         if (TimePeriod::interval($time_period->start, $time_period->end)<0){
             return back()->withErrors('TimePeriod can not end before it has begun.');
         }
