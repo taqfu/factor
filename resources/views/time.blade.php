@@ -56,14 +56,15 @@
 </ul>
 
 <div class='container text-center margin-top'>
-    <button id='showNewTaskTypes' class='btn-default btn-show'>Show Task Types</button>
-    <button id='hideNewTaskTypes' class='btn-default hidden btn-hide'>Hide Task Types</button>
     <button id='showNewTimePeriod' class='btn-default btn-show'>New Time Period</button>
     <button id='hideNewTimePeriod' class='btn-default hidden btn-hide'>Hide New Time Period</button>
+    <button id='showNewTaskTypes' class='btn-default btn-show'>Task Types</button>
+    <button id='hideNewTaskTypes' class='btn-default hidden btn-hide'>Hide Task Types</button>
+
     <button id='showPeople' class='btn-default btn-show'>People</button>
     <button id='hidePeople' class='btn-default hidden btn-hide'>Hide People</button>
 <form action="{{route('timezone')}}" class='inline'>
-    <input type='submit' value='Time Zones' class='btn-default' />
+    <input type='submit' value='Time Zone' class='btn-default' />
 </form>
 </div>
 @include ('TimePeriod.create')

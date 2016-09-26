@@ -100,7 +100,6 @@
             @endif
         </div>
     </div>
-    <div class='col-xs-4'></div>
     <div class='col-lg-9 col-xs-8 secondary-menu'>
         <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary show-time-period-menu'>
             Task

@@ -12,10 +12,10 @@
     @endforeach
     @foreach ($time_period->tasks as $task)
         <div class='clearfix'>
-            <div class='' style='padding:0px;'>
+            <div style='padding:0px;'>
                 @include('Task.destroy')
             </div>
-            <div class='col-xs-4 col-lg-9'>
+            <div>
                 <button id='showNewTaskNotes{{ $task->id }}'
                   class='showNewTaskNotes btn btn-primary'>
                     Note
