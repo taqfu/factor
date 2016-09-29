@@ -15,7 +15,7 @@
             <div style='padding:0px;'>
                 @include('Task.destroy')
             </div>
-            <div>
+            <div style='padding-left:20px;'>
                 <button id='showNewTaskNotes{{ $task->id }}'
                   class='showNewTaskNotes btn btn-primary'>
                     Note

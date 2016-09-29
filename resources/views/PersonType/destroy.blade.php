@@ -2,5 +2,7 @@
     {{csrf_field()}}
     {{method_field("delete")}}
     <input type='submit' class='btn btn-danger' value='x' />
-    {{$person_type->name}}
+    <a href="{{route('PersonType.show', ['id'=>$person_type->id])}}">
+        {{$person_type->name}}
+    </a>
 </form>

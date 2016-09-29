@@ -13,6 +13,7 @@
         <a href="{{route('time.index')}}">Home</a>
     </h3>
     @foreach ($people as $person)
+        <div>
         @if($person->task_id>0)
             {{date("m/d/y H:iA", strtotime($person->task->time_period->start))}}
             (
@@ -26,5 +27,6 @@
         @else
             {{$person->time_period->start}} - {{$person->time_period->end}}
         @endif
+        </div>
     @endforeach
 @endsection

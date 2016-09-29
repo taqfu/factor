@@ -11,5 +11,11 @@
     @endif
     @include ('login')
     @include ('register')
+<div class='text-center margin-bottom-2 margin-top-2'>
+    Press play to see how it works!
+</div>
+<div class='text-center'>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/htx7a-aF6t4" frameborder="0" allowfullscreen></iframe>
+</div>
 @endsection
 

@@ -63,14 +63,13 @@
 
     <button id='showPeople' class='btn-default btn-show'>People</button>
     <button id='hidePeople' class='btn-default hidden btn-hide'>Hide People</button>
-<form action="{{route('timezone')}}" class='inline'>
-    <input type='submit' value='Time Zone' class='btn-default' />
-</form>
+    <button id='show-time-zone' class='btn-default btn-show'>Timezone</button>
+    <button id='hide-time-zone' class='btn-default hidden btn-hide'>Hide Timezone</button>
 </div>
 @include ('TimePeriod.create')
 @include('PersonType.index')
 
 @include ('TaskType.index')
+@include ('timezones');
 @include ('TimePeriod.index')
-
 @endsection
