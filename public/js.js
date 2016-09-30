@@ -114,7 +114,7 @@ $(document.body).ready(function () {
       $("#show-edit-name").addClass("hidden");
     });
     $(document).on('click', '.show-new-person', function(event){
-        resetTimePeriodMenu();
+        resetTaskMenu();
         var id = event.target.id.substr(15, event.target.id.length-5);
         if (id.substr(0, 5) == "-task"){
             var divCategory = "-task";
@@ -153,7 +153,7 @@ $(document.body).ready(function () {
     });
 
     $(document).on('click', ".showNewTaskNotes", function(event){
-        resetTimePeriodMenu();
+        resetTaskMenu();
         var taskID = event.target.id.substr(16,event.target.id.length-16);
         $(".showNewTaskNotes").removeClass('hidden');
         $("#showNewTaskNotes" + taskID).addClass('hidden');
@@ -336,6 +336,11 @@ function resetTimePeriodMenu(){
     $(".hide-time-period-menu").addClass('hidden');
     $(".show-time-period-menu").removeClass('hidden');
 
+}
+function resetTaskMenu(){
+  $(".task-menu").html("");
+  $(".hide-task-menu").addClass('hidden');
+  $(".show-task-menu").removeClass('hidden');
 }
 function resetTopButtons(){
     $(".btn-show").removeClass("hidden");
