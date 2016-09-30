@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Exceptions;
-
+use Auth;
 use Exception;
+use Mail;
+use Request;
+use URL;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -33,6 +36,14 @@ class Handler extends ExceptionHandler
      */
     public function report(Exception $e)
     {
+      if (Auth::guest()){
+          $user = "--GUEST--";
+      } else if (Auth::user()){
+          $user = Auth::user()->username;
+      }
+      Mail::send('emails.exception', ['all_requests'=>Request::all(), 'error' => $e, 'user'=>$user, "ip"=>Request::ip(), "url"=>Request::url(), "prev"=>URL::previous() ], function ($m) {
+          $m->to('taqfu0@gmail.com', 'Root Basis Bug Reporting')->subject('Error');
+      });
         parent::report($e);
     }
 
