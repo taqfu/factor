@@ -1,3 +1,8 @@
+<h3 class='text-center'>
+  <a href="{{route('TaskCategoryType.show', ['id'=>$task_category_type->id])}}">
+      {{ $task_category_type->name }}
+  </a>
+</h3>
 
 @foreach ($task_types as $task_type)
 <?php

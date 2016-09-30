@@ -38,8 +38,10 @@ Route::get('TasksByTaskCategoryType/{id}', function ($id){
     }
     return View::make('TasksByTaskCategoryType', [
         "task_types"=>$task_types,
+        "task_category_type"=>TaskCategoryType::find($id),
         "task_category_types" => TaskCategoryType::where("id", ">", 1)
           ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
+
     ]);
 
 });
