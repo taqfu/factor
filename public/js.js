@@ -286,6 +286,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
         clearInterval(interval);
+        console.log ("CLEAR INTERVAL " + timePerioDID);
         $('#listOfNewTasks' + timePeriodID).html(data);
     });
 }
@@ -309,7 +310,6 @@ function displayTimePeriods(periodOfTime){
     });
 }
 function loadingMenu(divName){
-    console.log(divName);
     var begin = "<h1 style='text-align:center;'>";
     var chars = ".";
     var end = "</h1>";

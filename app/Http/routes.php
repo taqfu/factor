@@ -26,7 +26,9 @@ Route::get('TasksByTaskCategoryType/{id}', function ($id){
     if ($id=="all"){
         $task_types = TaskType::where('user_id', Auth::user()->id)
           ->orderBy('name', 'asc')->get();
+        $task_category_type = "all";
     } else {
+        $task_category_type = TaskCategoryType::find($id);
         if (Auth::user()->id!=TaskCategoryType::find($id)->user_id){
             return back()->withErrors("You are not authorized to do this.");
         }
@@ -38,7 +40,7 @@ Route::get('TasksByTaskCategoryType/{id}', function ($id){
     }
     return View::make('TasksByTaskCategoryType', [
         "task_types"=>$task_types,
-        "task_category_type"=>TaskCategoryType::find($id),
+        "task_category_type"=>$task_category_type,
         "task_category_types" => TaskCategoryType::where("id", ">", 1)
           ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
 
