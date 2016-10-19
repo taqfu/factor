@@ -285,6 +285,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
     var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
+        
         clearInterval(interval);
         $('#listOfNewTasks' + timePeriodID).html(data);
     });
