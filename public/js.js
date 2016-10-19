@@ -252,6 +252,8 @@ $(document.body).ready(function () {
     $(document).on('click', '.newTask', function(event){
         var typeID = event.target.id.substr(7, event.target.id.length-7);
         var timePeriodID = $("#task-time-period" + typeID).val();
+        $("#newTask" + typeID).removeClass('btn-success');
+        $("#newTask" + typeID).addClass('btn-danger');
         createTask(typeID, timePeriodID);
 
     });
