@@ -1,9 +1,10 @@
+@if($task_category_type!="all")
 <h3 class='text-center'>
   <a href="{{route('TaskCategoryType.show', ['id'=>$task_category_type->id])}}">
       {{ $task_category_type->name }}
   </a>
 </h3>
-
+@endif
 @foreach ($task_types as $task_type)
 <?php
   $task_type_id = isset ($task_type->task_type_id) ? $task_type->task_type_id : $task_type->id;

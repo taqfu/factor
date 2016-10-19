@@ -30,6 +30,7 @@ Route::get('TasksByTaskCategoryType/{id}', function ($id){
         $task_category_type->name = "All";
         $task_category_type->id = 1;
     } else {
+        $task_category_type = TaskCategoryType::find($id);
         if (Auth::user()->id!=TaskCategoryType::find($id)->user_id){
             return back()->withErrors("You are not authorized to do this.");
         }

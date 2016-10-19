@@ -310,7 +310,6 @@ function displayTimePeriods(periodOfTime){
     });
 }
 function loadingMenu(divName){
-    console.log(divName);
     var begin = "<h1 style='text-align:center;'>";
     var chars = ".";
     var end = "</h1>";
