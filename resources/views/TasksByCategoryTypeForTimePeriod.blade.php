@@ -29,7 +29,6 @@
         @endif
     @endforeach
     <div class='text-center'>
-    var_dump($active_task_types);
     @foreach($task_types as $task_type)
 
         @if (isset($task_type->task_type_id))
@@ -47,7 +46,7 @@
         @else
             @if(in_array($task_type->id, $active_task_types))
                 <button type='submit' id='newTask{{$task_type->id}}'
-                  class='btn btn-success newTask'>
+                  class='btn btn-danger newTask'>
             @else
                 <button type='submit' id='newTask{{$task_type->task_type_id}}'
                   class='btn  btn-success newTask'>
