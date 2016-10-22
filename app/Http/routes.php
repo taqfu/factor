@@ -1,11 +1,12 @@
 <?php
 use \App\Log;
 use \App\TagType;
+use \App\Task;
 use \App\TaskType;
-use \App\TimePeriod;
 use \App\TaskCategory;
 use \App\TaskCategoryType;
 
+use \App\TimePeriod;
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -70,9 +71,17 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
           ->where('task_categories.user_id', Auth::user()->id)
           ->where('task_types.user_id', Auth::user()->id)
           ->orderBy('task_types.name', 'asc')->get();
+
+    }
+    $tasks_for_time_period = Task::where('user_id', Auth::user()->id)
+      ->where('time_period_id', $time_period_id)->get();
+    $active_task_types=[];
+    foreach ($tasks_for_time_period as $task_for_time_period){
+        $active_task_types[] = $task_for_time_period->type_id;
     }
     return view('TasksByCategoryTypeForTimePeriod', [
         "active_task_category_type_id"=>$id,
+        "active_task_types"=>$active_task_types,
         "time_period_id"=>$time_period_id,
         "task_categories"=>$task_categories,
         "task_category_types" => $task_category_types,
