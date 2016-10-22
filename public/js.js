@@ -312,13 +312,13 @@ function displayTimePeriods(periodOfTime){
     });
 }
 function loadingMenu(divName){
-    console.log(divName);
     var begin = "<h1 style='text-align:center;'>";
     var chars = ".";
     var end = "</h1>";
     var otherChars = begin.length + end.length;
     var interval = window.setInterval( function() {
-    if ($(divName).html().length - otherChars >10){
+    if (typeof $(divName).html()!='undefined' 
+      && $(divName).html().length - otherChars >10){
         chars = ".";
     } else if ($(divName).html().length>0){
         chars = $(divName).html().substr(begin.length, $(divName).html().length - otherChars) + ".";
