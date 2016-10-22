@@ -249,7 +249,7 @@ $(document.body).ready(function () {
           event.target.id.substr(classLength, event.target.id.length-classLength);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
-    $(document).on('click', '.newTask', function(event){
+    $(document).on('click touchstart', '.newTask', function(event){
         var typeID = event.target.id.substr(7, event.target.id.length-7);
         var timePeriodID = $("#task-time-period" + typeID).val();
         $("#newTask" + typeID).removeClass('btn-success');
@@ -312,6 +312,7 @@ function displayTimePeriods(periodOfTime){
     });
 }
 function loadingMenu(divName){
+    console.log(divName);
     var begin = "<h1 style='text-align:center;'>";
     var chars = ".";
     var end = "</h1>";
