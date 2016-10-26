@@ -11,11 +11,14 @@
     @endif
     @include ('login')
     @include ('register')
-<div class='text-center margin-bottom-2 margin-top-2'>
-    Press play to see how it works!
+<div class='text-center margin-top-2'>
+    Root Basis is a way to track your time. Track how you spend every minute easily!
 </div>
 <div class='text-center'>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/htx7a-aF6t4" frameborder="0" allowfullscreen></iframe>
+</div>
+<div class='text-center margin-top-2'>
+    Discuss Root Basis  at <a href="https://www.reddit.com/r/rootbasis/">/r/rootbasis</a>.
 </div>
 @endsection
 
