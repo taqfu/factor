@@ -93,6 +93,7 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
 Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
 Route::get('/person/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'PersonController@create']);
 Route::get("/time/month/{month}/day/{day}/year/{year}", ['as'=> 'indexDate', 'uses'=>'TimePeriodController@indexDate']);
+Route::get("/time/current/{current_id}/previous/{previous_id}", ['as'=> 'endOnStart', 'uses'=>'TimePeriodController@endOnStart'])
 Route::get("/timezone", ['as'=>'timezone', function(){
     return view('timezones');
 }]);

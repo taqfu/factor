@@ -20,6 +20,13 @@ class TimePeriodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function endOnStart($current_id, $previous_id){
+        $current = TimePeriod::find($current_id);
+        $previous = TimePeriod::find($previous_id);
+        $current->end = $previous->start;
+        $current->save();
+        return
+    }
     public function indexDate($month, $day, $year){
       if (Auth::guest()){
           return redirect(route('root'))->withErrors("Please login before trying to do this.");

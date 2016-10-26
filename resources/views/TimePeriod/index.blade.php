@@ -3,6 +3,7 @@
     use App\User;
     $old_date = 0;
     $last_time_period_ended_at=0;
+    $previous_time_period=0;
 ?>
 @foreach ($time_periods as $time_period)
 
@@ -46,7 +47,13 @@
               class='hideSpecifyEndTime btn btn-info hidden'>
                 Hide
             </button>
-
+            @if ($previous_time_period!=0 )
+              <form method="POST" action="{{route('endOnStart',['current_id'=>$time_period->id,'previous_id'=>])}}" class='inline' role='form'>
+                  {{csrf_field()}}
+                  {{method_field("PUT")}}
+                  <input type='submit' value='End On Previous Time Period Start'
+              </form>
+            @endif
             <?php
                 $begin = new DateTime($time_period->start);
                 $end = new DateTime();
@@ -91,6 +98,7 @@
                     @if ($time_period->id == $first_time_period_id)
                         @include ("TimePeriod.new")
                     @endif
+
             @endif
             @if ($time_period->end==0)
                 <div id='selectEndTimestamp{{ $time_period->id }}'
@@ -135,4 +143,7 @@
         @include ('TimePeriod.show')
     </div>
 </div>
+<?php
+  $previous_time_period = $time_period;
+ ?>
 @endforeach
