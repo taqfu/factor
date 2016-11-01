@@ -25,7 +25,6 @@ class TimePeriodController extends Controller
         $previous = TimePeriod::find($previous_id);
         $current->end = $previous->start;
         $current->save();
-        return
     }
     public function indexDate($month, $day, $year){
       if (Auth::guest()){

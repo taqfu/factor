@@ -48,11 +48,7 @@
                 Hide
             </button>
             @if ($previous_time_period!=0 )
-              <form method="POST" action="{{route('endOnStart',['current_id'=>$time_period->id,'previous_id'=>])}}" class='inline' role='form'>
-                  {{csrf_field()}}
-                  {{method_field("PUT")}}
-                  <input type='submit' value='End On Previous Time Period Start'
-              </form>
+                  <!--value='End On Previous Time Period Start' />-->
             @endif
             <?php
                 $begin = new DateTime($time_period->start);
