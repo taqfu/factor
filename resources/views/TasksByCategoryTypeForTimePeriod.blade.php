@@ -32,7 +32,6 @@
     @foreach($task_types as $task_type)
 
         @if (isset($task_type->task_type_id))
-            AY
             @if(in_array($task_type->task_type_id, $active_task_types))
                 <button type='submit' id='newTask{{$task_type->task_type_id}}'
                   class='btn  btn-danger newTask'>
