@@ -47,9 +47,6 @@
               class='hideSpecifyEndTime btn btn-info hidden'>
                 Hide
             </button>
-            @if ($previous_time_period!=0 )
-                  <!--value='End On Previous Time Period Start' />-->
-            @endif
             <?php
                 $begin = new DateTime($time_period->start);
                 $end = new DateTime();
