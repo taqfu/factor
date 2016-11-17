@@ -52,7 +52,7 @@ class NoteController extends Controller
         if (count(Note::where('user_id', Auth::user()->id)->where('task_id', $request->taskID)
           ->where('time_period_id', $request->timePeriodID)->where('report', $request->report)
           ->get())>0){
-            return;
+            return back()->withErrors("This note has already been created.");
         }
         $note = new Note;
         $note->task_id = $request->taskID;
