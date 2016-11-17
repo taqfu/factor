@@ -35,7 +35,7 @@
     @endforelse
     </ul>
 @foreach($tasks as $task)
-    <?php
+   <?php
         $date   = date("m/d/y", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
         $month  = date("m", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
         $day    = date("d", User::local_time(Auth::user()->timezone, strtotime($task->time_period->start)));
