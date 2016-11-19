@@ -2,6 +2,7 @@ var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16)
   ? "http://taqfu.com/dev-env/factor/public"
   : "http://rootbasis.com";
 $(document.body).ready(function () {
+    var clickEvent = ((document.ontouchstart!==null)?'click':'touchstart');
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
@@ -104,7 +105,7 @@ $(document.body).ready(function () {
         $("#show-time-zone").removeClass('hidden');
         $("#time-zone-settings").addClass('hidden');
     });
-    $(document).on('click touchstart', '.note-report', function(event){
+    $(document).on(clickEvent, '.note-report', function(event){
         noteID = event.target.id.substr(11, event.target.id.length-11);
         $("#note-report"+noteID).addClass("hidden");
         $("#edit-note" + noteID).removeClass("hidden");
@@ -249,7 +250,7 @@ $(document.body).ready(function () {
           event.target.id.substr(classLength, event.target.id.length-classLength);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
-    $(document).on('click touchstart', '.newTask', function(event){
+    $(document).on(clickEvent, '.newTask', function(event){
         var typeID = event.target.id.substr(7, event.target.id.length-7);
         var timePeriodID = $("#task-time-period" + typeID).val();
         $("#newTask" + typeID).removeClass('btn-success');
