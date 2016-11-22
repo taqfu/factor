@@ -60,12 +60,26 @@ class TimePeriod extends Model
           as output", [$end, $start])[0]->output;
 
     }
-    public static function is_there_one_already(){
+    public static function has_this_already_been_created(){
         $date = new DateTime;
         $date->modify('-10 seconds');
         $formatted_date = $date->format('Y-m-d H:i:s');
         return count(DB::table('time_periods')->where('user_id', Auth::user()->id)
           ->where('start','>=',$formatted_date)->where('end', '!=', '0000-00-00 00:00:00')->get())>0;
+    }
+    public static function is_another_time_period_already_open(){
+        $time_periods = TimePeriod::where("user_id", Auth::user()->id)->whereNull('deleted_at')->where('end', 0)->get();
+        if (count($time_periods)>1){
+            return true;
+            //error
+        } else if (count($time_periods)==0){
+            return false;
+        }
+        foreach($time_periods as $time_period){
+            return $time_period->id;
+        }
+
+
     }
     public static function new_now(){
         $time_period = new TimePeriod;

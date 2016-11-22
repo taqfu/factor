@@ -104,6 +104,8 @@ class TimePeriodController extends Controller
      */
     public function store(Request $request)
     {
+        $open_time_period = TimePeriod::is_another_time_period_already_open();
+
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
         }
@@ -111,8 +113,12 @@ class TimePeriodController extends Controller
     enabled on September 17, 2016 for testing purposes
     Don't forget line 173
 */
-        if (TimePeriod::is_there_one_already()){
+        if (TimePeriod::has_this_already_been_created()){
             return back()->withErrors("Time Period has already been created.");
+
+        if ($open_time_period){
+            return back()->withErrors($open_time_period . ' is already open.')
+
         }
 
         $startGuess = false;
