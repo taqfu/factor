@@ -68,7 +68,7 @@ class TimePeriod extends Model
           ->where('start','>=',$formatted_date)->where('end', '!=', '0000-00-00 00:00:00')->get())>0;
     }
     public static function is_another_time_period_already_open(){
-        $time_periods = TimePeriod::where("user_id", Auth::user()->id)->whereNull('deleted_at')->where('end', 0)->get();
+        $time_periods = TimePeriod::where("user_id", Auth::user()->id)->whereNull('deleted_at')->where('end', "0000-00-00 00:00:00")->get();
         if (count($time_periods)>1){
             return true;
             //error
