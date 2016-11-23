@@ -119,8 +119,13 @@ class TimePeriodController extends Controller
         }
 
         if ($open_time_period){
-            return back()->withErrors($open_time_period . ' is already open.');
-
+            if ($open_time_period>1){
+                $time_period = TimePeriod::find($open_time_period);
+                $url = env('APP_URL') . "/time/month/" . date('m', strtotime($time_period->start))
+                    . "/day/" . date('d', strtotime($time_period->start)) . "/year/" . date('y', strtotime($time_period->start))
+                    . "#TP" . $open_time_period;
+                return back()->withErrors("<a href='$url'>Another time period</a> is already open. Please close that first.");
+            }
         }
 
         $startGuess = false;
