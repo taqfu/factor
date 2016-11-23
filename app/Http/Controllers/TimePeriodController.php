@@ -124,7 +124,7 @@ class TimePeriodController extends Controller
                 $url = env('APP_URL') . "/time/month/" . date('m', strtotime($time_period->start))
                     . "/day/" . date('d', strtotime($time_period->start)) . "/year/" . date('y', strtotime($time_period->start))
                     . "#TP" . $open_time_period;
-                return back()->withErrors("<a href='$url'>Another time period</a> is already open. Please close that first.");
+                return back()->withErrors("<a href='$url' class='text-danger text-link'>Another time period is already open. Click here to close that first.</a>");
             }
         }
 

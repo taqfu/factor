@@ -5,7 +5,7 @@
 
 @foreach($errors->all() as $error)
     <div>
-        {{$error}}
+        {!!$error !!}
     </div>
 @endforeach
 </div>
