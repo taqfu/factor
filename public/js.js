@@ -16,7 +16,7 @@ $(document.body).ready(function () {
     $(document).on('click', '.delete-task', function(event){
         var typeID = event.target.id.substr(11, event.target.id.length-11);
         var timePeriodID = $("#task-time-period" + typeID).val();
-        console.log(typeID + " - " + timePeriodID);
+        deleteTaskByTypeAndTimePeriod(typeID, timePeriodID);
     });
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
@@ -283,6 +283,21 @@ function createTask(typeID, timePeriodID){
         },
         method: "POST",
         url: siteRoot + "/task",
+        data:{timePeriodID:timePeriodID, typeID:typeID},
+    })
+        .done(function (result){
+            result!="OK"
+              ? $("#time-period-error" + timePeriodID).html(result)
+              : reloadTimePeriod(timePeriodID);
+        });
+}
+function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
+    $.ajax({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        method: "POST",
+        url: siteRoot + "/task/type/" + typeID + "/TimePeriodID/" + timePeriodID,
         data:{timePeriodID:timePeriodID, typeID:typeID},
     })
         .done(function (result){
