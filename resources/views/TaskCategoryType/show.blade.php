@@ -25,11 +25,12 @@
 <ul>
 @foreach($task_types as $task_type)
     <?php
+        $task_type_id = isset($task_type->task_type_id) ? $task_type->task_type_id : $task_type->id;
         $hours = TaskType::total_hours($task_type->task_type_id);
         $total += $hours;
      ?>
     <li>
-        <a href="{{route('TaskType.show', ['id'=>$task_type->id])}}">
+        <a href="{{route('TaskType.show', ['id'=>$task_type_id])}}">
             {{$task_type->name}}
         </a>
         - {{$hours}} hours
