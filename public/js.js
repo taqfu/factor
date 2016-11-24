@@ -13,7 +13,11 @@ $(document.body).ready(function () {
         $("#note-report"+noteID).removeClass("hidden");
         $("div#edit-note" + noteID).addClass("hidden");
     });
-
+    $(document).on('click', '.delete-task', function(event){
+        var typeID = event.target.id.substr(11, event.target.id.length-11);
+        var timePeriodID = $("#task-time-period" + typeID).val();
+        console.log(typeID + " - " + timePeriodID);
+    });
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
     });
@@ -255,6 +259,11 @@ $(document.body).ready(function () {
         var timePeriodID = $("#task-time-period" + typeID).val();
         $("#newTask" + typeID).removeClass('btn-success');
         $("#newTask" + typeID).addClass('btn-danger');
+        $("#newTask" + typeID).removeClass('newTask');
+        $("#newTask" + typeID).addClass('delete-task');
+        $("#newTask" + typeID).attr("id", "delete-task" + typeID);
+
+
         createTask(typeID, timePeriodID);
 
     });
@@ -288,7 +297,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
     var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
-        
+
         clearInterval(interval);
         $('#listOfNewTasks' + timePeriodID).html(data);
     });
@@ -318,7 +327,7 @@ function loadingMenu(divName){
     var end = "</h1>";
     var otherChars = begin.length + end.length;
     var interval = window.setInterval( function() {
-    if (typeof $(divName).html()!='undefined' 
+    if (typeof $(divName).html()!='undefined'
       && $(divName).html().length - otherChars >10){
         chars = ".";
     } else if ($(divName).html().length>0){
