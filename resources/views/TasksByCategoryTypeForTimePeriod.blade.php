@@ -33,7 +33,7 @@
 
         @if (isset($task_type->task_type_id))
             @if(in_array($task_type->task_type_id, $active_task_types))
-                <button type='submit' id='newTask{{$task_type->task_type_id}}'
+                <button type='submit' id='delete-task{{$task_type->task_type_id}}'
                   class='btn  btn-danger delete-task'>
             @else
                 <button type='submit' id='newTask{{$task_type->task_type_id}}'
@@ -45,7 +45,7 @@
               value='{{$time_period_id}}' />
         @else
             @if(in_array($task_type->id, $active_task_types))
-                <button type='submit' id='newTask{{$task_type->id}}'
+                <button type='submit' id='delete-task{{$task_type->id}}'
                   class='btn btn-danger delete-task'>
             @else
                 <button type='submit' id='newTask{{$task_type->id}}'
