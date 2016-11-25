@@ -89,7 +89,17 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
     ]);
 });
 
-Route::delete("/task/type/{task_type_id}/TimePeriodID/{time_period_id}", "TaskController@deleteTaskByTypeAndTimePeriod" );
+Route::get('/task/type/{task_type_id}/TimePeriodID/{time_period_id}', 
+    function ($task_type_id, $time_period_id){
+        $tasks = Task::where('type_id', $task_type_id)->where('time_period_id', $time_period_id)->get();
+        if (count($tasks)>1){
+            //ERROR - should only be one task
+        }
+        foreach($tasks as $task){
+            $task->delete();
+        }
+        return "OK";
+    });
 
 Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
 Route::get('/person/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'PersonController@create']);

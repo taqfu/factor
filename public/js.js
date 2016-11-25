@@ -301,15 +301,16 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        method: "POST",
-        url: siteRoot + "/task/type/" + typeID + "/TimePeriodID/" + timePeriodID,
-        data:{timePeriodID:timePeriodID, typeID:typeID},
+        method: "GET",
+        url: siteRoot + "/task/type/" + typeID + "/TimePeriodID/" + timePeriodID
     })
         .done(function (result){
+    console.log(typeID + " - " + timePeriodID);
             result!="OK"
               ? $("#time-period-error" + timePeriodID).html(result)
               : reloadTimePeriod(timePeriodID);
         });
+    
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
