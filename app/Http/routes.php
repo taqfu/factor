@@ -89,7 +89,7 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
     ]);
 });
 
-Route::delete("/task/type/{task_type_id}/TimePeriodID/{time_period_id}", "TaskController@deleteTaskByTypeAndTimePeriod" )
+Route::delete("/task/type/{task_type_id}/TimePeriodID/{time_period_id}", "TaskController@deleteTaskByTypeAndTimePeriod" );
 
 Route::get('/note/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'NoteController@create']);
 Route::get('/person/task/{task_id}/timePeriod/{time_period_id}', ['uses'=>'PersonController@create']);
