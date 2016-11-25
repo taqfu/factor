@@ -16,6 +16,11 @@ $(document.body).ready(function () {
     $(document).on('click', '.delete-task', function(event){
         var typeID = event.target.id.substr(11, event.target.id.length-11);
         var timePeriodID = $("#task-time-period" + typeID).val();
+        $("#delete-task" + typeID).addClass('btn-success');
+        $("#delete-task" + typeID).removeClass('btn-danger');
+        $("#delete-task" + typeID).addClass('newTask');
+        $("#delete-task" + typeID).removeClass('delete-task');
+        $("#delete-task" + typeID).attr("id", "newTask" + typeID);
         deleteTaskByTypeAndTimePeriod(typeID, timePeriodID);
     });
     $(".endTimestamp").change(function(event){
