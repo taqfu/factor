@@ -105,7 +105,6 @@ class TimePeriodController extends Controller
     public function store(Request $request)
     {
         $open_time_period = TimePeriod::is_another_time_period_already_open();
-        var_dump($open_time_period);
 
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
@@ -162,7 +161,7 @@ class TimePeriodController extends Controller
         if ($request->endWhen=="now"){
             TimePeriod::new_now();
         }
-        //return redirect(redirect()->getUrlGenerator()->previous());
+        return redirect(redirect()->getUrlGenerator()->previous());
     }
 
     /**
