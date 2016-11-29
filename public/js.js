@@ -12,15 +12,24 @@ $(document.body).ready(function () {
         $("#note-report"+noteID).removeClass("hidden");
         $("div#edit-note" + noteID).addClass("hidden");
     });
+    $(document).on('click', '.delete-element-button', function(event){
+        var formID = event.target.id.substr(15, event.target.id.length-15);
+        if(confirm("Are you sure you want to delete this?")){
+            $("form#" + formID).submit();
+        }
+                
+    });
     $(document).on('click', '.delete-task', function(event){
-        var typeID = event.target.id.substr(11, event.target.id.length-11);
-        var timePeriodID = $("#task-time-period" + typeID).val();
-        $("#delete-task" + typeID).addClass('btn-success');
-        $("#delete-task" + typeID).removeClass('btn-danger');
-        $("#delete-task" + typeID).addClass('newTask');
-        $("#delete-task" + typeID).removeClass('delete-task');
-        $("#delete-task" + typeID).attr("id", "newTask" + typeID);
-        deleteTaskByTypeAndTimePeriod(typeID, timePeriodID);
+        if (confirm("Are you sure you want to delete this task?")){
+            var typeID = event.target.id.substr(11, event.target.id.length-11);
+            var timePeriodID = $("#task-time-period" + typeID).val();
+            $("#delete-task" + typeID).addClass('btn-success');
+            $("#delete-task" + typeID).removeClass('btn-danger');
+            $("#delete-task" + typeID).addClass('newTask');
+            $("#delete-task" + typeID).removeClass('delete-task');
+            $("#delete-task" + typeID).attr("id", "newTask" + typeID);
+            deleteTaskByTypeAndTimePeriod(typeID, timePeriodID);
+        }
     });
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
@@ -43,7 +52,6 @@ $(document.body).ready(function () {
             var divCategory = "-time-period";
             var id = id.substr(12);
         }
-        console.log ("#hide-new-person" + divCategory + id);
         $("#hide-new-person" + divCategory + id).addClass('hidden');
         $("#show-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person").html("");
@@ -304,7 +312,6 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
         url: siteRoot + "/task/type/" + typeID + "/TimePeriodID/" + timePeriodID
     })
         .done(function (result){
-    console.log(typeID + " - " + timePeriodID);
             result!="OK"
               ? $("#time-period-error" + timePeriodID).html(result)
               : reloadTimePeriod(timePeriodID);
@@ -313,6 +320,7 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
+        console.log("ASDFSA");
     $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
     var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
