@@ -1,8 +1,25 @@
 var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16)
   ? "http://taqfu.com/dev-env/factor/public"
   : "http://rootbasis.com";
+var idleTime = 0;
+var minutesUntilReload=5;
 $(document.body).ready(function () {
-    var clickEvent = ((document.ontouchstart!==null)?'click':'touchstart');
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes 
+
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {    
+        resetTimerOrReload()
+    });
+    $(this).keypress(function (e) {
+        idleTime=0;
+    });
+    $(this).focus(function (e){
+        resetTimerOrReload()
+    });
+    $(this).scroll(function (e){
+        resetTimerOrReload()
+    });
+    
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
@@ -13,15 +30,24 @@ $(document.body).ready(function () {
         $("#note-report"+noteID).removeClass("hidden");
         $("div#edit-note" + noteID).addClass("hidden");
     });
+    $(document).on('click', '.delete-element-button', function(event){
+        var formID = event.target.id.substr(15, event.target.id.length-15);
+        if(confirm("Are you sure you want to delete this?")){
+            $("form#" + formID).submit();
+        }
+                
+    });
     $(document).on('click', '.delete-task', function(event){
-        var typeID = event.target.id.substr(11, event.target.id.length-11);
-        var timePeriodID = $("#task-time-period" + typeID).val();
-        $("#delete-task" + typeID).addClass('btn-success');
-        $("#delete-task" + typeID).removeClass('btn-danger');
-        $("#delete-task" + typeID).addClass('newTask');
-        $("#delete-task" + typeID).removeClass('delete-task');
-        $("#delete-task" + typeID).attr("id", "newTask" + typeID);
-        deleteTaskByTypeAndTimePeriod(typeID, timePeriodID);
+        if (confirm("Are you sure you want to delete this task?")){
+            var typeID = event.target.id.substr(11, event.target.id.length-11);
+            var timePeriodID = $("#task-time-period" + typeID).val();
+            $("#delete-task" + typeID).addClass('btn-success');
+            $("#delete-task" + typeID).removeClass('btn-danger');
+            $("#delete-task" + typeID).addClass('newTask');
+            $("#delete-task" + typeID).removeClass('delete-task');
+            $("#delete-task" + typeID).attr("id", "newTask" + typeID);
+            deleteTaskByTypeAndTimePeriod(typeID, timePeriodID);
+        }
     });
     $(".endTimestamp").change(function(event){
         $("#endTimestampSelect").prop("checked", true);
@@ -44,7 +70,6 @@ $(document.body).ready(function () {
             var divCategory = "-time-period";
             var id = id.substr(12);
         }
-        console.log ("#hide-new-person" + divCategory + id);
         $("#hide-new-person" + divCategory + id).addClass('hidden');
         $("#show-new-person" + divCategory + id).removeClass('hidden');
         $(".new-person").html("");
@@ -114,7 +139,7 @@ $(document.body).ready(function () {
         $("#show-time-zone").removeClass('hidden');
         $("#time-zone-settings").addClass('hidden');
     });
-    $(document).on(clickEvent, '.note-report', function(event){
+    $(document).on('click', '.note-report', function(event){
         noteID = event.target.id.substr(11, event.target.id.length-11);
         $("#note-report"+noteID).addClass("hidden");
         $("#edit-note" + noteID).removeClass("hidden");
@@ -259,7 +284,7 @@ $(document.body).ready(function () {
           event.target.id.substr(classLength, event.target.id.length-classLength);
         displayTasksFromCategoryType(taskCategoryTypeID);
     });
-    $(document).on(clickEvent, '.newTask', function(event){
+    $(document).on('click', '.newTask', function(event){
         var typeID = event.target.id.substr(7, event.target.id.length-7);
         var timePeriodID = $("#task-time-period" + typeID).val();
         $("#newTask" + typeID).removeClass('btn-success');
@@ -301,18 +326,19 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        method: "POST",
-        url: siteRoot + "/task/type/" + typeID + "/TimePeriodID/" + timePeriodID,
-        data:{timePeriodID:timePeriodID, typeID:typeID},
+        method: "GET",
+        url: siteRoot + "/task/type/" + typeID + "/TimePeriodID/" + timePeriodID
     })
         .done(function (result){
             result!="OK"
               ? $("#time-period-error" + timePeriodID).html(result)
               : reloadTimePeriod(timePeriodID);
         });
+    
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
+        console.log("ASDFSA");
     $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
     var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
@@ -379,4 +405,14 @@ function resetTopButtons(){
     $(".btn-show").removeClass("hidden");
     $(".btn-hide").addClass("hidden");
     $(".menu-top").addClass("hidden");
+}
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+}
+function resetTimerOrReload(){
+        if (idleTime >= minutesUntilReload){
+            window.location.reload();
+        }
+        idleTime = 0;
 }

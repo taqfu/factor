@@ -114,7 +114,6 @@ class TimePeriodController extends Controller
     public function store(Request $request)
     {
         $open_time_period = TimePeriod::is_another_time_period_already_open();
-        var_dump($open_time_period);
 
         if (Auth::guest()){
             return back()->withErrors("Please login before trying to do this.");
@@ -171,7 +170,7 @@ class TimePeriodController extends Controller
         if ($request->endWhen=="now"){
             TimePeriod::new_now();
         }
-        //return redirect(redirect()->getUrlGenerator()->previous());
+        return redirect(redirect()->getUrlGenerator()->previous());
     }
 
     /**
@@ -278,15 +277,21 @@ class TimePeriodController extends Controller
         }
 
         $time_period = TimePeriod::find($id);
-
+        $prev_time_period = TimePeriod::where('user_id', Auth::user()->id)
+          ->whereNull('deleted_at')->where('id', '>', $id)
+          ->orderBy('created_at', 'asc')->first();
         if (Auth::user()->id!=$time_period->user_id){
             return back()->withErrors('You are not authorized to do this.');
         }
+
         foreach (Task::where('time_period_id', $id)->get() as $task){
             $task->delete();
         }
         $time_period->delete();
-
-        return redirect(redirect()->getUrlGenerator()->previous());
+       
+        if ($prev_time_period==null){
+            return redirect(redirect()->getUrlGenerator()->previous());
+        }
+        return redirect(redirect()->getUrlGenerator()->previous() . "#TP". $prev_time_period->id);
     }
 }

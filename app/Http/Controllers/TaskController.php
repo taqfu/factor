@@ -9,16 +9,6 @@ use App\Task;
 use Auth;
 class TaskController extends Controller
 {
-    public function deleteTaskByTypeAndTimePeriod($task_type_id, $time_period_id){
-        $tasks = Task::where('type_id', $task_type_id)->where('time_period_id', $time_period_id)->get();
-        if (count($tasks)>1){
-            //ERROR - should only be one task
-        }
-        foreach($tasks as $task){
-            $task->destroy();
-        }
-        return "OK";
-    }
     /**
      * Display a listing of the resource.
      *
