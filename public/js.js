@@ -1,7 +1,25 @@
 var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16)
   ? "http://taqfu.com/dev-env/factor/public"
   : "http://rootbasis.com";
+var idleTime = 0;
+var minutesUntilReload=5;
 $(document.body).ready(function () {
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes 
+
+    //Zero the idle timer on mouse movement.
+    $(this).mousemove(function (e) {    
+        resetTimerOrReload()
+    });
+    $(this).keypress(function (e) {
+        idleTime=0;
+    });
+    $(this).focus(function (e){
+        resetTimerOrReload()
+    });
+    $(this).scroll(function (e){
+        resetTimerOrReload()
+    });
+    
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
@@ -387,4 +405,14 @@ function resetTopButtons(){
     $(".btn-show").removeClass("hidden");
     $(".btn-hide").addClass("hidden");
     $(".menu-top").addClass("hidden");
+}
+
+function timerIncrement() {
+    idleTime = idleTime + 1;
+}
+function resetTimerOrReload(){
+        if (idleTime >= minutesUntilReload){
+            window.location.reload();
+        }
+        idleTime = 0;
 }
