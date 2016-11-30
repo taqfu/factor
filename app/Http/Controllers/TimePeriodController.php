@@ -85,6 +85,15 @@ class TimePeriodController extends Controller
               ->orderBy("name", "asc")->get(),
         ]);
     }
+    public function selectDate(){
+        $earliest_time_period = TimePeriod::where('user_id', Auth::user()->id)->whereNull('deleted_at')->orderBy('created_at', 'asc')->first();
+        $last_time_period = TimePeriod::where('user_id', Auth::user()->id)->whereNull('deleted_at')->orderBy('created_at', 'desc')->first();
+        return View('TimePeriod.date',[
+            'earliest_time_period'=>$earliest_time_period,
+            'last_time_period'=>$last_time_period,
+
+        ]);
+    }
 
     /**
      * Show the form for creating a new resource.

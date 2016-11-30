@@ -40,6 +40,9 @@
               >
                 <a href="{{route('time.index', ['period'=>'week'])}}"><h3>Week</h3></a>
             </li>
+            <li>
+                <a href="{{route('selectDate')}}"><h3>Date</h3></a>
+            </li>
             <li
               @if ($period=="all")
                   class='active'

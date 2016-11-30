@@ -99,4 +99,7 @@ class TimePeriod extends Model
     public function tasks(){
         return $this->hasMany("App\Task");
     }
+    public static function any_entries_on($date){
+        return (count(TimePeriod::where('user_id', Auth::user()->id)->whereNull('deleted_at')->where('created_at', '>', $date . " 00:00:00")->where('created_at', '<', $date . " 23:59:59")->get())>0);
+    }
 }
