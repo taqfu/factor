@@ -11,7 +11,7 @@
     @endif
     @include ('login')
     @include ('register')
-<div class='text-center margin-top-2'>
+<div class='text-center margin-top-2 margin-bottom'>
     Root Basis is a way to track your time. Track how you spend every minute easily!
 </div>
 <div class='text-center'>

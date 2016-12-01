@@ -1,5 +1,5 @@
-<div id='login'>
-    <form role="form" method="POST" action="{{ url('/login') }}" class='text-center'>
+<div id='login' class='margin-top'>
+    <form role="form" method="POST" action="{{ url('/login') }}" class='text-center hidden' id='email-login'>
         {{csrf_field()}}
         <div class="row form-group{{ $errors->has('username') ? ' has-error' : '' }}">
             <label class="col-md-5 text-right control-label">Username</label>
@@ -36,9 +36,22 @@
         </button>
     </form>
     <div class='text-center'>
-        Log In:
-        <a href="redirect/facebook">Facebook</a>
-        <a href="redirect/twitter">Twitter</a>
-        <a href="redirect/google">Google</a>
+        Log In Using:
+        <a href="redirect/facebook">Facebook</a> / 
+        <a href="redirect/twitter">Twitter</a> /
+        <a href="redirect/google" >Google</a> /
+        <a href="#"  id='show-email-login'
+          onclick="
+            $('#email-login').removeClass('hidden');
+            $('#hide-email-login').removeClass('hidden');
+            $('#show-email-login').addClass('hidden');
+          ">E-mail</a>
+        <a href="#"  id='hide-email-login' class='hidden'
+          onclick="
+            $('#email-login').addClass('hidden');
+            $('#hide-email-login').addClass('hidden');
+            $('#show-email-login').removeClass('hidden');
+          ">Hide E-mail</a>
+        
     </div>        
 </div>

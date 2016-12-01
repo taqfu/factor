@@ -48,12 +48,13 @@
   ga('send', 'pageview');
 
 </script>
-
-<div class='text-center'>
-<a target="_blank"  href="https://www.amazon.com/gp/product/0143126563/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0143126563&linkCode=as2&tag=aeazln-20&linkId=c161ede12a28c1b48bb0ecaddf3b0675"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0143126563&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=aeazln-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=aeazln-20&l=am2&o=1&a=0143126563" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-<a target="_blank"  href="https://www.amazon.com/gp/product/0307465357/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0307465357&linkCode=as2&tag=aeazln-20&linkId=6c79dd451c0cfdef942f3af4dbe0689b"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0307465357&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=aeazln-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=aeazln-20&l=am2&o=1&a=0307465357" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
-
-</div>
+@if (\Request::route()->getName()!="root")
+    <div class='text-center'>
+        <a target="_blank"  href="https://www.amazon.com/gp/product/0143126563/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0143126563&linkCode=as2&tag=aeazln-20&linkId=c161ede12a28c1b48bb0ecaddf3b0675"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0143126563&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=aeazln-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=aeazln-20&l=am2&o=1&a=0143126563" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        <a target="_blank"  href="https://www.amazon.com/gp/product/0307465357/ref=as_li_tl?ie=UTF8&camp=1789&creative=9325&creativeASIN=0307465357&linkCode=as2&tag=aeazln-20&linkId=6c79dd451c0cfdef942f3af4dbe0689b"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=US&ASIN=0307465357&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL110_&tag=aeazln-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=aeazln-20&l=am2&o=1&a=0307465357" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        
+    </div>
+@endif
     @yield('content')
 </body>
 </html>
