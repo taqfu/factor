@@ -68,6 +68,7 @@ Route::get('TasksByCategoryForTimePeriod/{id}/TimePeriodID/{time_period_id}',
           ->orderBy("name", "asc")->get();
         $task_types = TaskType::join('task_categories', 'task_type_id', '=',
           'task_types.id')->where('task_categories.task_category_type_id', $id)
+          ->whereNull('task_categories.deleted_at')
           ->where('task_categories.user_id', Auth::user()->id)
           ->where('task_types.user_id', Auth::user()->id)
           ->orderBy('task_types.name', 'asc')->get();

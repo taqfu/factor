@@ -71,6 +71,18 @@ class TimePeriodController extends Controller
             ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
             ->orderBy("start", "desc")->first()->id
           : 0;
+        $time_periods = TimePeriod::where("created_at", ">", $period_data['begin'])
+          ->where('user_id', Auth::user()->id)
+          ->where("created_at", "<", $period_data['end'])
+          ->orderBy("start", "desc")->get(); 
+        if (count($time_periods)==0){
+            $time_periods = TimePeriod::where('end', '0000-00-00 00:00:00')
+              ->orWhere("created_at", ">", $period_data['begin'])
+              ->where('user_id', Auth::user()->id)
+              ->where("created_at", "<", $period_data['end'])
+              ->orderBy("start", "desc")->get(); 
+
+        }
         return View::make('time', [
             "first_time_period_id"=>$first_time_period_id,
             "period"=>$period_data['name'],
@@ -78,9 +90,7 @@ class TimePeriodController extends Controller
               ->whereNull('disabled_at')->orderBy('name', 'asc')->get(),
             "task_category_types" => TaskCategoryType::where("id", ">", 1)
               ->where('user_id', Auth::user()->id)->orderBy("name", "asc")->get(),
-            "time_periods" => TimePeriod::where("created_at", ">", $period_data['begin'])
-              ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
-              ->orderBy("start", "desc")->get(),
+            "time_periods" => $time_periods,
             "task_types" => TaskType::where('user_id', Auth::user()->id)
               ->orderBy("name", "asc")->get(),
         ]);

@@ -10,9 +10,6 @@ $(document.body).ready(function () {
     $(this).mousemove(function (e) {    
         resetTimerOrReload()
     });
-    $(this).keypress(function (e) {
-        idleTime=0;
-    });
     $(this).focus(function (e){
         resetTimerOrReload()
     });
@@ -338,7 +335,6 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
-        console.log("ASDFSA");
     $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
     var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
@@ -414,5 +410,4 @@ function resetTimerOrReload(){
         if (idleTime >= minutesUntilReload){
             window.location.reload();
         }
-        idleTime = 0;
 }
