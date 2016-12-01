@@ -7,6 +7,7 @@ $(document.body).ready(function () {
     var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes 
 
     //Zero the idle timer on mouse movement.
+/*
     $(this).mousemove(function (e) {    
         resetTimerOrReload()
     });
@@ -16,7 +17,7 @@ $(document.body).ready(function () {
     $(this).scroll(function (e){
         resetTimerOrReload()
     });
-    
+  */  
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
