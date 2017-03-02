@@ -9,6 +9,7 @@
     </div>
 @endforeach
 </div>
+<!--
 <input type='hidden' value='{{$period}}' id='period-of-time' />
 <ul class='nav nav-pills nav-justified'>
     <li class='dropdown'>
@@ -74,5 +75,6 @@
 
 @include ('TaskType.index')
 @include ('timezones');
+-->
 @include ('TimePeriod.index')
 @endsection
