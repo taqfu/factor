@@ -1,6 +1,9 @@
+body {
+    -webkit-font-smoothing: subpixel-antialiased;
+}
 @media screen and (max-width:500px){
     .secondary-menu{
-        margin-top:28px;    
+        margin-top:28px;
         margin-bottom:28px;
     }
 }
@@ -12,6 +15,36 @@
     width:200px;
     height:100px;
     margin:25px;
+}
+
+#time-period-menu-container{
+    position:fixed;
+        z-index  : 10;
+        width:100%;
+        height:100%;
+
+/*
+    display: none;
+    */
+}
+#time-period-menu{
+    min-height   : 50%;
+    max-height   : 90%;
+    background-color:lightgrey;
+    box-shadow: 0px 0px 1px 5000px rgba(0,0,0,0.8);
+    font-size:1.5em;
+    position:relative;
+}
+#time-period-menu-bottom  {
+    position: absolute;
+    bottom: 0;
+}
+#time-period-menu-bottom a{
+    color:white;
+}
+#time-period-menu-bottom a:hover{
+    color:black;
+
 }
 button.activeTaskCategoryType{
     font-weight:bold;
@@ -85,10 +118,20 @@ div.time-select.margin-left{
 .showNewTaskNotes{
     margin-left:21px;
 }
+
 .taskNote{
+    background-color: #f8f8f8;
 
 }
-
+.task-item:hover{
+    border:1px #bbbbbb dotted;
+    background-color: #f0f0f0;
+    cursor: pointer;
+}
+.time-period-row:hover {
+    border:1px #bbbbbb dotted;
+    background-color: #f8f8f8;
+}
 .timePeriodNote{
-    
+
 }

@@ -4,10 +4,10 @@ var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16)
 var idleTime = 0;
 var minutesUntilReload=5;
 $(document.body).ready(function () {
-    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes 
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes
 
     //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {    
+    $(this).mousemove(function (e) {
         resetTimerOrReload()
     });
     $(this).focus(function (e){
@@ -16,11 +16,15 @@ $(document.body).ready(function () {
     $(this).scroll(function (e){
         resetTimerOrReload()
     });
-    
+
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
+    });
+
+    $(document).on('click', '#close-time-period-menu', function(event){
+        $("#time-period-menu-container").addClass("hidden");
     });
     $(document).on('click', '.cancel-edit-note', function(event){
         var noteID = event.target.id.substr(16, event.target.id.length-16);
@@ -32,7 +36,7 @@ $(document.body).ready(function () {
         if(confirm("Are you sure you want to delete this?")){
             $("form#" + formID).submit();
         }
-                
+
     });
     $(document).on('click', '.delete-task', function(event){
         if (confirm("Are you sure you want to delete this task?")){
@@ -136,6 +140,10 @@ $(document.body).ready(function () {
         $("#show-time-zone").removeClass('hidden');
         $("#time-zone-settings").addClass('hidden');
     });
+    $(document).on('click', '#new-note', function(event){
+        
+    });
+
     $(document).on('click', '.note-report', function(event){
         noteID = event.target.id.substr(11, event.target.id.length-11);
         $("#note-report"+noteID).addClass("hidden");
@@ -301,6 +309,32 @@ $(document.body).ready(function () {
         var timePeriodID = $("#timePeriodIDForListOfNewTasks").val();
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID);
     });
+    $(document).on("click", ".time-period-row", function (event) {
+        timePeriodID=null;
+        if (event.target.nodeName=="DIV"){
+            if(event.target.id.substr(0, 15)=="time-period-row"){
+                timePeriodID=event.target.id.substr(15, event.target.id.length-15);
+            }
+
+            elementParent = event.target.parentElement;
+            while(timePeriodID==null){
+
+                if(elementParent.id.substr(0, 15)=="time-period-row"){
+                    timePeriodID=elementParent.id.substr(15, elementParent.id.length-15);
+                } else {
+                    elementParent = elementParent.parentNode;
+                }
+            }
+            console.log(timePeriodID);
+
+            $.get(siteRoot + "/time/menu/" + timePeriodID, function( data ) {
+                $("#time-period-menu-container").removeClass('hidden');
+                console.log(data);
+                $("#time-period-menu-container").html(data);
+            });
+        }
+    });
+
 });
 
 function createTask(typeID, timePeriodID){
@@ -331,7 +365,7 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
               ? $("#time-period-error" + timePeriodID).html(result)
               : reloadTimePeriod(timePeriodID);
         });
-    
+
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks

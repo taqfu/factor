@@ -74,13 +74,13 @@ class TimePeriodController extends Controller
         $time_periods = TimePeriod::where("created_at", ">", $period_data['begin'])
           ->where('user_id', Auth::user()->id)
           ->where("created_at", "<", $period_data['end'])
-          ->orderBy("start", "desc")->get(); 
+          ->orderBy("start", "desc")->get();
         if (count($time_periods)==0){
             $time_periods = TimePeriod::where('end', '0000-00-00 00:00:00')
               ->orWhere("created_at", ">", $period_data['begin'])
               ->where('user_id', Auth::user()->id)
               ->where("created_at", "<", $period_data['end'])
-              ->orderBy("start", "desc")->get(); 
+              ->orderBy("start", "desc")->get();
 
         }
         return View::make('time', [
@@ -202,6 +202,19 @@ class TimePeriodController extends Controller
            'time_period'=>$time_period,
         ]);
     }
+    public function showMenu($id)
+    {
+        if (Auth::guest()){
+            return back()->withErrors("You must be logged in to do this.");
+        }
+        $time_period = TimePeriod::find($id);
+        if (Auth::user()->id != $time_period->user_id){
+            return back()->withErrors("You are not authorized to do this.");
+        }
+        return View('TimePeriod.menu', [
+           'time_period'=>$time_period,
+        ]);
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -298,7 +311,7 @@ class TimePeriodController extends Controller
             $task->delete();
         }
         $time_period->delete();
-       
+
         if ($prev_time_period==null){
             return redirect(redirect()->getUrlGenerator()->previous());
         }

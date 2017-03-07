@@ -1,13 +1,18 @@
 @if ($when=="now")
-    <form method="POST" action="{{ route('time.update', 
+    <form method="POST" action="{{ route('time.update',
       ['id'=>$time_period->id]) }}" class='inline'>
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <input type='hidden' name='when' value='now' />
-        <input type='submit' class='btn btn-default' value="Now"/>
+        @if ($time_period_menu)
+            <input type='submit' class='btn btn-link' value="Now"  Style='font-size:1.5em;'/>
+
+        @else
+            <input type='submit' class='btn btn-link' value="Now" />
+        @endif
     </form>
 @elseif ($when=="specify")
-    <form  method="POST" action="{{ route('time.update', ['id'=>$time_period->id]) }}" 
+    <form  method="POST" action="{{ route('time.update', ['id'=>$time_period->id]) }}"
       class='pull-left'>
         {{ csrf_field() }}
         {{ method_field('PUT') }}
