@@ -37,7 +37,7 @@
         <?php $old_date = $date ?>
     @endif
     <div class='col-xs-12 col-lg-3'>
-        <!--@include ('TimePeriod.destroy')-->
+        @include ('TimePeriod.destroy')
         {{ date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->start)))  }} -
         @if ($time_period->end==0)
             @include ('TimePeriod.edit', ['when'=>'now'])
