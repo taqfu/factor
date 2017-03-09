@@ -5,6 +5,6 @@
   ['id'=>$time_period->id]) }}" class='inline'  >
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
-    <input type="submit" class="btn-danger pull-left" value="Delete">
+    <input id="delete-element-destroy-time-period{{$time_period->id}}" type="button" class="btn-danger pull-left delete-element-button" value="Delete">
 
 </form>

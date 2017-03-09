@@ -94,8 +94,8 @@
     </div>
     <div id="time-period-menu-bottom">
         <ul class="nav nav-pills nav-justified bg-primary ">
-          <li id="new-task"><a href="#">New Task</a></li>
-          <li id="new-note"><a href="#">New Note</a></li>
+          <li id="new-task{{ $time_period->id }}" class="new-task">New Task</li>
+          <li id="new-time-period-note{{ $time_period->id }}" class="new-time-period-note">New Note</li>
         </ul>
         <div id="time-period-menu-input-container"></div>
     </div>

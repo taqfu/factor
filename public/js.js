@@ -140,8 +140,17 @@ $(document.body).ready(function () {
         $("#show-time-zone").removeClass('hidden');
         $("#time-zone-settings").addClass('hidden');
     });
-    $(document).on('click', '#new-note', function(event){
-        
+    $(document).on('click', '.new-time-period-note', function(event){
+
+        var timePeriodID=event.target.id.substr(20, event.target.id.length-20);
+        $.get(siteRoot + "/note/task/0/timePeriod/" + timePeriodID, function( data ) {
+            $("#time-period-menu").html(data);
+        });
+    });
+    $(document).on('click', '.new-task', function(event){
+        var timePeriodID = event.target.id.substr(9, event.target.id.length-9);
+        displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
+
     });
 
     $(document).on('click', '.note-report', function(event){
@@ -325,11 +334,9 @@ $(document.body).ready(function () {
                     elementParent = elementParent.parentNode;
                 }
             }
-            console.log(timePeriodID);
 
             $.get(siteRoot + "/time/menu/" + timePeriodID, function( data ) {
                 $("#time-period-menu-container").removeClass('hidden');
-                console.log(data);
                 $("#time-period-menu-container").html(data);
             });
         }
@@ -369,13 +376,13 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
-    $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
-    var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
+    var interval = loadingMenu("#time-period-menu-input-container");
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
 
         clearInterval(interval);
-        $('#listOfNewTasks' + timePeriodID).html(data);
+
+        $("#time-period-menu-input-container").html(data);
     });
 }
 
