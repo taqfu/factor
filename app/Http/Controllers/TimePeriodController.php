@@ -63,24 +63,26 @@ class TimePeriodController extends Controller
             return redirect(route('root'))->withErrors("Please login before trying to do this.");
         }
         $period_data = TimePeriod::fetch_period($request->period);
-        $first_time_period_id =
-          count ( TimePeriod::where("created_at", ">", $period_data['begin'])
-            ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
-            ->orderBy("start", "desc")->get())>0
-          ? TimePeriod::where("created_at", ">", $period_data['begin'])
-            ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
-            ->orderBy("start", "desc")->first()->id
-          : 0;
         $time_periods = TimePeriod::where("created_at", ">", $period_data['begin'])
           ->where('user_id', Auth::user()->id)
           ->where("created_at", "<", $period_data['end'])
           ->orderBy("start", "desc")->get(); 
+        $first_time_period_id =
+          count ($time_periods)>0
+          ? TimePeriod::where("created_at", ">", $period_data['begin'])
+            ->where('user_id', Auth::user()->id)->where("created_at", "<", $period_data['end'])
+            ->orderBy("start", "desc")->first()->id
+          : 0;
         if (count($time_periods)==0){
+            /* why is this here?
+             *
             $time_periods = TimePeriod::where('end', '0000-00-00 00:00:00')
               ->orWhere("created_at", ">", $period_data['begin'])
               ->where('user_id', Auth::user()->id)
               ->where("created_at", "<", $period_data['end'])
               ->orderBy("start", "desc")->get(); 
+
+             */
 
         }
         return View::make('time', [

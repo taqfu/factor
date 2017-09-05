@@ -1,6 +1,4 @@
-var siteRoot= "http://taqfu.com" == window.location.href.substr(0,16)
-  ? "http://taqfu.com/dev-env/factor/public"
-  : "http://rootbasis.com";
+var siteRoot= "http://rootbasis.taqfu.com";
 var idleTime = 0;
 var minutesUntilReload=5;
 $(document.body).ready(function () {
