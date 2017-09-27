@@ -16,7 +16,12 @@ $(document.body).ready(function () {
         resetTimerOrReload()
     });
     */
-
+	$(".now-button").ready(function(){
+		setInterval(updateNowButton, 1000);
+	});	
+	$(".duration.active").ready(function(){
+		setInterval(updateDuration, 1000);
+	});
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
@@ -410,4 +415,90 @@ function resetTimerOrReload(){
         if (idleTime >= minutesUntilReload){
             window.location.reload();
         }
+}
+function updateDuration(){
+	activeDurations = $(".duration.active");
+	for(i=0;i<activeDurations.length;i++){
+		days=0, hours=0, minutes=0, seconds=0;
+		duration = String(activeDurations[i].innerText);
+		newDuration = "";
+		durationArr = duration.split(" ");
+		durationArr.forEach( function (durationElement){
+			lastLetter = durationElement.substr(-1);
+	
+			switch(lastLetter){
+				case "d":
+					days = durationElement.substr(0, durationElement.length-1);
+					break;
+				case "h":
+					hours = durationElement.substr(0,durationElement.length-1);
+					break;
+				case "m":
+					minutes = durationElement.substr(0,durationElement.length-1);
+					break;
+				case "s":
+					seconds = durationElement.substr(0,durationElement.length-1);
+					break;
+			}
+		});
+		seconds++;
+		if (seconds>59) {
+			minutes++;
+			seconds=0;
+		}
+		$(".now-seconds").val(seconds);
+		if (minutes>59){
+			hours++;
+			minutes=0;
+		}
+		if (hours>23){
+			hours=0;
+			days++;
+		}
+		if (seconds>0){
+			newDuration = seconds + "s";	
+		}
+		if (minutes>0){
+			newDuration = minutes + "m " + seconds + "s";	
+		}
+		if (hours>0){
+			newDuration = hours + "h " + minutes + "m " + seconds + "s";	
+		}
+		if (days>0){
+			newDuration = days + " " + hours + "h " + minutes + "m " + seconds + "s";	
+		}
+		$("#" + activeDurations[i].id).html(newDuration);
+	}
+}
+
+function updateNowButton(){
+		buttonVal = $(".now-button").val();
+		hours = buttonVal.substr(0,2);
+		minutes = buttonVal.substr(3,2);
+		seconds = $(".now-seconds").val();
+		seconds++;
+		if (seconds>59) {
+			minutes++;
+			seconds=0;
+		}
+		$(".now-seconds").val(seconds);
+		if (minutes>59){
+			hours++;
+			minutes=0;
+		}
+		if (hours>23){
+			hours=0;
+		}
+		if (hours<10){
+			hours = "0" + hours;
+		}
+		if (minutes<10){
+			minutes = "0" + minutes;
+		}
+		if (seconds<10){
+			seconds = "0" + seconds;
+		}
+		if (seconds==0){
+			$(".now-button").val(hours + ":" + minutes);
+		}
 }

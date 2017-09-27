@@ -72,6 +72,8 @@
             ?>
             (
             <strong>
+			<span id='duration{{$time_period->id}}'
+			  class='duration @if ($time_period->end == 0) active @endif'>
                 @if ($days>0)
                     {{ $days }}d
                 @endif
@@ -84,6 +86,7 @@
                 @if ($seconds>0)
                     {{ $seconds }}s
                 @endif
+			</span>
             </strong>)
             @if ($time_period->end !=0)
                     <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}"
