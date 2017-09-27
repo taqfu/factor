@@ -2,10 +2,11 @@ var siteRoot= "http://rootbasis.taqfu.com";
 var idleTime = 0;
 var minutesUntilReload=5;
 $(document.body).ready(function () {
-    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes 
+    /*
+    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes
 
     //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {    
+    $(this).mousemove(function (e) {
         resetTimerOrReload()
     });
     $(this).focus(function (e){
@@ -14,7 +15,8 @@ $(document.body).ready(function () {
     $(this).scroll(function (e){
         resetTimerOrReload()
     });
-    
+    */
+
     displayTimePeriods($("#period-of-time").val());
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
@@ -30,7 +32,7 @@ $(document.body).ready(function () {
         if(confirm("Are you sure you want to delete this?")){
             $("form#" + formID).submit();
         }
-                
+
     });
     $(document).on('click', '.delete-task', function(event){
         if (confirm("Are you sure you want to delete this task?")){
@@ -329,7 +331,7 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
               ? $("#time-period-error" + timePeriodID).html(result)
               : reloadTimePeriod(timePeriodID);
         });
-    
+
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks

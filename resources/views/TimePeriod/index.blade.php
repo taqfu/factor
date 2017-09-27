@@ -20,6 +20,7 @@
     $day    = date("d", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $year   = date("y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $last_time_period_ended_at = $time_period->start;
+    $start_time = date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
 ?>
 <div class='margin-top'>
     <a id="TP{{$time_period->id}}"></a>
@@ -38,11 +39,11 @@
     @endif
     <div class='col-xs-12 col-lg-3'>
         @include ('TimePeriod.destroy')
-        {{ date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->start)))  }} -
+        <strong> {{$start_time}} - </strong> 
         @if ($time_period->end==0)
-            @include ('TimePeriod.edit', ['when'=>'now'])
-            <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-default'>
-                Specify
+            @include ('TimePeriod.edit', ['when'=>'now', 'button_caption'=>$start_time])
+            <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-primary'>
+                &#x0231A;
             </button>
             <button id='hideSpecifyEndTime{{ $time_period->id }}'
               class='hideSpecifyEndTime btn btn-info hidden'>
@@ -64,12 +65,16 @@
         <div class='inline'>
             <?php
                 $interval = $begin->diff($end);
+                $days = (int)$interval->format('%d');
                 $hours = (int)$interval->format('%h');
                 $minutes = (int)$interval->format('%i');
                 $seconds = (int)$interval->format('%S');
             ?>
             (
             <strong>
+                @if ($days>0)
+                    {{ $days }}d
+                @endif
                 @if ($hours>0)
                     {{ $hours }}h
                 @endif
@@ -79,8 +84,7 @@
                 @if ($seconds>0)
                     {{ $seconds }}s
                 @endif
-            </strong>
-            )
+            </strong>)
             @if ($time_period->end !=0)
                     <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}"
                       class='inline' role='form'>

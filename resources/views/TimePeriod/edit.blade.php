@@ -4,7 +4,7 @@
         {{ csrf_field() }}
         {{ method_field('PUT') }}
         <input type='hidden' name='when' value='now' />
-        <input type='submit' class='btn btn-default' value="Now"/>
+        <input class='now-button' type='submit' class='btn btn-primary' value="17:29"/>
     </form>
 @elseif ($when=="specify")
     <form  method="POST" action="{{ route('time.update', ['id'=>$time_period->id]) }}" 
