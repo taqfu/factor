@@ -1,4 +1,6 @@
+//TODO: You don't need to check the now button every second. Just every minute.
 var siteRoot= "http://rootbasis.taqfu.com";
+var captionIncreasing = false;
 var idleTime = 0;
 var minutesUntilReload=5;
 $(document.body).ready(function () {
@@ -16,8 +18,26 @@ $(document.body).ready(function () {
         resetTimerOrReload()
     });
     */
+	setInterval(function(){
+		caption = $(".empty-time-period").html();
+		if (captionIncreasing){
+			caption += "?";
+		} else {
+			caption = caption.substr(1);
+		}
+		if (caption.length==1){
+			captionIncreasing=1;
+		} else if (caption.length==3){
+			captionIncreasing=0;
+
+		}
+		$(".empty-time-period").html(caption);
+		
+	}, 750);
 	$(".now-button").ready(function(){
-		setInterval(updateNowButton, 1000);
+		if ($(".now-button").length>0){
+		setInterval(updateNowButton, 60000);
+		}
 	});	
 	$(".duration.active").ready(function(){
 		setInterval(updateDuration, 1000);
@@ -26,6 +46,19 @@ $(document.body).ready(function () {
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
+    });
+    $(document).on('mouseover', '.resume-button', function(event){
+			
+		$("#" + event.target.id).html("Resume");
+		$("#" + event.target.id).removeClass("btn-primary");
+		$("#" + event.target.id).addClass("btn-info");
+    });
+    $(document).on('mouseleave', '.resume-button', function(event){
+		
+		console.log("#resume-button-caption" + event.target.id.substr(13));
+		$("#" + event.target.id).html($("#resume-button-caption" + event.target.id.substr(13)).val());
+		$("#" + event.target.id).removeClass("btn-info");
+		$("#" + event.target.id).addClass("btn-primary");
     });
     $(document).on('click', '.cancel-edit-note', function(event){
         var noteID = event.target.id.substr(16, event.target.id.length-16);
@@ -468,6 +501,7 @@ function updateDuration(){
 			newDuration = days + " " + hours + "h " + minutes + "m " + seconds + "s";	
 		}
 		$("#" + activeDurations[i].id).html(newDuration);
+
 	}
 }
 
@@ -475,13 +509,7 @@ function updateNowButton(){
 		buttonVal = $(".now-button").val();
 		hours = buttonVal.substr(0,2);
 		minutes = buttonVal.substr(3,2);
-		seconds = $(".now-seconds").val();
-		seconds++;
-		if (seconds>59) {
-			minutes++;
-			seconds=0;
-		}
-		$(".now-seconds").val(seconds);
+		minutes++;
 		if (minutes>59){
 			hours++;
 			minutes=0;
@@ -495,10 +523,5 @@ function updateNowButton(){
 		if (minutes<10){
 			minutes = "0" + minutes;
 		}
-		if (seconds<10){
-			seconds = "0" + seconds;
-		}
-		if (seconds==0){
-			$(".now-button").val(hours + ":" + minutes);
-		}
+		$(".now-button").val(hours + ":" + minutes);
 }

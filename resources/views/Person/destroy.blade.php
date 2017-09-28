@@ -1,4 +1,4 @@
-<form method="POST" action="{{route('person.destroy', ['id'=>$person->id])}}" class='inline margin-left'>
+<form method="POST" action="{{route('person.destroy', ['id'=>$person->id])}}" class='inline'>
     {{csrf_field()}}
     {{method_field('delete')}}
     <input type='submit' value='x' class='btn btn-danger' />

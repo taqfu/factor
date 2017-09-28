@@ -1,5 +1,5 @@
 <form method="POST" action="{{route('time.store')}}" 
-  class='inline' role='form'>
+  class='margin' role='form'>
     {{csrf_field()}}
     <input type='hidden' name='startWhen' value='timestamp'/>
     <input type='hidden' name='endWhen' value='unspecific' />
@@ -13,7 +13,7 @@
       value="{{date('H', strtotime($time_period->end))}}" />
     <input type='hidden' name='startMinute'
       value="{{date('i', strtotime($time_period->end))}}" />
-    <button class='btn btn-primary'>
-        New
+    <button class='btn btn-primary btn-block'>
+        <h2>Continue</h2>
     </button>
 </form>

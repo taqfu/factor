@@ -1,5 +1,5 @@
 <form method="POST" action="{{ route('note.destroy', ['id'=>$note->id]) }}" 
-  class='text-muted {{$type}} inline'><i>
+  class='text-muted {{$type}} inline ' style=''><i>
     {{ csrf_field() }}
     {{ method_field('DELETE') }}
     <button type='submit' class='delete btn btn-danger'>

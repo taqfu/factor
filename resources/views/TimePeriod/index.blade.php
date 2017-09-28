@@ -15,12 +15,17 @@
     </div>
 @endif
 <?php
+	$time_period_is_empty=FALSE;
     $date   = date("m/d/y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $month  = date("m", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $day    = date("d", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $year   = date("y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $last_time_period_ended_at = $time_period->start;
     $start_time = date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
+	if (count($time_period->tasks)==0 && count($time_period->notes) == 0 
+	  && count($time_period->people)==0){
+		$time_period_is_empty=TRUE;
+	}
 ?>
 <div class='margin-top'>
     <a id="TP{{$time_period->id}}"></a>
@@ -37,78 +42,81 @@
         </h1>
         <?php $old_date = $date ?>
     @endif
-    <div class='col-xs-12 col-lg-3'>
-        @include ('TimePeriod.destroy')
-        <strong> {{$start_time}} - </strong> 
-        @if ($time_period->end==0)
-            @include ('TimePeriod.edit', ['when'=>'now', 'button_caption'=>$start_time])
-            <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-primary'>
-                &#x0231A;
-            </button>
-            <button id='hideSpecifyEndTime{{ $time_period->id }}'
-              class='hideSpecifyEndTime btn btn-info hidden'>
-                Hide
-            </button>
-            <?php
-                $begin = new DateTime($time_period->start);
-                $end = new DateTime();
-            ?>
-        @elseif ($time_period->end!=0)
-            <div class='inline'>
-                {{ date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->end)))  }}
-                <?php
-                    $begin = new DateTime($time_period->start);
-                    $end = new DateTime($time_period->end);
-                ?>
-            </div>
-        @endif
-        <div class='inline'>
-            <?php
-                $interval = $begin->diff($end);
-                $days = (int)$interval->format('%d');
-                $hours = (int)$interval->format('%h');
-                $minutes = (int)$interval->format('%i');
-                $seconds = (int)$interval->format('%S');
-            ?>
-            (
-            <strong>
-			<span id='duration{{$time_period->id}}'
-			  class='duration @if ($time_period->end == 0) active @endif'>
-                @if ($days>0)
-                    {{ $days }}d
-                @endif
-                @if ($hours>0)
-                    {{ $hours }}h
-                @endif
-                @if ($minutes>0)
-                    {{ $minutes }}m
-                @endif
-                @if ($seconds>0)
-                    {{ $seconds }}s
-                @endif
-			</span>
-            </strong>)
-            @if ($time_period->end !=0)
-                    <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}"
-                      class='inline' role='form'>
-                        {{csrf_field()}}
-                        <button class='btn btn-primary'>
-                            Resume
-                        </button>
-                    </form>
-                    @if ($time_period->id == $first_time_period_id)
-                        @include ("TimePeriod.new")
-                    @endif
-
+    @if ($time_period->end !=0)
+            @if ($time_period->id == $first_time_period_id)
+                @include ("TimePeriod.new")
             @endif
-            @if ($time_period->end==0)
-                <div id='selectEndTimestamp{{ $time_period->id }}'
-                  class='selectEndTimestamp hidden clearfix margin-left-3'>
-                    @include ('TimePeriod.edit', ['when'=>'specify'])
-                </div>
-            @endif
-        </div>
-    </div>
+    @endif
+    	<div class='col-xs-12 col-lg-3'>
+    	    @include ('TimePeriod.destroy')
+    	    <strong> {{$start_time}} - </strong> 
+    	    @if ($time_period->end==0)
+    	        @include ('TimePeriod.edit', ['when'=>'now', 'button_caption'=>$start_time])
+    	        <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-primary'>
+    	            &#x0231A;
+    	        </button>
+    	        <button id='hideSpecifyEndTime{{ $time_period->id }}'
+    	          class='hideSpecifyEndTime btn btn-info hidden'>
+    	            Hide
+    	        </button>
+    	        <?php
+    	            $begin = new DateTime($time_period->start);
+    	            $end = new DateTime();
+    	        ?>
+    	    @elseif ($time_period->end!=0)
+				<?php 
+    	        	$resume_button_caption = date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->end)));
+				?>
+    	         <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}"
+    	           class='inline' role='form'>
+    	             {{csrf_field()}}
+					<input type='hidden' id='resume-button-caption{{$time_period->id}}' value='{{$resume_button_caption}}' />
+    	             <button id='resume-button{{$time_period->id}}' 
+						class='resume-button btn btn-primary'>
+						{{$resume_button_caption}}
+    	             </button>
+    	         </form>
+    	        <div class='inline'>
+    	            <?php
+    	                $begin = new DateTime($time_period->start);
+    	                $end = new DateTime($time_period->end);
+    	            ?>
+    	        </div>
+    	    @endif
+    	    <div class='inline'>
+    	        <?php
+    	            $interval = $begin->diff($end);
+    	            $days = (int)$interval->format('%d');
+    	            $hours = (int)$interval->format('%h');
+    	            $minutes = (int)$interval->format('%i');
+    	            $seconds = (int)$interval->format('%S');
+    	        ?>
+    	        (
+    	        <strong>
+				<span id='duration{{$time_period->id}}'
+				  class='duration @if ($time_period->end == 0) active @endif'>
+    	            @if ($days>0)
+    	                {{ $days }}d
+    	            @endif
+    	            @if ($hours>0)
+    	                {{ $hours }}h
+    	            @endif
+    	            @if ($minutes>0)
+    	                {{ $minutes }}m
+    	            @endif
+    	            @if ($seconds>0)
+    	                {{ $seconds }}s
+    	            @endif
+				</span>
+    	        </strong>)
+    	        @if ($time_period->end==0)
+    	            <div id='selectEndTimestamp{{ $time_period->id }}'
+    	              class='selectEndTimestamp hidden clearfix margin-left-3'>
+    	                @include ('TimePeriod.edit', ['when'=>'specify'])
+    	            </div>
+    	        @endif
+    	    </div>
+    	</div>
     <div class='col-lg-9 col-xs-12 secondary-menu'>
         <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary show-time-period-menu'>
             Task
@@ -141,6 +149,9 @@
       class='newTimePeriodNote clearfix time-period-menu'>
     </div>
     <div id="time-period{{$time_period->id}}">
+		@if($time_period_is_empty)
+			<h3 class='empty-time-period col-xs-12 col-md-4 text-center'>???</h3>
+		@endif
         @include ('TimePeriod.show')
     </div>
 </div>
