@@ -22,7 +22,7 @@
     $year   = date("y", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
     $last_time_period_ended_at = $time_period->start;
     $start_time = date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->start)));
-	if (count($time_period->tasks)==0 && count($time_period->notes) == 0 
+	if (count($time_period->tasks)==0 && count($time_period->notes) == 0
 	  && count($time_period->people)==0){
 		$time_period_is_empty=TRUE;
 	}
@@ -49,7 +49,7 @@
     @endif
     	<div class='col-xs-12 col-lg-3'>
     	    @include ('TimePeriod.destroy')
-    	    <strong> {{$start_time}} - </strong> 
+    	    <strong> {{$start_time}} - </strong>
     	    @if ($time_period->end==0)
     	        @include ('TimePeriod.edit', ['when'=>'now', 'button_caption'=>$start_time])
     	        <button id='specifyEndTime{{ $time_period->id }}' class='specifyEndTime btn btn-primary'>
@@ -64,14 +64,14 @@
     	            $end = new DateTime();
     	        ?>
     	    @elseif ($time_period->end!=0)
-				<?php 
+				<?php
     	        	$resume_button_caption = date("H:i", User::local_time(Auth::user()->timezone, strtotime($time_period->end)));
 				?>
     	         <form method="POST" action="{{route('time.resume', ['id'=>$time_period->id])}}"
     	           class='inline' role='form'>
     	             {{csrf_field()}}
 					<input type='hidden' id='resume-button-caption{{$time_period->id}}' value='{{$resume_button_caption}}' />
-    	             <button id='resume-button{{$time_period->id}}' 
+    	             <button id='resume-button{{$time_period->id}}'
 						class='resume-button btn btn-primary'>
 						{{$resume_button_caption}}
     	             </button>

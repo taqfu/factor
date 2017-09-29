@@ -16,7 +16,7 @@
     			<div class='col-md-3'>
                 	@include('Task.destroy')
     			</div><div>
-    			    <span style='padding-left:27px;'>
+    			    <span style='padding-left:28px;'>
     			            <button id='showNewTaskNotes{{ $task->id }}'
     			              class='showNewTaskNotes btn btn-primary show-task-menu'>
     			                Note

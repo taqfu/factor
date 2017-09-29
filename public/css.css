@@ -1,6 +1,6 @@
 @media screen and (max-width:500px){
     .secondary-menu{
-        margin-top:28px;    
+        margin-left:31px;
         margin-bottom:28px;
     }
 }
@@ -92,5 +92,5 @@ div.time-select.margin-left{
 	margin-left:47px;
 }
 .timePeriodNote{
-    
+
 }
