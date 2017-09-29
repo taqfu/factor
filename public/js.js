@@ -20,6 +20,7 @@ $(document.body).ready(function () {
     */
 	setInterval(function(){
 		caption = $(".empty-time-period").html();
+/*
 		if (captionIncreasing){
 			caption += "?";
 		} else {
@@ -31,9 +32,11 @@ $(document.body).ready(function () {
 			captionIncreasing=0;
 
 		}
+*/
+		caption = caption == "?" ? "???" : "?";
 		$(".empty-time-period").html(caption);
 		
-	}, 750);
+	}, 2000);
 	$(".now-button").ready(function(){
 		if ($(".now-button").length>0){
 		setInterval(updateNowButton, 60000);
