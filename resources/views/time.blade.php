@@ -16,7 +16,7 @@
   <li class="nav-item dropdown  active">
     <a class="nav-link dropdown-toggle active " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Time</a>
     <div class="dropdown-menu">
-      <a id="showNewTimePeriod" class="dropdown-item " href="{{route('time.create')}}">New Time Period</a>
+      <a id="showNewTimePeriod" class="dropdown-item " href="#" onclick="console.log(this.id)">New Time Period</a>
       <div class="dropdown-divider"></div>
       <a class="dropdown-item" href="{{route('time.index')}}">Today</a>
       <a class="dropdown-item" href="{{route('time.index', ['period'=>'yesterday'])}}">Yesterday</a>
@@ -94,8 +94,9 @@
     <button id='show-time-zone' class='btn-default btn-show'>Timezone</button>
     <button id='hide-time-zone' class='btn-default hidden btn-hide'>Hide Timezone</button>
 </div>
-@include ('TimePeriod.create')
 -->
+
+@include ('TimePeriod.create')
 @include('PersonType.index')
 
 

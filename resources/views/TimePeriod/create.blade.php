@@ -1,9 +1,13 @@
 
-<form id='createTimePeriod' method="POST" action="{{ route('time.store') }}"
+<form id='createTimePeriod' method="POST" action="{{ route('time.store') }}" class='hidden'
   role='form'>
     {{ csrf_field() }}
-    <div class='container clear'>
-        <div id='startTimestamp' class='col-lg-3'>
+    <div class='row clear'>
+        <div class='col-md-2'></div>
+        <div class='col-md-2'>
+            <button type='button' id='hideNewTimePeriod' class='btn btn-danger  btn-hide'>Hide</button>
+        </div>
+        <div id='startTimestamp' class='col-md-2'>
             <h3 class='text-center'>Start</h3>
             <div>
                 <input type='radio' name='startWhen' value='now' checked />
@@ -13,7 +17,7 @@
                 @include ('timeSelect', ["timestamp_type"=>"start", 'radio'=>true])
             </div>
         </div>
-        <div id='endTimestamp' class='container col-lg-3  '>
+        <div id='endTimestamp' class='container col-md-2 '>
             <h3 class='text-center'>End</h3>
             <div>
                 <input type='radio' name='endWhen' value='now' />
@@ -27,11 +31,12 @@
                 @include ('timeSelect', ["timestamp_type"=>"end", 'radio'=>true])
             </div>
         </div>
-        <div class='col-lg-5 text-center col-xs-12'>
+        <div class='col-md-2 text-center '>
             <input type='hidden' name='test' value='test' />
-            <button id='createNewTimePeriod' type='submit' class='btn btn-default'>
-                Create New Time Period
+            <button id='createNewTimePeriod' type='submit' class='btn btn-success'>
+                Create
             </button>
         </div>
+        <div class='col-md-2'></div>
     </div>
 </form>

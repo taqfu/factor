@@ -9,10 +9,11 @@
     text-decoration:underline;
     cursor:pointer;
 }
-#createNewTimePeriod{
+#createNewTimePeriod, #hideNewTimePeriod{
     width:200px;
     height:100px;
     margin:25px;
+    font-size:20px;
 }
 button.activeTaskCategoryType{
     font-weight:bold;

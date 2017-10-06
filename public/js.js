@@ -144,8 +144,8 @@ $(document.body).ready(function () {
     });
 
     $("#hideNewTimePeriod").click(function(event){
+				console.log("ASDFA");
         $("#createTimePeriod").addClass('hidden');
-        $("#hideNewTimePeriod").addClass('hidden');
         $("#showNewTimePeriod").removeClass('hidden');
     });
 
@@ -262,7 +262,7 @@ $(document.body).ready(function () {
     });
 
     $("#showNewTimePeriod").click(function(event){
-			console.log("ASDFA");
+				console.log("ASDFA");
         resetTopButtons();
         $("#createTimePeriod").removeClass('hidden');
         $("#hideNewTimePeriod").removeClass('hidden');
@@ -411,10 +411,11 @@ function loadingMenu(divName){
     var end = "</h1>";
     var otherChars = begin.length + end.length;
     var interval = window.setInterval( function() {
-    if (typeof $(divName).html()!='undefined'
+    if ($(divName).length>0
       && $(divName).html().length - otherChars >10){
         chars = ".";
-    } else if ($(divName).html().length>0){
+    } else if ($(divName).length>0
+      && $(divName).html().length>0){
         chars = $(divName).html().substr(begin.length, $(divName).html().length - otherChars) + ".";
     }
     $(divName).html(begin + chars + end);
