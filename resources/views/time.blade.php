@@ -10,6 +10,34 @@
 @endforeach
 </div>
 <input type='hidden' value='{{$period}}' id='period-of-time' />
+<!--
+REQUIRES BOOTSTRAP 4
+<ul class="nav nav-tabs">
+
+  <li class="nav-item dropdown  active">
+    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Time</a>
+    <div class="dropdown-menu">
+      <a class="dropdown-item" href="#">New Item</a>
+      <div class="dropdown-divider"></div>
+
+      <a class="dropdown-item" href="#">Something else here</a>
+      <div class="dropdown-divider"></div>
+
+      <a class="dropdown-item" href="#">Separated link</a>
+    </div>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link active" href="#">Tasks</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" href="#">People</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link disabled" href="#">Logout</a>
+  </li>
+</ul>
+-->
+
 <ul class='nav nav-pills nav-justified'>
     <li class='dropdown'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -57,7 +85,6 @@
         <a href="{{url('/logout')}}"><h3>Logout</h3></a>
     </li>
 </ul>
-
 <div class='container text-center margin-top'>
     <button id='showNewTimePeriod' class='btn-default btn-show'>New Time Period</button>
     <button id='hideNewTimePeriod' class='btn-default hidden btn-hide'>Hide New Time Period</button>
