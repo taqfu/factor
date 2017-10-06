@@ -72,7 +72,7 @@
     	             {{csrf_field()}}
 					<input type='hidden' id='resume-button-caption{{$time_period->id}}' value='{{$resume_button_caption}}' />
     	             <button id='resume-button{{$time_period->id}}'
-						class='resume-button btn btn-primary'>
+						class='resume-button btn btn-info'>
 						{{$resume_button_caption}}
     	             </button>
     	         </form>
