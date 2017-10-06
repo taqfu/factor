@@ -5,6 +5,7 @@
     $last_time_period_ended_at=0;
     $previous_time_period=0;
 ?>
+
 @foreach ($time_periods as $time_period)
 
 @if ($last_time_period_ended_at!=0 && $time_period->end!="0000-00-00 00:00:00"
@@ -28,6 +29,7 @@
 	}
 ?>
 <div class='margin-top'>
+
     <a id="TP{{$time_period->id}}"></a>
     @if ($date!= $old_date)
         <h1 class='text-center'>
@@ -47,7 +49,8 @@
                 @include ("TimePeriod.new")
             @endif
     @endif
-    	<div class='col-xs-12 col-lg-3'>
+    <div class='row'>
+    	<div class='col-md-3'>
     	    @include ('TimePeriod.destroy')
     	    <strong> {{$start_time}} - </strong>
     	    @if ($time_period->end==0)
@@ -117,7 +120,7 @@
     	        @endif
     	    </div>
     	</div>
-    <div class='col-lg-9 col-xs-12 secondary-menu'>
+    <div class='col-md-9  secondary-menu'>
         <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary show-time-period-menu'>
             Task
         </button>
@@ -152,9 +155,11 @@
 		@if($time_period_is_empty)
 			<h3 class='empty-time-period col-xs-12 col-md-4 text-center'>???</h3>
 		@endif
-        @include ('TimePeriod.show')
     </div>
+
 </div>
+@include ('TimePeriod.show')
+
 <?php
   $previous_time_period = $time_period;
  ?>

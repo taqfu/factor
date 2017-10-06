@@ -1,22 +1,21 @@
 <div class='listOfActiveTasks clearfix'>
-  	<div class='clearfix '  style='margin-left:15px;'>
+  	<div class=' row'  style='margin-left:0px;'>
   	    @foreach($time_period->people as $person)
   	        @include("Person.destroy")
   	    @endforeach
   	</div>
     @foreach ($time_period->notes as $time_period_note)
-        <div class='clearfix ' style='margin-left:15px;'>
+        <div class='  row' style='margin-left:0px;'>
                 @include('Note.destroy', ["note"=>$time_period_note, "type"=>"timePeriodNote" ])
                 @include('Note.edit', ['note'=>$time_period_note])
         </div>
     @endforeach
     @foreach ($time_period->tasks as $task)
-        <div class=' clearfix'>
-            <div style='padding:0px;'>
+        <div class=' row'>
+
     			<div class='col-md-3'>
                 	@include('Task.destroy')
-    			</div><div>
-    			    <span style='padding-left:28px;'>
+    			</div><div class='col-md-9' style='padding-left:30px;'>
     			            <button id='showNewTaskNotes{{ $task->id }}'
     			              class='showNewTaskNotes btn btn-primary show-task-menu'>
     			                Note
@@ -33,8 +32,6 @@
     			              class='hide-new-person btn btn-info hidden hide-task-menu'>
     			                Hide
     			            </button>
-    			    </span>
-    			</div>
             </div>
             <div id='new-person-task{{$task->id}}' class='new-person col-lg-6 task-menu'>
             </div>

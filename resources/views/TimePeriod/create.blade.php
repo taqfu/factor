@@ -1,12 +1,13 @@
+
 <form id='createTimePeriod' method="POST" action="{{ route('time.store') }}"
-  class='menu-top hidden ' role='form'>
+  role='form'>
     {{ csrf_field() }}
     <div class='container clear'>
         <div id='startTimestamp' class='col-lg-3'>
             <h3 class='text-center'>Start</h3>
             <div>
                 <input type='radio' name='startWhen' value='now' checked />
-                Now 
+                Now
             </div>
             <div>
                 @include ('timeSelect', ["timestamp_type"=>"start", 'radio'=>true])

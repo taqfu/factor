@@ -10,24 +10,23 @@
 @endforeach
 </div>
 <input type='hidden' value='{{$period}}' id='period-of-time' />
-<!--
-REQUIRES BOOTSTRAP 4
+
 <ul class="nav nav-tabs">
 
   <li class="nav-item dropdown  active">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Time</a>
+    <a class="nav-link dropdown-toggle active " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Time</a>
     <div class="dropdown-menu">
-      <a class="dropdown-item" href="#">New Item</a>
+      <a id="showNewTimePeriod" class="dropdown-item " href="{{route('time.create')}}">New Time Period</a>
       <div class="dropdown-divider"></div>
+      <a class="dropdown-item" href="{{route('time.index')}}">Today</a>
+      <a class="dropdown-item" href="{{route('time.index', ['period'=>'yesterday'])}}">Yesterday</a>
+      <a class="dropdown-item" href="{{route('time.index', ['period'=>'week'])}}">Week</a>
+      <a class="dropdown-item" href="{{route('time.index', ['period'=>'all'])}}">All</a>
 
-      <a class="dropdown-item" href="#">Something else here</a>
-      <div class="dropdown-divider"></div>
-
-      <a class="dropdown-item" href="#">Separated link</a>
     </div>
   </li>
   <li class="nav-item">
-    <a class="nav-link active" href="#">Tasks</a>
+    <a class="nav-link " href="#">Tasks</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">People</a>
@@ -36,8 +35,7 @@ REQUIRES BOOTSTRAP 4
     <a class="nav-link disabled" href="#">Logout</a>
   </li>
 </ul>
--->
-
+<!--
 <ul class='nav nav-pills nav-justified'>
     <li class='dropdown'>
         <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -97,9 +95,12 @@ REQUIRES BOOTSTRAP 4
     <button id='hide-time-zone' class='btn-default hidden btn-hide'>Hide Timezone</button>
 </div>
 @include ('TimePeriod.create')
+-->
 @include('PersonType.index')
 
+
 @include ('TaskType.index')
-@include ('timezones');
+@include ('timezones')
+
 @include ('TimePeriod.index')
 @endsection

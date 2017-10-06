@@ -66,7 +66,7 @@ class TimePeriodController extends Controller
         $time_periods = TimePeriod::where("created_at", ">", $period_data['begin'])
           ->where('user_id', Auth::user()->id)
           ->where("created_at", "<", $period_data['end'])
-          ->orderBy("start", "desc")->get(); 
+          ->orderBy("start", "desc")->get();
         $first_time_period_id =
           count ($time_periods)>0
           ? TimePeriod::where("created_at", ">", $period_data['begin'])
@@ -80,7 +80,7 @@ class TimePeriodController extends Controller
               ->orWhere("created_at", ">", $period_data['begin'])
               ->where('user_id', Auth::user()->id)
               ->where("created_at", "<", $period_data['end'])
-              ->orderBy("start", "desc")->get(); 
+              ->orderBy("start", "desc")->get();
 
              */
 
@@ -114,7 +114,7 @@ class TimePeriodController extends Controller
      */
     public function create()
     {
-        //
+        return view("TimePeriod.create");
     }
 
     /**
@@ -300,7 +300,7 @@ class TimePeriodController extends Controller
             $task->delete();
         }
         $time_period->delete();
-       
+
         if ($prev_time_period==null){
             return redirect(redirect()->getUrlGenerator()->previous());
         }
