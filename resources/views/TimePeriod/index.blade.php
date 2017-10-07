@@ -50,7 +50,7 @@
             @endif
     @endif
     <div class='row'>
-    	<div class='col-md-3'>
+    	<div class='col-9'>
     	    @include ('TimePeriod.destroy')
     	    <strong> {{$start_time}} - </strong>
     	    @if ($time_period->end==0)
@@ -120,7 +120,11 @@
     	        @endif
     	    </div>
     	</div>
-    <div class='col-md-9  secondary-menu'>
+    <div class='col-1 secondary-menu' style=''>
+      <button class=' btn btn-primary '>
+          +
+      </button>
+      <!--
         <button id='showNewTasks{{$time_period->id}}' class='showNewTasks btn btn-primary show-time-period-menu'>
             Task
         </button>
@@ -142,7 +146,7 @@
         <button id='hide-new-person-time-period{{$time_period->id}}'
           class='hide-new-person btn btn-info hidden hide-time-period-menu'/>
             Hide
-        </button>
+        </button>-->
     </div>
     <div id='time-period-error{{$time_period->id}}' class='lead text-center text-danger'></div>
     <div id='new-person-time-period{{$time_period->id}}' class='new-person time-period-menu'>

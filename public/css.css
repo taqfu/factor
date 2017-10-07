@@ -1,8 +1,8 @@
 
 @media screen and (max-width:500px){
     .secondary-menu{
-        margin-left:31px;
-        margin-bottom:28px;
+        /*margin-left:31px;
+        margin-bottom:28px;*/
     }
 }
 .note-report:hover, #show-edit-name:hover{
@@ -28,7 +28,7 @@ div.time-select.margin-left{
     margin-left:17px;
 }
 .listOfActiveTasks{
-    margin-left:33px;
+    /*margin-left:33px;*/
 }
 .margin-bottom{
     margin-bottom:14px;
