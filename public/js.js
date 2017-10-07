@@ -477,7 +477,7 @@ function updateDuration(){
 			newDuration = days + " " + hours + "h " + minutes + "m " + seconds + "s";
 		}
 		$("#" + activeDurations[i].id).html(newDuration);
-
+		document.title = "Q - " + newDuration;
 	}
 }
 

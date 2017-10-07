@@ -1,7 +1,7 @@
 <?php use App\TaskType; ?>
 <!-- This is the Task menu. -->
 <input type='hidden' id='timePeriodIDForListOfNewTasks' value='{{ $time_period_id }}' />
-<div class='text-center bg-info page-header'>
+<div class='text-center page-header'>
     @if ($active_task_category_type_id=='all')
       <button id='taskCategoryTypeForTimePeriodall'
         class="btn btn-link activeTaskCategoryTypeForTimePeriod"><strong>

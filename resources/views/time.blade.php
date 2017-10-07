@@ -1,3 +1,6 @@
+<?php
+    $route_name = \Request::route()->getName();
+ ?>
 @extends ('master')
 
 @section ('content')
@@ -10,31 +13,8 @@
 @endforeach
 </div>
 <input type='hidden' value='{{$period}}' id='period-of-time' />
+@include ('navbar')
 
-<ul class="nav nav-tabs">
-
-  <li class="nav-item dropdown  active">
-    <a class="nav-link dropdown-toggle active " data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Time</a>
-    <div class="dropdown-menu">
-      <a id="showNewTimePeriod" class="dropdown-item " href="#" onclick="console.log(this.id)">New Time Period</a>
-      <div class="dropdown-divider"></div>
-      <a class="dropdown-item" href="{{route('time.index')}}">Today</a>
-      <a class="dropdown-item" href="{{route('time.index', ['period'=>'yesterday'])}}">Yesterday</a>
-      <a class="dropdown-item" href="{{route('time.index', ['period'=>'week'])}}">Week</a>
-      <a class="dropdown-item" href="{{route('time.index', ['period'=>'all'])}}">All</a>
-
-    </div>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link " href="#">Tasks</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link" href="#">People</a>
-  </li>
-  <li class="nav-item">
-    <a class="nav-link disabled" href="#">Logout</a>
-  </li>
-</ul>
 <!--
 <ul class='nav nav-pills nav-justified'>
     <li class='dropdown'>
