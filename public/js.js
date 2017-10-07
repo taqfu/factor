@@ -1,38 +1,11 @@
-//TODO: You don't need to check the now button every second. Just every minute.
 var siteRoot= "http://rootbasis.taqfu.com";
 var captionIncreasing = false;
 var idleTime = 0;
 var minutesUntilReload=5;
 $(document.body).ready(function () {
-    /*
-    var idleInterval = setInterval(timerIncrement, 60000); // 1 minutes
-
-    //Zero the idle timer on mouse movement.
-    $(this).mousemove(function (e) {
-        resetTimerOrReload()
-    });
-    $(this).focus(function (e){
-        resetTimerOrReload()
-    });
-    $(this).scroll(function (e){
-        resetTimerOrReload()
-    });
-    */
 	setInterval(function(){
 		caption = $(".empty-time-period").html();
-/*
-		if (captionIncreasing){
-			caption += "?";
-		} else {
-			caption = caption.substr(1);
-		}
-		if (caption.length==1){
-			captionIncreasing=1;
-		} else if (caption.length==3){
-			captionIncreasing=0;
 
-		}
-*/
 		caption = caption == "?" ? "???" : "?";
 		$(".empty-time-period").html(caption);
 
@@ -51,17 +24,14 @@ $(document.body).ready(function () {
         window.location.replace(siteRoot);
     });
     $(document).on('mouseover', '.resume-button', function(event){
-
-		$("#" + event.target.id).html("Resume");
-		$("#" + event.target.id).removeClass("btn-primary");
-		$("#" + event.target.id).addClass("btn-info");
+				$("#" + event.target.id).html("Resume");
+				$("#" + event.target.id).removeClass("btn-primary");
+				$("#" + event.target.id).addClass("btn-info");
     });
     $(document).on('mouseleave', '.resume-button', function(event){
-
-		console.log("#resume-button-caption" + event.target.id.substr(13));
-		$("#" + event.target.id).html($("#resume-button-caption" + event.target.id.substr(13)).val());
-		$("#" + event.target.id).removeClass("btn-info");
-		$("#" + event.target.id).addClass("btn-primary");
+				$("#" + event.target.id).html($("#resume-button-caption" + event.target.id.substr(13)).val());
+				$("#" + event.target.id).removeClass("btn-info");
+				$("#" + event.target.id).addClass("btn-primary");
     });
     $(document).on('click', '.cancel-edit-note', function(event){
         var noteID = event.target.id.substr(16, event.target.id.length-16);
@@ -242,6 +212,7 @@ $(document.body).ready(function () {
     });
 
     $(document).on('click', ".showNewTasks", function(event){
+				console.log("TASKS");
         resetTimePeriodMenu();
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
         $(".hideNewTasks").addClass('hidden');
