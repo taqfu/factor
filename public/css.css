@@ -1,11 +1,24 @@
 
 @media screen and (max-width:500px){
+    #overmenu{
+      width:100%;
+      height:100%;
+
+    }
     .secondary-menu{
         /*margin-left:31px;
         margin-bottom:28px;*/
     }
     .full-duration-caption{
       display:none;
+    }
+}
+@media screen and (min-width:500px){
+    #overmenu{
+      width:50%;
+      height:50%;
+
+
     }
 }
 .note-report:hover, #show-edit-name:hover{
@@ -17,6 +30,29 @@
     height:100px;
     margin:25px;
     font-size:20px;
+}
+#not-overmenu{
+    height:25%;
+}
+#overmenu{
+    margin:auto;
+
+    color:white;
+    background-color: rgba(255,255,255,1);
+
+}
+#overmenu-container{
+  z-index: 1;
+  position:absolute;
+  top:0px;
+  left:0px;
+  height:100%;
+  width:100%;
+  background-color: rgba(211,211,211,0.75);
+     display: flex;
+    align-items: center;
+
+
 }
 button.activeTaskCategoryType{
     font-weight:bold;

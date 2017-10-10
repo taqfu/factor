@@ -1,3 +1,6 @@
+<?php
+    $route_name = \Request::route()->getName();
+ ?>
 <ul class="nav nav-tabs">
 
   <li class="nav-item dropdown  @if ($route_name=='time.index') active @endif">

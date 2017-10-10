@@ -1,3 +1,29 @@
+
+
+@extends ('master')
+
+@section ('content')
+<div class='text-danger text-center lead'>
+
+@foreach($errors->all() as $error)
+    <div>
+        {!!$error !!}
+    </div>
+@endforeach
+</div>
+<input type='hidden' value='{{$period}}' id='period-of-time' />
+@include ('navbar')
+
+
+
+@include ('TimePeriod.create')
+@include('PersonType.index')
+
+
+@include ('TaskType.index')
+@include ('timezones')
+@include ('TimePeriod.overmenu')
+
 <?php
     use App\TimePeriod;
     use App\User;
@@ -167,3 +193,5 @@
   $previous_time_period = $time_period;
  ?>
 @endforeach
+
+@endsection

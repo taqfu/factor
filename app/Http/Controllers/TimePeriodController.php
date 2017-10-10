@@ -42,7 +42,7 @@ class TimePeriodController extends Controller
           ->where('user_id', Auth::user()->id)->where("created_at", "<", $end)
           ->orderBy("start", "desc")->first()->id
         : 0;
-      return View::make('time', [
+      return View::make('TimePeriod.index', [
           "first_time_period_id"=>$first_time_period_id,
           "period"=>'date',
           "person_types"=>PersonType::where('user_id', Auth::user()->id)
@@ -85,7 +85,7 @@ class TimePeriodController extends Controller
              */
 
         }
-        return View::make('time', [
+        return View::make('TimePeriod.index', [
             "first_time_period_id"=>$first_time_period_id,
             "period"=>$period_data['name'],
             "person_types"=>PersonType::where('user_id', Auth::user()->id)

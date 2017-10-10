@@ -64,6 +64,10 @@ $(document.body).ready(function () {
         $("#edit-name").addClass("hidden");
         $("#show-edit-name").removeClass("hidden");
     });
+		$(document).on('click', '#hide-overmenu-container', function(event){
+				$("#overmenu-container").css("display", "none");
+				console.log("ASDFAS");
+		});
     $("#hideInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").show();
         $("#hideInactiveTimePeriods").hide();
