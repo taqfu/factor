@@ -1,5 +1,5 @@
 //TODO: You don't need to check the now button every second. Just every minute.
-var siteRoot= "http://rootbasis.taqfu.com";
+var siteRoot= "http://q.taqfu.com";
 var captionIncreasing = false;
 var idleTime = 0;
 var minutesUntilReload=5;
