@@ -1,4 +1,4 @@
-var siteRoot= "http://rootbasis.taqfu.com";
+var siteRoot= "http://q.taqfu.com";
 var captionIncreasing = false;
 var idleTime = 0;
 var minutesUntilReload=5;
