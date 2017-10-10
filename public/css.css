@@ -4,6 +4,9 @@
         /*margin-left:31px;
         margin-bottom:28px;*/
     }
+    .full-duration-caption{
+      display:none;
+    }
 }
 .note-report:hover, #show-edit-name:hover{
     text-decoration:underline;
@@ -29,6 +32,7 @@ div.time-select.margin-left{
 }
 .listOfActiveTasks{
     /*margin-left:33px;*/
+    background-color:lightgrey;
 }
 .margin-bottom{
     margin-bottom:14px;
@@ -89,6 +93,11 @@ div.time-select.margin-left{
 }
 .showNewTaskNotes{
     margin-left:21px;
+}
+.time-period-row{
+  background-color:grey;
+
+
 }
 .taskNote{
 

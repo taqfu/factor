@@ -1,6 +1,12 @@
-<div class='listOfActiveTasks clearfix'>
+<div class='listOfActiveTasks clearfix '>
+@if($time_period_is_empty)
+        <div id="time-period{{$time_period->id}}">
 
-  	<div class=' row'>
+            <h3 class='empty-time-period text-center'>???</h3>
+
+        </div>
+@endif
+  	<div class=' row '>
         <div class='col-1  '></div>
   	    @foreach($time_period->people as $person)
   	        @include("Person.destroy")
@@ -59,6 +65,5 @@
                         @include('Note.edit', ['note'=>$task_note])
                 </div>
             @endforeach
-        </div>
     @endforeach
 </div>

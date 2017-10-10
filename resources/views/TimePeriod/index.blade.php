@@ -49,7 +49,7 @@
                 @include ("TimePeriod.new")
             @endif
     @endif
-    <div class='row'>
+    <div class='row time-period-row'>
     	<div class='col-9'>
     	    @include ('TimePeriod.destroy')
     	    <strong> {{$start_time}} - </strong>
@@ -94,24 +94,26 @@
     	            $minutes = (int)$interval->format('%i');
     	            $seconds = (int)$interval->format('%S');
     	        ?>
-    	        (
-    	        <strong>
-				<span id='duration{{$time_period->id}}'
-				  class='duration @if ($time_period->end == 0) active @endif'>
-    	            @if ($days>0)
-    	                {{ $days }}d
-    	            @endif
-    	            @if ($hours>0)
-    	                {{ $hours }}h
-    	            @endif
-    	            @if ($minutes>0)
-    	                {{ $minutes }}m
-    	            @endif
-    	            @if ($seconds>0)
-    	                {{ $seconds }}s
-    	            @endif
-				</span>
-    	        </strong>)
+              <span class='full-duration-caption'>
+        	        (
+        	        <strong>
+          				<span id='duration{{$time_period->id}}'
+          				  class='duration @if ($time_period->end == 0) active @endif'>
+              	            @if ($days>0)
+              	                {{ $days }}d
+              	            @endif
+              	            @if ($hours>0)
+              	                {{ $hours }}h
+              	            @endif
+              	            @if ($minutes>0)
+              	                {{ $minutes }}m
+              	            @endif
+              	            @if ($seconds>0)
+              	                {{ $seconds }}s
+              	            @endif
+          				</span>
+        	        </strong>)
+              </span>
     	        @if ($time_period->end==0)
     	            <div id='selectEndTimestamp{{ $time_period->id }}'
     	              class='selectEndTimestamp hidden clearfix margin-left-3'>
@@ -155,13 +157,10 @@
     <div id='newTimePeriodNote{{ $time_period->id }}'
       class='newTimePeriodNote clearfix time-period-menu'>
     </div>
-    <div id="time-period{{$time_period->id}}">
-		@if($time_period_is_empty)
-			<h3 class='empty-time-period col-xs-12 col-md-4 text-center'>???</h3>
-		@endif
-    </div>
+
 
 </div>
+
 @include ('TimePeriod.show')
 
 <?php
