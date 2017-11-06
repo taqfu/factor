@@ -34,7 +34,7 @@
 #not-overmenu{
     height:25%;
 }
-#overmenu{
+#overmenu, #overmenu-contents{
     margin:auto;
 
     color:white;
@@ -49,7 +49,7 @@
   height:100%;
   width:100%;
   background-color: rgba(211,211,211,0.75);
-     display: flex;
+     display: none;
     align-items: center;
 
 

@@ -149,7 +149,7 @@
     	    </div>
     	</div>
     <div class='col-1 secondary-menu' style=''>
-      <button class=' btn btn-primary '>
+      <button id='show-new-tasks{{$time_period->id}}' class=' btn btn-primary show-new-tasks '>
           +
       </button>
       <!--

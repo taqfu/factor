@@ -215,15 +215,11 @@ $(document.body).ready(function () {
         });
     });
 
-    $(document).on('click', ".showNewTasks", function(event){
-				console.log("TASKS");
+    $(document).on('click', ".show-new-tasks", function(event){
+				$("#overmenu-container").css('display', "flex"); //display:none;
         resetTimePeriodMenu();
         var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
-        $(".hideNewTasks").addClass('hidden');
-        $(".showNewTasks").removeClass('hidden');
 
-        $("#showNewTasks" + timePeriodID).addClass('hidden');
-        $("#hideNewTasks" + timePeriodID).removeClass('hidden');
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
         $("input[name='timePeriodID']").val(timePeriodID);
 
@@ -352,13 +348,13 @@ function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){
 }
 function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTypeID){
     //This comes up when you click Add Tasks
-    $(".listOfNewTasks:not(#listOfNewTasks" + timePeriodID + ")").html("");
-    var interval = loadingMenu('#listOfNewTasks' + timePeriodID);
+    $('#overmenu-contents').html("");
+    var interval = loadingMenu('#overmenu-contents');
+	
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
-
         clearInterval(interval);
-        $('#listOfNewTasks' + timePeriodID).html(data);
+        $('#overmenu-contents').html(data);
     });
 }
 

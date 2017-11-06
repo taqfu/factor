@@ -1,6 +1,6 @@
-<div id='overmenu-container' style='display:none;'>
-    <div id='overmenu' class='row'>
-        <ul class="nav nav-tabs">
+<div id='overmenu-container'>
+    <div id='overmenu'>
+        <ul class="nav">
           <li class="nav-item ">
             <a class="nav-link active" href="#">+Task</a>
           </li>
@@ -14,6 +14,7 @@
             <a id='hide-overmenu-container' class="nav-link disabled" href="#" >Close</a>
           </li>
         </ul>
-        <div id='overmenu-contents'></div>
+        <div id='overmenu-contents' class='container'></div>
     </div>
+
 </div>
