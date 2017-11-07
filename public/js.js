@@ -303,7 +303,7 @@ $(document.body).ready(function () {
         $("#newTask" + typeID).addClass('delete-task');
         $("#newTask" + typeID).attr("id", "delete-task" + typeID);
 
-
+				console.log(typeID, timePeriodID);
         createTask(typeID, timePeriodID);
 
     });
@@ -350,7 +350,7 @@ function displayTasksFromCategoryTypeForTimePeriod(timePeriodID, taskCategoryTyp
     //This comes up when you click Add Tasks
     $('#overmenu-contents').html("");
     var interval = loadingMenu('#overmenu-contents');
-	
+
     $.get(siteRoot + "/TasksByCategoryForTimePeriod/" + taskCategoryTypeID + "/TimePeriodID/"
       + timePeriodID, function( data ) {
         clearInterval(interval);
