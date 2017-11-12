@@ -19,6 +19,8 @@ $(document.body).ready(function () {
 		setInterval(updateDuration, 1000);
 	});
     displayTimePeriods($("#period-of-time").val());
+
+
     $("#logout").click(function(event){
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
@@ -66,7 +68,6 @@ $(document.body).ready(function () {
     });
 		$(document).on('click', '#hide-overmenu-container', function(event){
 				$("#overmenu-container").css("display", "none");
-				console.log("ASDFAS");
 		});
     $("#hideInactiveTimePeriods").click(function(event){
         $("#showInactiveTimePeriods").show();
@@ -118,7 +119,6 @@ $(document.body).ready(function () {
     });
 
     $("#hideNewTimePeriod").click(function(event){
-				console.log("ASDFA");
         $("#createTimePeriod").addClass('hidden');
         $("#showNewTimePeriod").removeClass('hidden');
     });
@@ -218,7 +218,7 @@ $(document.body).ready(function () {
     $(document).on('click', ".show-new-tasks", function(event){
 				$("#overmenu-container").css('display', "flex"); //display:none;
         resetTimePeriodMenu();
-        var timePeriodID = event.target.id.substr(12, event.target.id.length-12);
+        var timePeriodID = event.target.id.substr(14, event.target.id.length-14);
 
         displayTasksFromCategoryTypeForTimePeriod(timePeriodID, 1);
         $("input[name='timePeriodID']").val(timePeriodID);
@@ -233,7 +233,6 @@ $(document.body).ready(function () {
     });
 
     $("#showNewTimePeriod").click(function(event){
-				console.log("ASDFA");
         resetTopButtons();
         $("#createTimePeriod").removeClass('hidden');
         $("#hideNewTimePeriod").removeClass('hidden');
@@ -302,8 +301,6 @@ $(document.body).ready(function () {
         $("#newTask" + typeID).removeClass('newTask');
         $("#newTask" + typeID).addClass('delete-task');
         $("#newTask" + typeID).attr("id", "delete-task" + typeID);
-
-				console.log(typeID, timePeriodID);
         createTask(typeID, timePeriodID);
 
     });
@@ -317,6 +314,7 @@ $(document.body).ready(function () {
 });
 
 function createTask(typeID, timePeriodID){
+	console.log(typeID, timePeriodID);
     $.ajax({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -326,9 +324,12 @@ function createTask(typeID, timePeriodID){
         data:{timePeriodID:timePeriodID, typeID:typeID},
     })
         .done(function (result){
-            result!="OK"
-              ? $("#time-period-error" + timePeriodID).html(result)
-              : reloadTimePeriod(timePeriodID);
+            if (result=="OK"){
+								//$("#overmenu-container").css("display", "none");
+								reloadTimePeriod(timePeriodID);
+						} else {
+								$("#time-period-error" + timePeriodID).html(result)
+						}
         });
 }
 function deleteTaskByTypeAndTimePeriod(typeID, timePeriodID){

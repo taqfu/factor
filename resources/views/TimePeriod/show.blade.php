@@ -1,10 +1,8 @@
-<div class='listOfActiveTasks clearfix '>
-@if($time_period_is_empty)
-        <div id="time-period{{$time_period->id}}">
+<div class='listOfActiveTasks clearfix ' id="time-period{{$time_period->id}}">
+@if(isset($time_period_is_empty) && $time_period_is_empty)
 
             <h3 class='empty-time-period text-center'>???</h3>
 
-        </div>
 @endif
   	<div class=' row '>
         <div class='col-1  '></div>
