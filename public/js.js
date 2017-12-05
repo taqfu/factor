@@ -25,6 +25,12 @@ $(document.body).ready(function () {
         $.get(siteRoot + "/logout");
         window.location.replace(siteRoot);
     });
+		$(document).on('click', ':not(#overmenu>*)', function(event){
+				if ($("#overmenu-container").css("display")=="flex"){
+						console.log(event.target.id);
+				}
+
+    });
     $(document).on('mouseover', '.resume-button', function(event){
 				$("#" + event.target.id).html("Resume");
 				$("#" + event.target.id).removeClass("btn-primary");
